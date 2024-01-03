@@ -1,0 +1,142 @@
+@import '@/assets/styles/_global.scss';
+
+.Button {
+  .ant-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: .8rem;
+    border-radius: 3.2rem;
+    height: 4rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    transition: $common-transition;
+    width: 100%;
+
+    .Button-icon {
+      .Icon {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+    }
+
+    &.ant-btn-lg {
+      height: 4.8rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    &.ant-btn-sm {
+      height: 3.2rem;
+      font-size: 1.3rem;
+
+      .Button-icon {
+        .Icon {
+          width: 1.6rem;
+          height: 1.6rem;
+        }
+      }
+    }
+  }
+
+  &.rectangle {
+    .ant-btn {
+      border-radius: .8rem;
+    }
+  }
+
+  &.only-icon {
+    .ant-btn {
+      padding: 0;
+      width: 4rem;
+
+      &.ant-btn-lg {
+        width: 4.8rem;
+      }
+
+      &.ant-btn-sm {
+        width: 3.2rem;
+      }
+    }
+  }
+
+  &.PRIMARY {
+    .ant-btn {
+      border: none;
+      color: $white;
+      background: $primary-linear-gradient;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &.PRIMARY_TRANSPARENT {
+    .ant-btn {
+      border: none;
+      color: $tan-hide;
+      background: $serenade;
+
+      &:hover {
+        background: darken($serenade, 5%);
+      }
+    }
+  }
+
+  &.PRIMARY_TEXT {
+    .ant-btn {
+      border: none;
+      color: $tan-hide;
+      background: transparent;
+      box-shadow: none;
+
+      &:hover {
+        color: darken($tan-hide, 5%);
+      }
+    }
+  }
+
+  &.TRANSPARENT {
+    .ant-btn {
+      border: none;
+      background: transparent;
+    }
+  }
+
+  &.PRIMARY_OUTLINE {
+    .ant-btn {
+      border: 1px solid $tan-hide;
+      color: $tan-hide;
+      background: transparent;
+
+      &:hover {
+        background: rgba($tan-hide, 0.1);
+      }
+    }
+  }
+
+  &.TAN_HIDE {
+    .ant-btn {
+      border: none;
+      color: $white;
+      background: $tan-hide;
+
+      &:hover {
+        background: darken($tan-hide, 5%);
+      }
+    }
+  }
+
+  &.GRAY_OUTLINE {
+    .ant-btn {
+      border: 1px solid $gray-chateau;
+      color: $gray-chateau;
+      background: transparent;
+
+      &:hover {
+        background: rgba($gray-chateau, 0.1);
+      }
+    }
+  }
+}

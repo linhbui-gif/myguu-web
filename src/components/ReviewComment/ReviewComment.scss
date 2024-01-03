@@ -1,0 +1,73 @@
+@import '@/assets/styles/_global.scss';
+
+.ReviewComment {
+  padding: 1.6rem 0;
+  border-bottom: 1px solid $black-squeeze;
+
+  &-wrapper {
+    column-gap: 1.2rem;
+  }
+
+  &-info {
+    flex: 1;
+
+    &-rating,
+    &-description,
+    &-title {
+      margin-bottom: 0.8rem;
+    }
+
+    &-rating {
+      margin: -1rem 0 .4rem;
+    }
+
+    &-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    &-description {
+      font-size: 1.4rem;
+      color: $mirage;
+    }
+  }
+
+  &-images {
+    column-gap: 2rem;
+    row-gap: 2rem;
+    margin-bottom: 1.2rem;
+
+    @media (max-width: 575px) {
+      column-gap: 0.8rem;
+      row-gap: 0.8rem;
+    }
+
+    &-item {
+      flex: 0 0 9rem;
+      max-width: 9rem;
+      height: 9rem;
+      width: 9rem;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      @include centerScaleImage;
+    }
+  }
+
+  &-booked {
+    padding: .4rem 1.2rem;
+    column-gap: .8rem;
+    border-radius: .8rem;
+    background: $wild-sand;
+    margin-bottom: 1.2rem;
+
+    &-image {
+      flex: 0 0 3.2rem;
+      max-width: 3.2rem;
+      height: 3.2rem;
+      width: 3.2rem;
+      border-radius: .4rem;
+      overflow: hidden;
+      @include centerScaleImage;
+    }
+  }
+}

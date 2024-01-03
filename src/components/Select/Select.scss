@@ -1,0 +1,128 @@
+@import '@/assets/styles/_global.scss';
+
+.Select {
+  .ant-select-clear {
+    margin-top: 0;
+    width: unset;
+    height: unset;
+    right: 1rem;
+    transform: translateY(-50%);
+
+    .Icon {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  .ant-select {
+    width: 100%;
+    min-width: 12rem;
+
+    .ant-select-selection-item {
+      line-height: 1.8 !important;
+    }
+
+    .ant-select-selection-placeholder {
+      line-height: 1.7 !important;
+    }
+
+    &:not(.ant-select-customize-input) .ant-select-selector {
+      height: 4.2rem;
+      padding: .8rem 1.2rem;
+      background: $white;
+      border-radius: 1.2rem;
+      border: 1px solid $heather;
+      box-shadow: none;
+      width: 100%;
+      font-size: 1.4rem;
+      color: $mine-shaft;
+
+      .ant-select-selection-search {
+        left: 1.6rem;
+        right: 4.4rem;
+
+        &-input {
+          height: 100%;
+        }
+      }
+    }
+
+    &.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      border-color: $tan-hide;
+      box-shadow: 0 0 0 2px rgba($tan-hide, 0.2)
+    }
+
+    &.ant-select-lg {
+
+      .ant-select-selection-item,
+      .ant-select-selection-placeholder {
+        padding-right: 2.4rem;
+      }
+
+      .ant-select-selection-item {
+        line-height: 2.6 !important;
+      }
+
+      .ant-select-selection-placeholder {
+        line-height: 2.5 !important;
+      }
+
+      .ant-select-selector {
+        font-size: 1.5rem;
+        height: 4.8rem;
+        padding: .4rem 1.6rem;
+      }
+    }
+
+    .ant-select-arrow {
+      height: unset;
+      right: 1.2rem;
+      margin: 0;
+      transform: translateY(-50%);
+
+      .Icon {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+    }
+
+    &-selection-placeholder {
+      color: rgba($black, 0.35)
+    }
+  }
+
+  &-dropdown {
+    border-radius: 1.2rem;
+    padding: 0;
+    overflow: hidden;
+    background: $white;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.25);
+    width: unset !important;
+
+    &-loading {
+      @include fullAbsolute;
+      z-index: 3;
+      background: rgba($white, 0.2);
+      backdrop-filter: blur(2px);
+    }
+
+    .ant-select-item {
+      height: 4rem;
+      padding: 1rem 1.6rem;
+      transition: $common-transition;
+      cursor: pointer;
+
+      &:not(:last-child) {
+        margin-bottom: 0.2rem;
+      }
+    }
+
+    .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+      background: rgba($tan-hide, 0.2);
+    }
+
+    .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+      background: rgba($tan-hide, 0.1);
+    }
+  }
+}

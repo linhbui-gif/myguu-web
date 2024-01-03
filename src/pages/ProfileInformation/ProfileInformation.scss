@@ -1,0 +1,31 @@
+@import '@/assets/styles/_global.scss';
+
+.ProfileInformation {
+  &-card {
+    &-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+    }
+  }
+
+  &-label {
+    .ant-form-item-label {
+      padding-bottom: 0.8rem;
+      height: unset;
+
+      label {
+        font-size: 1.8rem;
+        color: $mine-shaft;
+      }
+    }
+  }
+
+  &-submit {
+    .Button {
+      .ant-btn {
+        padding-left: 7.5rem;
+        padding-right: 7.5rem;
+      }
+    }
+  }
+}

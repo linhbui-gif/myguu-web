@@ -1,0 +1,156 @@
+@import '@/assets/styles/_global.scss';
+
+.ServiceCard {
+  border-radius: 1rem;
+  overflow: hidden;
+
+  &.quantity {
+    .ServiceCard {
+      &-price {
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: .8rem;
+
+        del {
+          font-size: 1.4rem;
+        }
+      }
+
+      &-image {
+        border-radius: 0 0 1rem 1rem;
+        overflow: hidden;
+
+        &-badge {
+          top: 0;
+          left: 0;
+          height: 3rem;
+          font-weight: 600;
+          border-radius: 0 0 1.6rem 0;
+          background: linear-gradient(88deg, #FC987E 0%, #FDC47F 100%);
+          box-shadow: 0px 4px 12px 0px rgba(123, 97, 255, 0.15);
+        }
+      }
+    }
+  }
+
+  &.vertical {
+    display: flex;
+    align-items: center;
+
+    .ServiceCard {
+      &-info {
+        flex: 1;
+        padding: 1.2rem 1.6rem;
+      }
+
+      &-image {
+        flex: 0 0 16rem;
+        max-width: 16rem;
+        width: 16rem;
+        height: 15rem;
+      }
+    }
+  }
+
+  &.border {
+    border: 1px solid $alto;
+
+    .ServiceCard {
+      &-info {
+        padding: 1.2rem;
+      }
+    }
+  }
+
+  &-image {
+    position: relative;
+    height: 17.4rem;
+    @include centerScaleImage;
+
+    &-badge {
+      position: absolute;
+      z-index: 1;
+      top: .6rem;
+      left: .6rem;
+      padding: 0rem .8rem;
+      height: 2.4rem;
+      font-size: 1.4rem;
+      color: $white;
+      border-radius: 1.2rem;
+      background: $bittersweet;
+      box-shadow: 0px 4px 12px 0px rgba(123, 97, 255, 0.15);
+    }
+  }
+
+  &-header {
+    margin-bottom: 0.8rem;
+    column-gap: .6rem;
+  }
+
+  &-footer {
+    row-gap: .4rem;
+
+    .ServiceCard-description {
+      margin-bottom: 0;
+    }
+  }
+
+  &-description {
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+    color: $dove-gray;
+    column-gap: .4rem;
+
+    .Icon {
+      width: 1.6rem;
+      height: 1.6rem;
+      flex: 0 0 1.6rem;
+      max-width: 1.6rem;
+      transform: translateY(-.1rem);
+    }
+  }
+
+  &-title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: $cod-gray;
+  }
+
+  &-verify {
+    margin-top: .45rem;
+
+    .Icon {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+
+  &-info {
+    position: relative;
+    background: $white;
+    padding: .8rem 0;
+  }
+
+  &-price {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $pomegranate;
+    white-space: nowrap;
+    column-gap: .4rem;
+    row-gap: .4rem;
+    line-height: 1;
+    margin-bottom: 0.8rem;
+
+    del {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: $dove-gray;
+    }
+  }
+
+  .Quantity {
+    position: absolute;
+    bottom: 2.2rem;
+    right: 0;
+  }
+}

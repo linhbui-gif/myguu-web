@@ -1,0 +1,92 @@
+@import '@/assets/styles/_global.scss';
+
+.ShopCard {
+  margin: 2rem 0 3.2rem;
+
+  &-background {
+    height: 22rem;
+    @include centerScaleImage;
+    border-radius: 1.6rem;
+    overflow: hidden;
+  }
+
+  &-info {
+    position: relative;
+    z-index: 2;
+    padding-left: 3rem;
+    column-gap: 2.4rem;
+    margin-top: -7.5rem;
+
+    @media (max-width: 991px) {
+      padding-left: 0;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-avatar {
+      .Avatar {
+        .ant-avatar {
+          width: 15.4rem;
+          height: 15.4rem;
+          border: 3px solid $white;
+        }
+      }
+    }
+
+    &-main {
+      flex: 1;
+
+      @media (max-width: 991px) {
+        width: 100%;
+        flex-direction: column;
+        row-gap: 2.4rem;
+      }
+    }
+
+    &-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: $mine-shaft;
+      margin-bottom: 0.4rem;
+    }
+
+    &-detail {
+      &-item {
+        font-size: 1.6rem;
+        column-gap: .8rem;
+        color: $regent-gray;
+
+        &:not(:last-child) {
+          &::after {
+            flex: 0 0 .4rem;
+            width: .4rem;
+            height: .4rem;
+            max-width: .4rem;
+            border-radius: 50%;
+            background: $heather;
+            margin: 0 1.6rem 0 .8rem;
+            content: '';
+          }
+        }
+
+        .Icon {
+          width: 1.6rem;
+          height: 1.6rem;
+          flex: 0 0 1.6rem;
+          max-width: 1.6rem;
+        }
+      }
+    }
+
+    &-btn {
+      column-gap: 2.4rem;
+
+      .expand-padding {
+        .ant-btn {
+          padding-left: 2.4rem;
+          padding-right: 2.4rem;
+        }
+      }
+    }
+  }
+}

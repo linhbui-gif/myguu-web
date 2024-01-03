@@ -1,0 +1,57 @@
+@import '@/assets/styles/_global.scss';
+
+.AppDownload {
+  margin: 4.8rem 0;
+
+  &-wrapper {
+    background: $concrete;
+    border-radius: 1.6rem;
+    overflow: hidden;
+    column-gap: 5.6rem;
+    padding: 2.4rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      row-gap: 2.4rem;
+    }
+  }
+
+  &-image {
+    width: 18rem;
+    @include centerOriginImage;
+  }
+
+  &-info {
+    column-gap: 2.4rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      row-gap: 2.4rem;
+    }
+
+    &-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: .4rem;
+    }
+
+    &-description {
+      font-size: 1.3rem;
+      color: $dove-gray;
+      max-width: 35rem;
+    }
+  }
+
+  &-downloads {
+    max-width: 19rem;
+
+    &-item {
+      @include centerOriginImage;
+
+      &:not(:last-child) {
+        margin-bottom: 0.8rem;
+      }
+    }
+  }
+}

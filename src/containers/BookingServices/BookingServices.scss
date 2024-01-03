@@ -1,0 +1,41 @@
+@import '@/assets/styles/_global.scss';
+
+.BookingServices {
+  margin: 4.8rem 0;
+  overflow: hidden;
+
+  .Carousels {
+    .slick-slide>div {
+      margin: 0 1.8rem;
+    }
+
+    .slick-list {
+      margin: 0 -1.8rem;
+    }
+  }
+
+  &-item {
+    width: 11.5rem;
+
+    &-icon {
+      width: 11rem;
+      height: 11rem;
+      margin: 0 auto 1.6rem;
+      border-radius: 50%;
+      border-radius: 62px;
+      background: linear-gradient(180deg, rgba(254, 164, 137, 0.20) 0%, rgba(246, 191, 135, 0.20) 100%);
+
+      &-image {
+        width: 5.6rem;
+        height: 5.6rem;
+        @include centerOriginImage;
+      }
+    }
+
+    &-title {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: $emperor;
+    }
+  }
+}

@@ -1,0 +1,77 @@
+@import '@/assets/styles/_global.scss';
+
+.Gallery {
+  margin: 3.2rem 0;
+
+  &-list {
+    &-item {
+      &-images {
+        position: relative;
+        @include centerScaleImage;
+        height: 30rem;
+        margin-bottom: 1.2rem;
+
+        &>img {
+          border-radius: .8rem;
+        }
+
+        &::before,
+        &::after {
+          position: absolute;
+          height: 0.32rem;
+          border-radius: 10rem;
+          background: $pattens-blue;
+          content: '';
+          left: 50%;
+          transform: translate(-50%, -100%);
+        }
+
+        &::before {
+          width: 95%;
+          top: -.2rem;
+        }
+
+        &::after {
+          width: 90%;
+          top: calc(-.2rem * 2 - 0.32rem);
+        }
+
+        &-badge {
+          position: absolute;
+          z-index: 1;
+          padding: .6rem 1.2rem;
+          column-gap: .4rem;
+          color: $white;
+          border-radius: .4rem;
+          background: rgba($black, 0.47);
+          bottom: 1.2rem;
+          left: 1.2rem;
+
+          .Icon {
+            flex: 0 0 1.6rem;
+            max-width: 1.6rem;
+            width: 1.6rem;
+            height: 1.6rem;
+          }
+        }
+      }
+
+      &-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: $mine-shaft;
+      }
+    }
+  }
+
+  &-more {
+    margin-top: 2.4rem;
+
+    .Button {
+      .ant-btn {
+        padding-left: 4.8rem;
+        padding-right: 4.8rem;
+      }
+    }
+  }
+}

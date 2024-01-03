@@ -1,0 +1,70 @@
+@import '@/assets/styles/_global.scss';
+
+.Ticket {
+  transition: $common-transition;
+  cursor: pointer;
+  border-radius: 1rem;
+
+  &:hover {
+    transform: translateY(-0.2rem);
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  &-image {
+    flex: 0 0 9.4rem;
+    max-width: 9.4rem;
+    height: 9.4rem;
+    width: 9.4rem;
+    padding: 1.2rem;
+    @include centerScaleImage;
+    border-radius: 1rem;
+    background: $white;
+
+    img {
+      border-radius: .8rem;
+    }
+  }
+
+  &-info {
+    position: relative;
+    border-radius: 1rem;
+    background: $white;
+    padding: 1.2rem;
+    height: 9.4rem;
+    flex: 1;
+
+    &::before {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 90%;
+      border-left: 1px dashed $mercury;
+      content: '';
+    }
+
+    &-description {
+      font-size: 1.4rem;
+      color: $dove-gray;
+    }
+
+    &-title {
+      margin: .2rem 0 .4rem;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: $mine-shaft;
+      @include ellipsis(1);
+    }
+  }
+
+  &-action {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: $tan-hide;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

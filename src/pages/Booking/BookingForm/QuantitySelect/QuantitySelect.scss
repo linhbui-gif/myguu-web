@@ -1,0 +1,11 @@
+@import '@/assets/styles/_global.scss';
+
+.QuantitySelect {
+  font-size: 1.5rem;
+  color: $mirage;
+  column-gap: 1.2rem;
+  padding: .4rem 1.6rem;
+  border-radius: 1.2rem;
+  border: 1px solid $heather;
+  height: 4.8rem;
+}

@@ -1,0 +1,40 @@
+@import '@/assets/styles/_global.scss';
+
+.Booking {
+  padding: 2.4rem 0;
+  background: $seashell;
+
+  &-wrapper {
+    max-width: 65rem;
+    margin: 0 auto;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    background: $white;
+  }
+
+  &-header {
+    background: linear-gradient(88deg, rgba(252, 152, 126, 0.20) 0%, rgba(253, 196, 127, 0.20) 100%);
+    padding: 0.8rem 1.6rem;
+    height: 5.8rem;
+    font-size: 2.4rem;
+    color: $tan-hide;
+    font-weight: 600;
+  }
+
+  &-main {
+    padding: 2.4rem 1.6rem;
+
+    .Booking-label {
+      .ant-form-item-label {
+        padding-bottom: 0.8rem;
+        height: unset;
+
+        label {
+          font-size: 1.8rem;
+          color: $mine-shaft;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@import '@/assets/styles/_global.scss';
+
+.BookingForm {
+  &-coin {
+    margin-bottom: 2.4rem;
+
+    &-item {
+      column-gap: .4rem;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: $mine-shaft;
+
+      .Icon {
+        flex: 0 0 2.4rem;
+        max-width: 2.4rem;
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+
+      span {
+        font-size: 1.2rem;
+        color: $dove-gray;
+        font-weight: 400;
+      }
+
+      strong {
+        font-weight: 600;
+        color: $tan-hide;
+      }
+    }
+  }
+
+  &-total {
+    @media (max-width: 575px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &-item {
+      column-gap: 1.2rem;
+      font-size: 2rem;
+      font-weight: 600;
+      color: $mirage;
+
+      @media (max-width: 575px) {
+        &:last-child {
+          margin-left: auto;
+        }
+      }
+
+      span {
+        color: $regent-gray;
+        font-weight: 400;
+      }
+
+      strong {
+        font-size: 2.6rem;
+        font-weight: 600;
+        color: $pomegranate;
+      }
+    }
+  }
+}

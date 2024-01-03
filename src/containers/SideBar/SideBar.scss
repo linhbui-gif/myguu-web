@@ -1,0 +1,83 @@
+@import '@/assets/styles/_global.scss';
+
+.SideBar {
+  &-card {
+    padding: 1.6rem;
+    background: $white;
+    border-radius: 1.2rem;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.06);
+    column-gap: 1.2rem;
+
+    &-wrapper {
+      margin: 0 -.8rem;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 1.2rem;
+    }
+
+    &-avatar {
+      .Avatar {
+        .ant-avatar {
+          width: 6.8rem;
+          height: 6.8rem;
+        }
+      }
+    }
+
+    &-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: $mine-shaft;
+    }
+
+    &-subtitle {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: $mine-shaft;
+    }
+
+    &-description {
+      color: $regent-gray;
+      font-size: 1.4rem;
+    }
+
+    &-setting {
+      .Icon {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+    }
+
+    &-item {
+      column-gap: 1.6rem;
+      padding: .8rem;
+      border-radius: .8rem;
+      cursor: pointer;
+      transition: $common-transition;
+
+      &:hover,
+      &.active {
+        background: $white-lilac;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 0.8rem;
+      }
+
+      &-icon {
+        flex: 0 0 3.2rem;
+        max-width: 3.2rem;
+        height: 3.2rem;
+        width: 3.2rem;
+      }
+
+      &-arrow {
+        .Icon {
+          width: 1.6rem;
+          height: 1.6rem;
+        }
+      }
+    }
+  }
+}

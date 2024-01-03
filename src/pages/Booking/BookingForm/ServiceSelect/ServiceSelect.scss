@@ -1,0 +1,35 @@
+@import '@/assets/styles/_global.scss';
+
+.ServiceSelect {
+  &-item {
+    column-gap: 1.2rem;
+
+    &-image {
+      flex: 0 0 6.4rem;
+      max-width: 6.4rem;
+      height: 6.4rem;
+      width: 6.4rem;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      @include centerScaleImage;
+    }
+
+    &-info {
+      flex: 1;
+
+      &-title {
+        font-size: 1.5rem;
+        color: $mirage;
+      }
+
+      &-description {
+        font-size: 1.3rem;
+        color: $mine-shaft;
+      }
+    }
+  }
+
+  &-add {
+    margin-top: 1.2rem;
+  }
+}

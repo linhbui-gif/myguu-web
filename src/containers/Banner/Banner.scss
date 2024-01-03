@@ -1,0 +1,16 @@
+@import '@/assets/styles/_global.scss';
+
+.Banner {
+  margin: 3.2rem 0;
+
+  &-item {
+    @include centerScaleImage;
+    overflow: hidden;
+    border-radius: 2rem;
+    height: 46rem;
+
+    @media (max-width: 991px) {
+      height: calc(43vw - 1.5rem * 2);
+    }
+  }
+}

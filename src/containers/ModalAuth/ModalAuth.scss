@@ -1,0 +1,44 @@
+@import '@/assets/styles/_global.scss';
+
+.ModalAuth {
+  &-icon {
+    width: 8rem;
+    @include centerOriginImage;
+    margin: 0 auto 3rem;
+  }
+
+  &-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: $pickled-bluewood;
+    text-transform: uppercase;
+    margin-bottom: 3.6rem;
+  }
+
+  &-link,
+  &-description {
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: $scorpion;
+
+    &.gray {
+      color: $regent-gray;
+    }
+
+    &.darken {
+      color: $black;
+    }
+
+    &.highlight {
+      color: $tan-hide;
+    }
+  }
+
+  &-link {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

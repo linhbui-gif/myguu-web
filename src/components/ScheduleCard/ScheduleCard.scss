@@ -1,0 +1,70 @@
+@import '@/assets/styles/_global.scss';
+
+.ScheduleCard {
+  padding: .8rem 1.6rem;
+  background: $white;
+  border-radius: 1.2rem;
+
+  &-header {
+    padding: .8rem 0;
+    border-bottom: 1px solid $mercury;
+
+    &-title {
+      font-size: 1.4rem;
+      color: $cod-gray;
+    }
+  }
+
+  &-body {
+    padding: 1.2rem 0;
+    column-gap: 1.2rem;
+  }
+
+  &-image {
+    flex: 0 0 6.4rem;
+    max-width: 6.4rem;
+    height: 6.4rem;
+    width: 6.4rem;
+    border-radius: .8rem;
+    overflow: hidden;
+    @include centerScaleImage;
+  }
+
+  &-info {
+    flex: 1;
+
+    &-title {
+      font-size: 1.6rem;
+      color: $cod-gray;
+      font-weight: 600;
+    }
+
+    &-description {
+      font-size: 1.2rem;
+      color: $dove-gray;
+    }
+  }
+
+  &-price {
+    padding: 1rem 0;
+    border-top: 1px solid $mercury;
+    border-bottom: 1px solid $mercury;
+    font-size: 1.3rem;
+    color: $regent-gray;
+
+    strong {
+      font-weight: 600;
+      color: $mirage;
+    }
+  }
+
+  &-btn {
+    column-gap: .8rem;
+    padding-top: .8rem;
+
+    .Button {
+      max-width: 15.5rem;
+      width: 100%;
+    }
+  }
+}

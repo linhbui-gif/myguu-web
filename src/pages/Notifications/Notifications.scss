@@ -1,0 +1,10 @@
+@import '@/assets/styles/_global.scss';
+
+.Notifications {
+  &-card {
+    &-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+    }
+  }
+}

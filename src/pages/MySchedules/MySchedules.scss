@@ -1,0 +1,14 @@
+@import '@/assets/styles/_global.scss';
+
+.MySchedules {
+  &-card {
+    &-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+    }
+  }
+
+  &-date {
+    margin: 2.4rem 0;
+  }
+}

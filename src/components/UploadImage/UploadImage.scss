@@ -1,0 +1,33 @@
+@import '@/assets/styles/_global.scss';
+
+.UploadImage {
+  &-avatar {
+    width: fit-content;
+    margin: 0 auto 2.4rem;
+
+    .Avatar {
+      .ant-avatar {
+        width: 14rem;
+        height: 14rem;
+      }
+    }
+  }
+
+  &-btn {
+    width: fit-content;
+    margin: 0 auto 2.4rem;
+
+    .Button {
+      .ant-btn {
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
+      }
+    }
+  }
+
+  &-description {
+    font-size: 1.2rem;
+    text-align: center;
+    color: $gray-chateau;
+  }
+}

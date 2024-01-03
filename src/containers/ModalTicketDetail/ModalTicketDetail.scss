@@ -1,0 +1,126 @@
+@import '@/assets/styles/_global.scss';
+
+.ModalTicketDetail {
+  .ant-modal-content {
+    background: darken($white, 2%);
+
+    .ant-modal-body {
+      padding: 1.6rem;
+    }
+  }
+
+  &-image {
+    height: 20.6rem;
+    border-radius: 1.2rem;
+    @include centerScaleImage;
+    overflow: hidden;
+  }
+
+  &-ticket {
+    position: relative;
+    z-index: 2;
+    width: calc(100% - 2rem * 2);
+    margin: -8rem auto 0;
+    background: $white;
+    padding-top: 2rem;
+    border-radius: .8rem;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+    height: 20.6rem;
+
+    &::after,
+    &::before {
+      position: absolute;
+      content: '';
+      width: 1.6rem;
+      height: 1.6rem;
+      background: darken($white, 2%);
+      bottom: 4.8rem;
+      border-radius: 50%;
+    }
+
+    &::before {
+      left: 0;
+      transform: translateX(-50%);
+    }
+
+    &::after {
+      right: 0;
+      transform: translateX(50%);
+    }
+
+    &-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 600;
+      color: $mirage;
+      margin: 1.6rem 0 .4rem;
+    }
+
+    &-description {
+      font-size: 1.1rem;
+      color: $regent-gray;
+      text-align: center;
+    }
+
+    &-btn {
+      .Button {
+        width: 100%;
+        max-width: 12rem;
+      }
+    }
+
+    &-shop {
+      border-top: 1px dashed $black-squeeze;
+      padding: 1.2rem 1.6rem;
+      column-gap: .8rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: $mirage;
+      margin-top: 2.8rem;
+
+      .Avatar {
+        .ant-avatar {
+          width: 3.2rem;
+          height: 3.2rem;
+        }
+      }
+    }
+  }
+
+  &-content {
+    padding: 2.4rem 0;
+
+    h3 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: $mine-shaft;
+      margin-bottom: 0.4rem;
+    }
+
+    p,
+    li {
+      font-size: 1.4rem;
+      color: $dove-gray;
+    }
+
+    ol,
+    ul {
+      margin-bottom: 0.4rem;
+      padding-left: 2rem;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    ul {
+      list-style: disc;
+    }
+  }
+
+  &-btn {
+    .Button {
+      width: 21.4rem;
+    }
+  }
+}

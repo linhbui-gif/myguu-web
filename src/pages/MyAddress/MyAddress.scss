@@ -1,0 +1,43 @@
+@import '@/assets/styles/_global.scss';
+
+.MyAddress {
+  &-card {
+    &-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+
+      .Button {
+        .ant-btn {
+          padding-left: 3rem;
+          padding-right: 3rem;
+        }
+      }
+    }
+  }
+
+  &-location {
+    column-gap: 1.6rem;
+    padding: 2.4rem 1.6rem;
+    border-bottom: 1px solid $gallery;
+
+    &-icon {
+      .Icon {
+        width: 2.4rem;
+        height: 2.4rem;
+      }
+    }
+
+    &-info {
+      &-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: $mine-shaft;
+      }
+
+      &-description {
+        font-size: 1.4rem;
+        color: $dove-gray;
+      }
+    }
+  }
+}

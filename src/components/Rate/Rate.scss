@@ -1,0 +1,12 @@
+@import '@/assets/styles/_global.scss';
+
+.Rate {
+  .ant-rate {
+    color: $fuel-yellow;
+    font-size: 2rem;
+
+    .ant-rate-star:not(:last-child) {
+      margin-right: 0.4rem;
+    }
+  }
+}

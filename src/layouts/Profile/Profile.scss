@@ -1,0 +1,35 @@
+@import '@/assets/styles/_global.scss';
+
+.Profile {
+  &-main {
+    background: $seashell;
+    padding: 3.2rem 0;
+
+    &-wrapper {
+      column-gap: 2.4rem;
+
+      @media (max-width: 991px) {
+        row-gap: 2.4rem;
+      }
+    }
+  }
+
+  &-sidebar {
+    flex: 0 0 28rem;
+    max-width: 28rem;
+
+    @media (max-width: 991px) {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+
+  &-body {
+    flex: 1;
+
+    @media (max-width: 991px) {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+@import '@/assets/styles/_global.scss';
+
+.Breadcrumb {
+  background: $alabaster;
+  padding: .8rem 0;
+
+  .ant-breadcrumb {
+    font-size: 1.4rem;
+    color: $tan-hide;
+  }
+
+  .ant-breadcrumb-separator {
+    margin: 0 .8rem;
+
+    .Icon {
+      display: inline-block;
+      width: 1.6rem;
+      height: 1.6rem;
+      transform: translateY(.3rem);
+    }
+  }
+}

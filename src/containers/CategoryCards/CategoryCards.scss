@@ -1,0 +1,84 @@
+@import '@/assets/styles/_global.scss';
+
+.CategoryCards {
+  margin: 4.8rem 0;
+  overflow: hidden;
+
+  &.primary-background {
+    padding: 3.2rem 0;
+    background: linear-gradient(180deg, #FEA489 0%, #F6BF87 100%);
+
+    .CategoryCards {
+      &-header-item {
+        &-more ,
+        &-title {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .GridBanners {
+    margin: 0 0 3.2rem;
+
+    .container {
+      max-width: unset;
+      padding: 0
+    }
+  }
+
+  .Carousels {
+    .slick-slide>div {
+      margin: 0 0.75rem;
+    }
+
+    .slick-list {
+      margin: 0 -0.75rem;
+    }
+  }
+
+  &-header {
+    margin-bottom: 2.4rem;
+
+    &-item {
+      column-gap: 1.2rem;
+
+      &-icon {
+        .Icon {
+          width: 3rem;
+          height: 3rem;
+        }
+      }
+
+      &-title {
+        font-size: 2.4rem;
+        font-weight: 600;
+        color: $mine-shaft;
+        text-transform: capitalize;
+        line-height: 1.2;
+      }
+
+      &-more {
+        font-size: 1.4rem;
+        color: $mine-shaft;
+        column-gap: .4rem;
+
+        &:hover {
+          text-decoration: underline;
+          color: $mine-shaft;
+        }
+
+        .Icon {
+          flex: 0 0 1.6rem;
+          max-width: 1.6rem;
+          width: 1.6rem;
+          height: 1.6rem;
+        }
+      }
+    }
+  }
+
+  &-tags {
+    margin: -.8rem 0 2.4rem
+  }
+}

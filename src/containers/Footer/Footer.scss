@@ -1,0 +1,149 @@
+@import '@/assets/styles/_global.scss';
+
+.Footer {
+  border-top: 1px solid rgba($alto, 0.5);
+
+  &-top {
+    .Footer-wrapper {
+      padding: 4.8rem 0;
+    }
+  }
+
+  &-wrapper {
+    column-gap: 4.2rem;
+    row-gap: 4.2rem;
+  }
+
+  &-col {
+    &:nth-of-type(1) {
+      flex-basis: 21.5rem;
+    }
+
+    &:nth-of-type(2) {
+      flex-basis: 32rem;
+    }
+
+    &:nth-of-type(3) {
+      flex-basis: 12rem;
+    }
+
+    &:nth-of-type(4) {
+      flex: 1;
+    }
+
+    @media (max-width: 991px) {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
+    }
+  }
+
+  &-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $mine-shaft;
+    text-transform: uppercase;
+    margin-bottom: 2.4rem;
+  }
+
+  &-subtitle {
+    font-size: 1.6rem;
+    color: $mine-shaft;
+  }
+
+  &-list-item,
+  &-description {
+    font-size: 1.4rem;
+    color: $mine-shaft;
+
+    a {
+      color: $mine-shaft;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &-list {
+    column-gap: 6.4rem;
+    white-space: nowrap;
+
+    &-item {
+      &:not(:last-child) {
+        margin-bottom: 1.2rem;
+      }
+    }
+  }
+
+  &-form {
+    padding: .4rem .4rem .4rem 1.6rem;
+    height: 4.8rem;
+    border-radius: 2.4rem;
+    border: 1px solid $alto;
+    transition: $common-transition;
+    column-gap: .8rem;
+    margin: 2.4rem 0;
+
+    &-input {
+      flex: 1;
+
+      .Input {
+        .ant-input {
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          padding: 0;
+          height: 3.8rem;
+        }
+      }
+    }
+
+    &-submit {
+      .Button {
+        .ant-btn {
+          padding-left: 2rem;
+          padding-right: 2rem;
+          height: 3.8rem;
+          width: auto !important;
+        }
+      }
+    }
+  }
+
+  &-socials {
+    column-gap: 1rem;
+
+    &-item {
+      width: 3.2rem;
+      height: 3.2rem;
+      flex: 0 0 3.2rem;
+      max-width: 3.2rem;
+      border-radius: 50%;
+      background: $primary-linear-gradient;
+      transition: $common-transition;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &-bottom {
+    background: $primary-linear-gradient;
+
+    .Footer-wrapper {
+      height: 4rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        height: auto;
+        row-gap: 0;
+        padding: .4rem 0;
+      }
+    }
+
+    p {
+      color: $white;
+    }
+  }
+}

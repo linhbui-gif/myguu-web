@@ -1,0 +1,33 @@
+@import '@/assets/styles/_global.scss';
+
+.Carousels {
+  .slick-arrow {
+    width: auto;
+    height: auto;
+    z-index: 2;
+
+    &.slick-prev {
+      left: 0;
+    }
+
+    &.slick-next {
+      right: 0;
+    }
+
+    &::before {
+      display: none;
+    }
+
+    .ant-btn {
+      width: 6.4rem;
+      height: 6.4rem;
+      border: none;
+      background: transparent;
+
+      .Icon {
+        width: 4.8rem;
+        height: 4.8rem;
+      }
+    }
+  }
+}

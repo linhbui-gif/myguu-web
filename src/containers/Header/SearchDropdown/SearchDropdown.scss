@@ -1,0 +1,48 @@
+@import '@/assets/styles/_global.scss';
+
+.SearchDropdown {
+  padding: 1.6rem;
+  border-radius: 1.2rem;
+  box-shadow: 0px 6px 11.9px 0px rgba(0, 0, 0, 0.13);
+  overflow: hidden;
+  background: $white;
+
+  &-title {
+    font-size: 1.7rem;
+    color: $mine-shaft;
+    margin-bottom: 1.6rem;
+
+    .Button {
+      .ant-btn {
+        padding: 0;
+      }
+    }
+  }
+
+  &-tags {
+    margin-bottom: 1.6rem;
+
+    &.popular {
+      .Tags {
+        &-item {
+          background: lighten($tan-hide, 30%);
+          border-color: lighten($tan-hide, 30%);
+        }
+      }
+    }
+
+    .Tags {
+      &-item {
+        background: $wild-sand;
+        border-color: $wild-sand;
+
+        &-icon {
+          .Icon {
+            width: 1.2rem;
+            height: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+}

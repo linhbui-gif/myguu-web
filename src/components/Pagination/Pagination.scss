@@ -1,0 +1,60 @@
+@import '@/assets/styles/_global.scss';
+
+.Pagination {
+
+  .ant-pagination-disabled .ant-pagination-item-link,
+  .ant-pagination-disabled:hover .ant-pagination-item-link {
+    opacity: 0.6;
+  }
+
+  .ant-pagination-item,
+  .ant-pagination-prev,
+  .ant-pagination-next,
+  .ant-pagination-jump-prev,
+  .ant-pagination-jump-next {
+    width: 3.2rem;
+    height: 3.2rem;
+    min-width: unset;
+  }
+
+  .ant-pagination-item,
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link {
+    border-radius: 50%;
+    background: $concrete;
+    color: $mine-shaft;
+    border: none;
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-jump-prev,
+  .ant-pagination-item,
+  .ant-pagination-jump-next {
+    margin-right: 1.6rem;
+  }
+
+  .ant-pagination-item {
+    transition: $common-transition;
+
+    a {
+      width: 100%;
+      height: 100%;
+      line-height: 3.2rem;
+      transition: $common-transition;
+    }
+
+    &:hover {
+      a {
+        color: $tan-hide;
+      }
+    }
+
+    &.ant-pagination-item-active {
+      background: $primary-linear-gradient;
+
+      a {
+        color: $white;
+      }
+    }
+  }
+}

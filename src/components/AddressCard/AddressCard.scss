@@ -1,0 +1,59 @@
+@import '@/assets/styles/_global.scss';
+
+.AddressCard {
+  column-gap: 1.6rem;
+  padding: 2.4rem 1.6rem;
+  border-bottom: 1px solid $gallery;
+  row-gap: 1.6rem;
+
+  &-icon {
+    .Icon {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+  }
+
+  &-info {
+    flex: 1;
+
+    &-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: $mine-shaft;
+    }
+
+    &-description {
+      font-size: 1.4rem;
+      color: $dove-gray;
+    }
+  }
+
+  &-action {
+    column-gap: 1.2rem;
+
+    @media (max-width: 768px) {
+      flex: 0 0 100%;
+      max-width: 100%;
+
+      .AddressCard-action-edit {
+        margin-left: auto;
+      }
+    }
+
+    .Radio {
+      .ant-radio-wrapper span.ant-radio+* {
+        color: $tan-hide;
+        font-size: 1.4rem;
+      }
+    }
+
+    .Button {
+      &-icon {
+        .Icon {
+          width: 2.4rem !important;
+          height: 2.4rem !important;
+        }
+      }
+    }
+  }
+}

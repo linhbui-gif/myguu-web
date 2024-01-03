@@ -1,0 +1,23 @@
+@import '@/assets/styles/_global.scss';
+
+.Infomation {
+  &-title {
+    margin-bottom: 1.6rem;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: $mine-shaft;
+    text-transform: capitalize;
+    column-gap: 1.6rem;
+
+    span {
+      font-size: 1.8rem;
+      color: $regent-gray;
+      font-weight: 400;
+    }
+  }
+
+  &-description {
+    font-size: 1.4rem;
+    color: $emperor;
+  }
+}
