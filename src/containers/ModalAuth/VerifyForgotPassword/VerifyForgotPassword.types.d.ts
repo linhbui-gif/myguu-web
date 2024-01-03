@@ -1,3 +1,4 @@
 export type TVerifyForgotPasswordProps = {
-  onNext?: (data: any) => void;
+  data?: any;
+  onSuccess?: (data?: any) => void;
 };

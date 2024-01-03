@@ -12,6 +12,7 @@ export type TDropdownMenuProps = {
 export type TDropdownMenuItem = {
   label: string;
   value: string;
+  link?: string;
   danger?: boolean;
   onClick?: (data: TDropdownMenuItem) => void;
 };

@@ -1,19 +1,39 @@
 import React, { useState } from 'react';
 import { Col, Form, Row } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button, { EButtonStyleType } from '@/components/Button';
+import { ERole, ETypeNotification } from '@/common/enums';
+import { EChangePasswordAction, changePasswordAction } from '@/redux/actions/auth/change-password';
+import { TRootState } from '@/redux/reducers';
 
 import { TChangePasswordProps } from './ChangePassword.types';
 import './ChangePassword.scss';
 
-const ChangePassword: React.FC<TChangePasswordProps> = ({ onNext }) => {
+const ChangePassword: React.FC<TChangePasswordProps> = ({ data, onSuccess }) => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [formValues, setFormValues] = useState<any>({});
 
+  const changePasswordLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EChangePasswordAction.CHANGE_PASSWORD],
+  );
+
   const handleSubmit = (values: any): void => {
-    onNext?.(values);
+    const body = {
+      transaction: data?.transaction,
+      new_password: values?.password,
+      role: ERole.USER,
+    };
+
+    dispatch(changePasswordAction.request({ body }, handleSubmitSuccess));
+  };
+
+  const handleSubmitSuccess = (): void => {
+    showNotification(ETypeNotification.SUCCESS, 'Đổi mật khẩu thành công !');
+    onSuccess?.();
   };
 
   return (
@@ -43,7 +63,13 @@ const ChangePassword: React.FC<TChangePasswordProps> = ({ onNext }) => {
             </Form.Item>
           </Col>
           <Col span={24} style={{ marginTop: '.4rem' }}>
-            <Button title="Hoàn thành" styleType={EButtonStyleType.PRIMARY} size="large" htmlType="submit" />
+            <Button
+              title="Hoàn thành"
+              styleType={EButtonStyleType.PRIMARY}
+              size="large"
+              htmlType="submit"
+              disabled={changePasswordLoading}
+            />
           </Col>
         </Row>
       </Form>

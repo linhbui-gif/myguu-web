@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dropdown as AntdDropdown } from 'antd';
 import classNames from 'classnames';
+import { navigate } from '@reach/router';
 
 import { TDropdownMenuProps } from './DropdownMenu.types';
 import './DropdownMenu.scss';
@@ -13,7 +14,6 @@ const DropdownMenu: React.FC<TDropdownMenuProps> = ({
   options = [],
   disabled,
   className,
-  onClickMenuItem,
   onVisibleChange,
 }) => {
   const handleVisibleChange = (currentVisible: boolean): void => {
@@ -34,10 +34,13 @@ const DropdownMenu: React.FC<TDropdownMenuProps> = ({
         {options.map((item) => (
           <div
             key={item.value}
-            className="DropdownMenu-list-item"
+            className={classNames('DropdownMenu-list-item', { danger: item.danger })}
             onClick={(): void => {
-              item.onClick?.(item);
-              onClickMenuItem?.(item);
+              if (item?.link) {
+                navigate(item.link);
+              } else {
+                item.onClick?.(item);
+              }
             }}
           >
             {item.label}

@@ -1,3 +1,4 @@
 export type TChangePasswordProps = {
-  onNext?: (data: any) => void;
+  data?: any;
+  onSuccess?: () => void;
 };

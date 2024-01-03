@@ -2,10 +2,10 @@ import React from 'react';
 
 import CategoryCards from '@/containers/CategoryCards';
 import { EIconColor, EIconName } from '@/components/Icon';
+import CollapseCards from '@/containers/CollapseCards';
 
 import { TServicesProps } from './Services.types';
 import './Services.scss';
-import CollapseCards from '@/containers/CollapseCards';
 
 const Services: React.FC<TServicesProps> = () => {
   return (

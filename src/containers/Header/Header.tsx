@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link, navigate } from '@reach/router';
 import { useMediaQuery } from 'react-responsive';
 import { Col, Drawer, Row } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Paths } from '@/pages/routers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 import Logo from '@/assets/images/logo.svg';
 
 import DropdownCustom from '@/components/DropdownCustom';
@@ -15,18 +16,34 @@ import ModalAuth, { EModalAuthType } from '@/containers/ModalAuth';
 import { useModalState } from '@/utils/hooks';
 import SearchDropdown from '@/containers/Header/SearchDropdown';
 import DropdownMenu from '@/components/DropdownMenu';
+import { TRootState } from '@/redux/reducers';
+import { getMyProfileAction, logoutAction } from '@/redux/actions';
+import Helpers from '@/services/helpers';
 
 import { THeaderProps } from './Header.types.d';
 import './Header.scss';
 
 const Header: React.FC<THeaderProps> = () => {
+  const dispatch = useDispatch();
+
   const isTablet = useMediaQuery({ maxWidth: 991 });
   const [modalAuthState, handleOpenModalAuth, handleCloseModalAuth] = useModalState();
   const [visibleSearchDropdown, setVisibleSearchDropdown] = useState<boolean>(false);
   const [visibleMenuMobile, setVisibleMenuMobile] = useState<boolean>(false);
 
+  const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
+
   const handleSubmit = (): void => {
     setVisibleMenuMobile(false);
+  };
+
+  const handleLogout = (): void => {
+    dispatch(logoutAction.request({}, handleLogoutSuccess, handleLogoutSuccess));
+  };
+
+  const handleLogoutSuccess = (): void => {
+    Helpers.clearTokens();
+    dispatch(getMyProfileAction.success(undefined));
   };
 
   const renderSearchDropdown = <SearchDropdown />;
@@ -45,19 +62,34 @@ const Header: React.FC<THeaderProps> = () => {
     </DropdownMenu>
   );
 
-  const renderHeaderAccount = (
+  const renderHeaderAccount = myProfileState ? (
+    <DropdownMenu
+      options={[
+        { value: '1', label: 'Thông tin cá nhân', link: `${LayoutPaths.Profile}${Paths.ProfileInformation}` },
+        { value: '2', label: 'Đăng xuất', danger: true, onClick: handleLogout },
+      ]}
+    >
+      <div className="Header-account flex items-center">
+        <div className="Header-account-avatar">
+          <Avatar image={myProfileState?.avatar} />
+        </div>
+        <div className="Header-account-title">
+          Xin chào, <strong>{myProfileState?.name}</strong>
+        </div>
+        <div className="Header-account-arrow">
+          <Icon name={EIconName.AngleDown} color={EIconColor.MINE_SHAFT} />
+        </div>
+      </div>
+    </DropdownMenu>
+  ) : (
     <div className="Header-account flex items-center">
       <div className="Header-account-avatar">
-        <Avatar image={undefined} />
+        <Avatar />
       </div>
       <div className="Header-account-title">
         <span onClick={(): void => handleOpenModalAuth({ key: EModalAuthType.SIGN_IN })}>Đăng Nhập</span>/
         <span onClick={(): void => handleOpenModalAuth({ key: EModalAuthType.SIGN_UP })}>Đăng ký</span>
-        {/* Xin chào, <strong>Minh Anh</strong> */}
       </div>
-      {/* <div className="Header-account-arrow">
-<Icon name={EIconName.AngleDown} color={EIconColor.MINE_SHAFT} />
-</div> */}
     </div>
   );
 

@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import { Redirect, Router } from '@reach/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { LayoutPaths, Pages, Paths, PublicRoute } from '@/pages/routers';
 import Guest from '@/layouts/Guest';
 import Profile from '@/layouts/Profile/Profile';
-import { uiActions } from '@/redux/actions';
+import { getMyProfileAction, uiActions } from '@/redux/actions';
+import Helpers from '@/services/helpers';
 
 import 'moment/locale/vi';
+import { TRootState } from '@/redux/reducers';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
+  const atk = Helpers.getAccessToken();
+  const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse);
 
   useEffect(() => {
     const updateSize = (): void => {
@@ -19,6 +23,12 @@ const App: React.FC = () => {
     window.addEventListener('resize', updateSize);
     return (): void => window.removeEventListener('resize', updateSize);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (atk && !myProfileState) {
+      dispatch(getMyProfileAction.request({}));
+    }
+  }, [dispatch, myProfileState, atk]);
 
   return (
     <div className="App">

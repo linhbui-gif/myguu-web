@@ -12,9 +12,10 @@ import Success from '@/containers/ModalAuth/Success';
 import { TModalAuthProps } from './ModalAuth.types.d';
 import { EModalAuthType } from './ModalAuth.enums';
 import './ModalAuth.scss';
+import VerifyOtp from '@/containers/ModalAuth/VerifyOtp';
 
 const ModalAuth: React.FC<TModalAuthProps> = ({ visible, data, onClose }) => {
-  const [stepState, setStepState] = useState<{ key?: EModalAuthType }>({ key: EModalAuthType.SUCCESS });
+  const [stepState, setStepState] = useState<{ key?: EModalAuthType; dataStep?: any }>({ key: EModalAuthType.SUCCESS });
 
   useEffect(() => {
     if (visible) {
@@ -41,28 +42,48 @@ const ModalAuth: React.FC<TModalAuthProps> = ({ visible, data, onClose }) => {
         <SignIn
           onClickSignUp={(): void => setStepState({ ...stepState, key: EModalAuthType.SIGN_UP })}
           onClickForgotPassword={(): void => setStepState({ ...stepState, key: EModalAuthType.FORGOT_PASSWORD })}
+          onSuccess={(): void => {
+            onClose?.();
+          }}
         />
       )}
       {stepState?.key === EModalAuthType.SIGN_UP && (
         <SignUp
+          onSuccess={(dataStep): void => setStepState({ ...stepState, key: EModalAuthType.VERIFY_OTP, dataStep })}
           onClickSignIn={(): void => setStepState({ ...stepState, key: EModalAuthType.SIGN_IN })}
           onClickForgotPassword={(): void => setStepState({ ...stepState, key: EModalAuthType.FORGOT_PASSWORD })}
+        />
+      )}
+      {stepState?.key === EModalAuthType.VERIFY_OTP && (
+        <VerifyOtp
+          data={stepState.dataStep}
+          onSuccess={(): void => {
+            onClose?.();
+          }}
         />
       )}
       {stepState?.key === EModalAuthType.FORGOT_PASSWORD && (
         <ForgotPassword
           onClickSignUp={(): void => setStepState({ ...stepState, key: EModalAuthType.SIGN_UP })}
           onClickSignIn={(): void => setStepState({ ...stepState, key: EModalAuthType.SIGN_IN })}
-          onNext={(): void => setStepState({ ...stepState, key: EModalAuthType.VERIFY_FORGOT_PASSWORD })}
+          onSuccess={(dataStep): void =>
+            setStepState({ ...stepState, key: EModalAuthType.VERIFY_FORGOT_PASSWORD, dataStep })
+          }
         />
       )}
       {stepState?.key === EModalAuthType.VERIFY_FORGOT_PASSWORD && (
         <VerifyForgotPassword
-          onNext={(): void => setStepState({ ...stepState, key: EModalAuthType.CHANGE_NEW_PASSWORD })}
+          data={stepState?.dataStep}
+          onSuccess={(dataStep): void =>
+            setStepState({ ...stepState, key: EModalAuthType.CHANGE_NEW_PASSWORD, dataStep })
+          }
         />
       )}
       {stepState?.key === EModalAuthType.CHANGE_NEW_PASSWORD && (
-        <ChangePassword onNext={(): void => setStepState({ ...stepState, key: EModalAuthType.SUCCESS })} />
+        <ChangePassword
+          data={stepState?.dataStep}
+          onSuccess={(): void => setStepState({ ...stepState, key: EModalAuthType.SUCCESS })}
+        />
       )}
       {stepState?.key === EModalAuthType.SUCCESS && <Success />}
     </Modal>

@@ -177,3 +177,11 @@ html {
 .ellipsis-1 {
   @include ellipsis(1);
 }
+
+.ant-notification-notice-close {
+  top: 20px;
+}
+
+.ant-notification-notice-description {
+  padding-right: 2.4rem;
+}

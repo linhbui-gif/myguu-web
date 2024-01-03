@@ -1,7 +1,7 @@
 import { getType } from 'deox';
 import { AxiosError } from 'axios';
 
-import { uiActions } from '@/redux/actions';
+import { ELogoutAction, uiActions } from '@/redux/actions';
 import { showNotification } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
 
@@ -47,14 +47,10 @@ const errorReducer = (state: TErrorState = {}, action: IErrorAction | IResetActi
   if (error instanceof Error) {
     const axiosErrorData = (error as AxiosError)?.response?.data;
 
-    const requestNameArray: string[] = []; // Put Request Name here to disabled show notification toast
+    const requestNameArray: string[] = [ELogoutAction.LOGOUT]; // Put Request Name here to disabled show notification toast
     const isNotShowToast = requestNameArray.includes(requestName);
 
-    error =
-      axiosErrorData?.message ||
-      axiosErrorData?.error_description ||
-      axiosErrorData?.errors?.[0].message ||
-      error?.message;
+    error = axiosErrorData?.error?.message;
 
     if (error && !isNotShowToast) showNotification(ETypeNotification.ERROR, error as string);
   }

@@ -73,10 +73,22 @@ export enum ETimeoutDebounce {
 }
 
 export enum EEmpty {
-  STRIKE_THROUGH = '-',
+  DASH = '-',
 }
 
 export enum EFormat {
   'DD/MM/YYYY' = 'DD/MM/YYYY',
   'DD/MM/YYYY - HH:mm' = 'DD/MM/YYYY - HH:mm',
+}
+
+export enum ERole {
+  STORE = 1,
+  USER = 2,
+  ADMIN = 3,
+}
+
+export enum EPlatform {
+  IOS = 'ios',
+  ANDROID = 'android',
+  WEB = 'web',
 }

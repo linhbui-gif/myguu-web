@@ -13,6 +13,15 @@
     transition: $common-transition;
     width: 100%;
 
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:focus,
+    &[disabled]:active {
+      color: $regent-gray !important;
+      background: $gallery !important;
+      border-color: $gallery !important;
+    }
+
     .Button-icon {
       .Icon {
         width: 2.4rem;
