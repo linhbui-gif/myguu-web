@@ -35,7 +35,7 @@ const MyAddress = lazy(() => retryLoadComponent(() => import('@/pages/MyAddress'
 
 export const LayoutPaths = {
   Guest: '/',
-  Profile: '/profile',
+  Profile: '/tai-khoan',
   Auth: '/auth',
   Admin: '/admin',
 };
@@ -44,17 +44,17 @@ export const ModulePaths = {};
 
 export const Paths = {
   Home: '/',
-  ShopDetail: (id?: string): string => `/shop/${id || ':id'}`,
-  ServiceDetail: (id?: string): string => `/service/${id || ':id'}`,
-  Category: (id?: string): string => `/category/${id || ':id'}`,
-  Search: '/search',
-  Booking: '/booking',
-  MySchedules: '/my-schedules',
-  ProfileInformation: '/information',
-  FavoritesShop: '/favorites-shop',
+  ShopDetail: (id?: string, slug?: string): string => `/cua-hang/${slug || ':slug'}/${id || ':id'}`,
+  ServiceDetail: (id?: string, slug?: string): string => `/dich-vu/${slug || ':slug'}/${id || ':id'}`,
+  Category: (id?: string): string => `/danh-muc/${id || ':id'}`,
+  Search: '/tim-kiem',
+  Booking: '/dat-lich',
+  MySchedules: '/lich-cua-toi',
+  ProfileInformation: '/thong-tin',
+  FavoritesShop: '/danh-sach-cua-hang-yeu-thich',
   Vouchers: '/vouchers',
-  Notifications: '/notifications',
-  MyAddress: '/my-address',
+  Notifications: '/thong-bao',
+  MyAddress: '/danh-sach-dia-chi',
 
   Rest: '*',
 };

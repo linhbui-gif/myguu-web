@@ -1,16 +1,21 @@
 import React from 'react';
 import { Form } from 'antd';
 import { Link } from '@reach/router';
+import { useSelector } from 'react-redux';
 
 import Input from '@/components/Input';
 import Button, { EButtonStyleType } from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
+import { TRootState } from '@/redux/reducers';
 
 import { TFooterProps } from './Footer.types.d';
 import './Footer.scss';
+import { Paths } from '@/pages/routers';
 
 const Footer: React.FC<TFooterProps> = () => {
   const [form] = Form.useForm();
+
+  const categoriesState = useSelector((state: TRootState) => state.categoryReducer.getCategoriesResponse)?.data || [];
 
   const dataUsefulLink = [
     { link: '#', title: 'Giới thiệu' },
@@ -19,15 +24,10 @@ const Footer: React.FC<TFooterProps> = () => {
     { link: '#', title: 'Liên hệ ' },
   ];
 
-  const dataServicesLink = [
-    { link: '#', title: 'Make-Up' },
-    { link: '#', title: 'Nail-Mi' },
-    { link: '#', title: 'Salon' },
-    { link: '#', title: 'Spa' },
-    { link: '#', title: 'Thẩm Mỹ' },
-    { link: '#', title: 'Phòng khám' },
-    { link: '#', title: 'Gym' },
-  ];
+  const dataServicesLink = categoriesState?.map((item) => ({
+    link: Paths.Category(item.slug),
+    title: item.name,
+  }));
 
   const dataSocialsLink = [
     { link: 'facebook', iconName: EIconName.Facebook },

@@ -92,3 +92,12 @@ export enum EPlatform {
   ANDROID = 'android',
   WEB = 'web',
 }
+
+export enum EBannerScreen {
+  HOME = 'HOME',
+}
+
+export enum EBannerType {
+  OVERVIEW = 'OVERVIEW',
+  PROMINENT_PLACE = 'PROMINENT_PLACE',
+}

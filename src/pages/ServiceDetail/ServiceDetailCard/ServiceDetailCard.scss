@@ -43,6 +43,13 @@
       font-weight: 600;
       color: $pomegranate;
       margin-bottom: 1.6rem;
+      column-gap: .8rem;
+
+      del {
+        font-size: 2rem;
+        font-weight: 400;
+        color: $dove-gray;
+      }
     }
 
     &-detail {

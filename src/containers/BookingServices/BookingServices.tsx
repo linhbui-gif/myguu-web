@@ -1,61 +1,22 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { navigate } from '@reach/router';
 
 import Carousels from '@/components/Carousels';
-import IconServiceBeautySalon from '@/assets/icons/icon-service-beauty-salon.svg';
-import IconServiceClinic from '@/assets/icons/icon-service-clinic.svg';
-import IconServiceGym from '@/assets/icons/icon-service-gym.svg';
-import IconServiceMakeup from '@/assets/icons/icon-service-makeup.svg';
-import IconServiceNail from '@/assets/icons/icon-service-nail.svg';
-import IconServiceSalon from '@/assets/icons/icon-service-salon.svg';
-import IconServiceSpa from '@/assets/icons/icon-service-spa.svg';
-import IconServiceStudio from '@/assets/icons/icon-service-studio.svg';
+import { TRootState } from '@/redux/reducers';
+import { Paths } from '@/pages/routers';
 
 import { TBookingServicesProps } from './BookingServices.types.d';
 import './BookingServices.scss';
 
 const BookingServices: React.FC<TBookingServicesProps> = () => {
-  const dataServices = [
-    {
-      link: '#',
-      title: 'Makeup',
-      icon: IconServiceMakeup,
-    },
-    {
-      link: '#',
-      title: 'Spa',
-      icon: IconServiceSpa,
-    },
-    {
-      link: '#',
-      title: 'Salon',
-      icon: IconServiceSalon,
-    },
-    {
-      link: '#',
-      title: 'Nail-Mi',
-      icon: IconServiceNail,
-    },
-    {
-      link: '#',
-      title: 'Thẩm Mỹ Viện',
-      icon: IconServiceBeautySalon,
-    },
-    {
-      link: '#',
-      title: 'Studio',
-      icon: IconServiceStudio,
-    },
-    {
-      link: '#',
-      title: 'Phòng Khám',
-      icon: IconServiceClinic,
-    },
-    {
-      link: '#',
-      title: 'GYM',
-      icon: IconServiceGym,
-    },
-  ];
+  const categoriesState = useSelector((state: TRootState) => state.categoryReducer.getCategoriesResponse)?.data || [];
+
+  const dataServices = categoriesState?.map((item) => ({
+    link: Paths.Category(item.slug),
+    title: item.name,
+    icon: item.icon,
+  }));
 
   return (
     <div className="BookingServices">
@@ -63,8 +24,14 @@ const BookingServices: React.FC<TBookingServicesProps> = () => {
         <div className="BookingServices-wrapper">
           <Carousels dots={false} arrows={false} variableWidth infinite={false}>
             {dataServices.map((item, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <div key={index} className="BookingServices-item-wrapper">
+              <div
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
+                className="BookingServices-item-wrapper"
+                onClick={(): void => {
+                  navigate(item.link);
+                }}
+              >
                 <div className="BookingServices-item">
                   <div className="BookingServices-item-icon flex items-center justify-center">
                     <div className="BookingServices-item-icon-image">

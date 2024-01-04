@@ -7,22 +7,44 @@ import Guest from '@/layouts/Guest';
 import Profile from '@/layouts/Profile/Profile';
 import { getMyProfileAction, uiActions } from '@/redux/actions';
 import Helpers from '@/services/helpers';
+import { TRootState } from '@/redux/reducers';
+import { useModalState } from '@/utils/hooks';
+import ModalRequireTurnOnShareLocation from '@/containers/ModalRequireTurnOnShareLocation';
 
 import 'moment/locale/vi';
-import { TRootState } from '@/redux/reducers';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const atk = Helpers.getAccessToken();
+
+  const [
+    modalRequireTurnOnShareLocationState,
+    handleOpenModalRequireTurnOnShareLocation,
+    handleCloseModalRequireTurnOnShareLocation,
+  ] = useModalState();
+
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse);
 
+  const getGeoLocation = (): void => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position): void => {
+          const { latitude, longitude } = position.coords;
+          dispatch(uiActions.setGeoLocationApp({ latitude, longitude }));
+        },
+        (err): void => {
+          handleOpenModalRequireTurnOnShareLocation(err);
+        },
+      );
+    } else {
+      handleOpenModalRequireTurnOnShareLocation();
+    }
+  };
+
   useEffect(() => {
-    const updateSize = (): void => {
-      dispatch(uiActions.setDevice(window.innerWidth));
-    };
-    window.addEventListener('resize', updateSize);
-    return (): void => window.removeEventListener('resize', updateSize);
-  }, [dispatch]);
+    getGeoLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (atk && !myProfileState) {
@@ -32,6 +54,14 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      <ModalRequireTurnOnShareLocation
+        {...modalRequireTurnOnShareLocationState}
+        onClose={handleCloseModalRequireTurnOnShareLocation}
+        onSubmit={(): void => {
+          getGeoLocation();
+        }}
+      />
+
       <Router primary={false}>
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />

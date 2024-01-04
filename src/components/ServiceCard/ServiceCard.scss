@@ -10,6 +10,7 @@
         flex-direction: column;
         align-items: flex-start;
         row-gap: .8rem;
+        min-height: 3.8rem;
 
         del {
           font-size: 1.4rem;
@@ -114,6 +115,11 @@
     font-size: 1.6rem;
     font-weight: 500;
     color: $cod-gray;
+    transition: $common-transition;
+
+    &:hover {
+      color: $tan-hide;
+    }
   }
 
   &-verify {

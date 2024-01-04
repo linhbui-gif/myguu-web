@@ -32,6 +32,7 @@ const Header: React.FC<THeaderProps> = () => {
   const [visibleMenuMobile, setVisibleMenuMobile] = useState<boolean>(false);
 
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
+  const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
 
   const handleSubmit = (): void => {
     setVisibleMenuMobile(false);
@@ -49,17 +50,10 @@ const Header: React.FC<THeaderProps> = () => {
   const renderSearchDropdown = <SearchDropdown />;
 
   const renderBranchSelect = (
-    <DropdownMenu
-      options={[
-        { value: '1', label: 'TP.Hà Nội' },
-        { value: '2', label: 'TP.Hồ Chí Minh' },
-      ]}
-    >
-      <div className="Header-location flex items-center cursor-pointer">
-        <Icon name={EIconName.Location} color={EIconColor.TAN_HIDE} />
-        <span>Q.Cầu giấy, TP.Hà Nội</span>
-      </div>
-    </DropdownMenu>
+    <div className="Header-location flex items-center cursor-pointer">
+      <Icon name={EIconName.Location} color={EIconColor.TAN_HIDE} />
+      <span>{appGeoLoactionState ? 'Vị Trí Của Bạn' : 'Mặc Định'}</span>
+    </div>
   );
 
   const renderHeaderAccount = myProfileState ? (

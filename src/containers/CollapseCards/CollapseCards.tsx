@@ -12,7 +12,11 @@ import './CollapseCards.scss';
 const { Panel } = Collapse;
 
 const CollapseCards: React.FC<TCollapseCardsProps> = ({ data = [], herotitle, title, style }) => {
-  return (
+  const isEmpty = data.length === 0;
+
+  return isEmpty ? (
+    <></>
+  ) : (
     <div className="CollapseCards" style={style}>
       <div className="container">
         {herotitle && <h2 className="CollapseCards-herotitle">{herotitle}</h2>}
@@ -35,7 +39,7 @@ const CollapseCards: React.FC<TCollapseCardsProps> = ({ data = [], herotitle, ti
                     <h4 className="CollapseCards-header-title">{title}</h4>
                   </div>
                   <div className="CollapseCards-header-item flex items-center">
-                    <strong>4</strong>
+                    <strong>{data.length}</strong>
                     dịch vụ
                   </div>
                 </div>

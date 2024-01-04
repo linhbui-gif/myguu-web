@@ -1,15 +1,16 @@
 import { createActionCreator } from 'deox';
 
 import { EUIAction } from './constants';
-import { TResetActionStatus, TSetDevice } from './types';
+import { TResetActionStatus, TSetGeoAppLocation } from './types';
 
 export const uiActions = {
-  setDevice: createActionCreator(
-    EUIAction.SET_DEVICE,
+  setGeoLocationApp: createActionCreator(
+    EUIAction.SET_GEO_APP_LOCATION,
     (resolve) =>
-      (deviceWidth: number): TSetDevice =>
-        resolve({ deviceWidth }),
+      ({ latitude, longitude }): TSetGeoAppLocation =>
+        resolve({ latitude, longitude }),
   ),
+
   resetActionStatus: createActionCreator(
     EUIAction.RESET_ACTION_STATUS,
     (resolve) =>

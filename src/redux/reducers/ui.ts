@@ -1,24 +1,23 @@
 import { createReducer } from 'deox';
 import { uiActions } from '@/redux/actions';
 
-export enum EDeviceType {
-  DESKTOP = 'desktop',
-  MOBILE = 'mobile',
-}
+type TUIState = {
+  geoAppLocation?: {
+    latitude: number;
+    longitude: number;
+  };
+};
 
-const initialState = {
-  device: {
-    type: window.innerWidth > 991 ? EDeviceType.DESKTOP : EDeviceType.MOBILE,
-    width: window.innerWidth,
-  },
+const initialState: TUIState = {
+  geoAppLocation: undefined,
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
-  handleAction(uiActions.setDevice, (state, { payload }) => ({
+  handleAction(uiActions.setGeoLocationApp, (state, { payload }) => ({
     ...state,
-    device: {
-      type: payload.deviceWidth > 991 ? EDeviceType.DESKTOP : EDeviceType.MOBILE,
-      width: payload.deviceWidth,
+    geoAppLocation: {
+      latitude: payload.latitude,
+      longitude: payload.longitude,
     },
   })),
 ]);

@@ -1,0 +1,41 @@
+@import '@/assets/styles/_global.scss';
+
+.ModalRequireTurnOnShareLocation {
+  &-wrapper {
+    text-align: center;
+  }
+
+  &-icon {
+    width: 6.4rem;
+    height: 6.4rem;
+    margin: 0 auto 2.4rem;
+
+    .Icon {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: $cod-gray;
+    margin-bottom: 0.4rem;
+  }
+
+  &-description {
+    font-size: 1.4rem;
+    color: $dove-gray;
+  }
+
+  &-btn {
+    margin-top: 2.4rem;
+
+    .Button {
+      .ant-btn {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+    }
+  }
+}

@@ -8,6 +8,10 @@
     padding: 3.2rem 0;
     background: linear-gradient(180deg, #FEA489 0%, #F6BF87 100%);
 
+    .ServiceCard {
+      border: none !important;
+    }
+
     .CategoryCards {
       &-header-item {
         &-more ,

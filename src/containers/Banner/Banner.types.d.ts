@@ -1,1 +1,3 @@
-export type TBannerProps = unknown;
+export type TBannerProps = {
+  data?: string[];
+};

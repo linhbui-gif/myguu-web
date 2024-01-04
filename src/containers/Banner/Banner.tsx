@@ -1,20 +1,23 @@
 import React from 'react';
 
 import Carousels from '@/components/Carousels';
-import ImageBanner from '@/assets/images/image-banner.png';
 
 import { TBannerProps } from './Banner.types.d';
 import './Banner.scss';
 
-const Banner: React.FC<TBannerProps> = () => {
-  return (
+const Banner: React.FC<TBannerProps> = ({ data = [] }) => {
+  const isEmpty = data.length === 0;
+  return isEmpty ? (
+    <></>
+  ) : (
     <div className="Banner">
       <div className="container">
         <div className="Banner-wrapper">
           <Carousels arrows dots={false} infinite slidesToShow={1} autoplay>
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="Banner-item">
-                <img src={ImageBanner} alt="" />
+            {data.map((item, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <div key={index} className="Banner-item">
+                <img src={item} alt="" />
               </div>
             ))}
           </Carousels>

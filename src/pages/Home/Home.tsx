@@ -1,129 +1,250 @@
-import React from 'react';
-
-import ImageGridBanner from '@/assets/images/image-grid-banner.png';
-import ImageGridBanner2 from '@/assets/images/image-grid-banner-2.png';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Banner from '@/containers/Banner';
 import BookingServices from '@/containers/BookingServices';
 import CategoryCards from '@/containers/CategoryCards';
-import GridBanners from '@/containers/GridBanners';
 import { EIconColor, EIconName } from '@/components/Icon';
 import AppDownload from '@/containers/AppDownload';
+import {
+  getBannersAction,
+  getServicesDealHotAction,
+  getServicesProposeForYouAction,
+  getStoresMakeupAtHomeAction,
+  getStoresNearByAction,
+  getStoresProminentPlaceAction,
+} from '@/redux/actions';
+import { EBannerScreen, EBannerType } from '@/common/enums';
+import { TRootState } from '@/redux/reducers';
+import { Paths } from '@/pages/routers';
+import { TGetStoresNearByParams, TGetStoresProminentPlaceParams } from '@/services/api';
 
 const Home: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
+
+  const categoriesState = useSelector((state: TRootState) => state.categoryReducer.getCategoriesResponse)?.data || [];
+  const categoriesOptions = categoriesState?.map((item) => ({
+    value: item.id,
+    label: item.name,
+  }));
+
+  const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse);
+
+  const bannersState = useSelector((state: TRootState) => state.bannerReducer.getBannersResponse)?.data;
+  const overviewBanners = bannersState?.find((banner) => banner.type === EBannerType.OVERVIEW)?.src || [];
+  const prominentPlaceBanners = bannersState?.find((banner) => banner.type === EBannerType.PROMINENT_PLACE)?.src || [];
+
+  const servicesDealHotState = useSelector((state: TRootState) => state.serviceReducer.getServicesDealHotResponse);
+  const servicesProposeForYouState = useSelector(
+    (state: TRootState) => state.serviceReducer.getServicesProposeForYouResponse,
+  );
+
+  const storesNearByState = useSelector((state: TRootState) => state.storeReducer.getStoresNearByResponse);
+  const storesProminentPlaceState = useSelector(
+    (state: TRootState) => state.storeReducer.getStoresProminentPlaceResponse,
+  );
+  const storesMakeupAtHomeState = useSelector((state: TRootState) => state.storeReducer.getStoresMakeupAtHomeResponse);
+
+  const [getStoresNearByParamsRequest, setGetStoresNearByParamsRequest] = useState<TGetStoresNearByParams>({});
+  const [getStoresProminentPlaceParamsRequest, setGetStoresProminentPlaceParamsRequest] =
+    useState<TGetStoresProminentPlaceParams>({});
+
+  const getBanners = useCallback(() => {
+    dispatch(getBannersAction.request({ params: { screen: EBannerScreen.HOME } }));
+  }, [dispatch]);
+
+  const getServicesDealHot = useCallback(() => {
+    dispatch(
+      getServicesDealHotAction.request({
+        params: {
+          lat: appGeoLoactionState?.latitude,
+          lng: appGeoLoactionState?.longitude,
+        },
+      }),
+    );
+  }, [dispatch, appGeoLoactionState]);
+
+  const getStoresNearBy = useCallback(() => {
+    if (getStoresNearByParamsRequest?.categoryId) {
+      dispatch(
+        getStoresNearByAction.request({
+          params: {
+            lat: appGeoLoactionState?.latitude,
+            lng: appGeoLoactionState?.longitude,
+            categoryId: getStoresNearByParamsRequest?.categoryId,
+          },
+        }),
+      );
+    }
+  }, [dispatch, appGeoLoactionState, getStoresNearByParamsRequest]);
+
+  const getStoresProminentPlace = useCallback(() => {
+    if (getStoresProminentPlaceParamsRequest?.categoryId) {
+      dispatch(
+        getStoresProminentPlaceAction.request({
+          params: {
+            lat: appGeoLoactionState?.latitude,
+            lng: appGeoLoactionState?.longitude,
+            categoryId: getStoresProminentPlaceParamsRequest?.categoryId,
+          },
+        }),
+      );
+    }
+  }, [dispatch, appGeoLoactionState, getStoresProminentPlaceParamsRequest]);
+
+  const getStoresMakeupAtHome = useCallback(() => {
+    dispatch(
+      getStoresMakeupAtHomeAction.request({
+        params: {
+          lat: appGeoLoactionState?.latitude,
+          lng: appGeoLoactionState?.longitude,
+        },
+      }),
+    );
+  }, [dispatch, appGeoLoactionState]);
+
+  const getServicesProposeForYou = useCallback(() => {
+    if (myProfileState) dispatch(getServicesProposeForYouAction.request({}));
+  }, [dispatch, myProfileState]);
+
+  useEffect(() => {
+    if (categoriesState) {
+      setGetStoresNearByParamsRequest({ ...getStoresNearByParamsRequest, categoryId: categoriesOptions?.[0]?.value });
+      setGetStoresProminentPlaceParamsRequest({
+        ...getStoresProminentPlaceParamsRequest,
+        categoryId: categoriesOptions?.[0]?.value,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoriesState]);
+
+  useEffect(() => {
+    getStoresNearBy();
+  }, [getStoresNearBy]);
+
+  useEffect(() => {
+    getStoresProminentPlace();
+  }, [getStoresProminentPlace]);
+
+  useEffect(() => {
+    getStoresMakeupAtHome();
+  }, [getStoresMakeupAtHome]);
+
+  useEffect(() => {
+    getServicesDealHot();
+  }, [getServicesDealHot]);
+
+  useEffect(() => {
+    getServicesProposeForYou();
+  }, [getServicesProposeForYou]);
+
+  useEffect(() => {
+    getBanners();
+  }, [getBanners]);
+
   return (
     <div className="Home">
-      <Banner />
+      <Banner data={overviewBanners} />
       <BookingServices />
       <CategoryCards
         title="Deal Hot"
         primaryBackground
         headerIcon={EIconName.Lightning}
         headerIconColor={EIconColor.WHITE}
-        data={[
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-        ]}
-      />
-      <CategoryCards
-        title="Thương hiệu"
-        headerIcon={EIconName.Verify}
-        moreLink="#"
-        data={[
-          { verify: true, address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { verify: true, address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { verify: true, address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { verify: true, address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { verify: true, address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-        ]}
+        moreLink={(servicesDealHotState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        data={servicesDealHotState?.data?.map((item) => ({
+          link: Paths.ServiceDetail(String(item.id), item.slug),
+          border: true,
+          subtitle: item.store_name,
+          title: item.name,
+          image: item?.banner?.[0],
+          discountPercent: item.discount_percent,
+          sellingPrice: item.discount_price,
+          retailPrice: item.price,
+          moveTime: item.move_time,
+          distance: item.store_distance,
+          vote: item.vote,
+        }))}
       />
       <CategoryCards
         title="Cửa hàng gần bạn"
-        moreLink="#"
-        tagsFilter={[
-          { value: '1', label: 'Make-Up' },
-          { value: '2', label: 'Spa' },
-          { value: '3', label: 'Nail-Mi' },
-          { value: '4', label: 'Salon' },
-          { value: '5', label: 'Thẩm Mỹ Viện' },
-          { value: '6', label: 'Studio' },
-        ]}
-        data={[
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-        ]}
+        valueTagsFilter={categoriesOptions.find((option) => option.value === getStoresNearByParamsRequest?.categoryId)}
+        onTagsFilterChange={(option): void =>
+          setGetStoresNearByParamsRequest({ ...getStoresNearByParamsRequest, categoryId: Number(option.value) })
+        }
+        tagsFilter={categoriesOptions}
+        moreLink={(storesNearByState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        data={storesNearByState?.data?.map((item) => ({
+          link: Paths.ShopDetail(String(item.id), item.slug),
+          title: item.name,
+          image: item?.avatar,
+          address: item?.address,
+          moveTime: item.move_time,
+          distance: item.distance,
+          vote: item.vote,
+        }))}
       />
       <CategoryCards
         title="Đề xuất cho bạn"
-        moreLink="#"
-        data={[
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-        ]}
-      />
-      <GridBanners
-        data={[
-          { key: '1', image: ImageGridBanner },
-          { key: '2', image: ImageGridBanner },
-        ]}
-        span={24}
-        lg={{ span: 12 }}
+        moreLink={(servicesProposeForYouState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        data={servicesProposeForYouState?.data?.map((item) => ({
+          border: true,
+          link: Paths.ServiceDetail(String(item.id), item.slug),
+          subtitle: item.store_name,
+          title: item.name,
+          image: item?.banner?.[0],
+          discountPercent: item.discount_percent,
+          sellingPrice: item.discount_price,
+          retailPrice: item.price,
+          moveTime: item.move_time,
+          distance: item.store_distance,
+          vote: item.vote,
+        }))}
       />
       <CategoryCards
         title="Make-up tại nhà"
-        moreLink="#"
-        data={[
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-        ]}
-      />
-      <CategoryCards
-        title="Thầm mỹ viện gần nhà"
-        moreLink="#"
-        data={[
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-          { address: '157 B Chùa Láng, Q.Đống Đa, Hà Nội, Việt Nam' },
-        ]}
+        moreLink={(storesMakeupAtHomeState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        data={storesMakeupAtHomeState?.data?.map((item) => ({
+          link: Paths.ShopDetail(String(item.id), item.slug),
+          title: item.name,
+          image: item?.avatar,
+          address: item?.address,
+          moveTime: item.move_time,
+          distance: item.distance,
+          vote: item.vote,
+        }))}
       />
       <CategoryCards
         isGridList
         title="Địa điểm nổi bật"
-        moreLink="#"
         gridBanners={{
-          data: [{ key: '1', image: ImageGridBanner2 }],
+          data: prominentPlaceBanners?.map((item, index) => ({ key: String(index), image: item })),
           span: 24,
         }}
-        tagsFilter={[
-          { value: '1', label: 'Make-Up' },
-          { value: '2', label: 'Spa' },
-          { value: '3', label: 'Nail-Mi' },
-          { value: '4', label: 'Salon' },
-          { value: '5', label: 'Thẩm Mỹ Viện' },
-          { value: '6', label: 'Studio' },
-        ]}
-        data={[
-          { border: true, vertical: true, address: '97-99 Láng Hạ - Đống Đa- Hà Nội' },
-          { border: true, vertical: true, address: '97-99 Láng Hạ - Đống Đa- Hà Nội' },
-          { border: true, vertical: true, address: '97-99 Láng Hạ - Đống Đa- Hà Nội' },
-          { border: true, vertical: true, address: '97-99 Láng Hạ - Đống Đa- Hà Nội' },
-          { border: true, vertical: true, address: '97-99 Láng Hạ - Đống Đa- Hà Nội' },
-          { border: true, vertical: true, address: '97-99 Láng Hạ - Đống Đa- Hà Nội' },
-        ]}
+        valueTagsFilter={categoriesOptions.find(
+          (option) => option.value === getStoresProminentPlaceParamsRequest?.categoryId,
+        )}
+        onTagsFilterChange={(option): void =>
+          setGetStoresProminentPlaceParamsRequest({
+            ...getStoresProminentPlaceParamsRequest,
+            categoryId: Number(option.value),
+          })
+        }
+        tagsFilter={categoriesOptions}
+        moreLink={(storesProminentPlaceState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        data={storesProminentPlaceState?.data?.map((item) => ({
+          link: Paths.ShopDetail(String(item.id), item.slug),
+          border: true,
+          vertical: true,
+          title: item.name,
+          image: item?.avatar,
+          address: item?.address,
+          moveTime: item.move_time,
+          distance: item.distance,
+          vote: item.vote,
+        }))}
       />
       <AppDownload />
     </div>

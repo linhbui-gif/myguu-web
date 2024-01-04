@@ -1,37 +1,63 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 
-import ImageShop from '@/assets/images/image-content-3.png';
 import Button, { EButtonStyleType } from '@/components/Button';
 import Icon, { EIconName, EIconColor } from '@/components/Icon';
 
 import { TShopAddressCardProps } from './ShopAddressCard.types.d';
 import './ShopAddressCard.scss';
 
-const ShopAddressCard: React.FC<TShopAddressCardProps> = ({ favorited }) => {
+const ShopAddressCard: React.FC<TShopAddressCardProps> = ({
+  image,
+  title,
+  address,
+  moveTime,
+  distance,
+  vote,
+  favorited,
+  link,
+}) => {
+  const handleNavigateLink = (): void => {
+    if (link) navigate(link);
+  };
+
   return (
     <div className="ShopAddressCard flex items-center">
-      <div className="ShopAddressCard-image">
-        <img src={ImageShop} alt="" />
-      </div>
+      <div className="ShopAddressCard-image">{image && <img src={image} alt="" />}</div>
       <div className="ShopAddressCard-info">
-        <div className="ShopAddressCard-info-title">Minh Vân Make up</div>
-        <div className="ShopAddressCard-info-description flex items-center">
+        <div className="ShopAddressCard-info-title capitalize" onClick={handleNavigateLink}>
+          {title}
+        </div>
+        <div className="ShopAddressCard-info-description flex items-center capitalize">
           <Icon name={EIconName.House} color={EIconColor.REGENT_GRAY} />
-          97-99 Láng Hạ - Đống Đa- Hà Nội
+          {address}
         </div>
         <div className="ShopAddressCard-info-detail flex items-center">
-          <div className="ShopAddressCard-info-detail-item flex items-center">
-            <Icon name={EIconName.Location} color={EIconColor.REGENT_GRAY} />
-            150m
-          </div>
-          <div className="ShopAddressCard-info-detail-item flex items-center">
+          {moveTime && (
+            <div className="ShopAddressCard-info-detail-item flex items-center">
+              <Icon name={EIconName.Location} color={EIconColor.REGENT_GRAY} />
+              {moveTime} phút
+            </div>
+          )}
+
+          {distance && (
+            <div className="ShopAddressCard-info-detail-item flex items-center">
+              <Icon name={EIconName.Location} color={EIconColor.REGENT_GRAY} />
+              {distance} km
+            </div>
+          )}
+
+          {/* <div className="ShopAddressCard-info-detail-item flex items-center">
             <Icon name={EIconName.Chat} color={EIconColor.REGENT_GRAY} />
             15
-          </div>
-          <div className="ShopAddressCard-info-detail-item flex items-center">
-            <Icon name={EIconName.StarFill} />
-            5.0
-          </div>
+          </div> */}
+
+          {vote && (
+            <div className="ShopAddressCard-info-detail-item flex items-center">
+              <Icon name={EIconName.StarFill} />
+              {vote}
+            </div>
+          )}
         </div>
         {favorited ? (
           <div className="ShopAddressCard-info-heart">
@@ -39,7 +65,12 @@ const ShopAddressCard: React.FC<TShopAddressCardProps> = ({ favorited }) => {
           </div>
         ) : (
           <div className="ShopAddressCard-info-btn flex">
-            <Button title="Xem chi tiết cửa hàng" size="small" styleType={EButtonStyleType.PRIMARY_TRANSPARENT} />
+            <Button
+              title="Xem chi tiết cửa hàng"
+              size="small"
+              styleType={EButtonStyleType.PRIMARY_TRANSPARENT}
+              onClick={handleNavigateLink}
+            />
           </div>
         )}
       </div>

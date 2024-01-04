@@ -26,7 +26,7 @@ export type TSelectProps = {
 
 export type TSelectOption = {
   label: React.ReactNode;
-  value: string;
+  value: string | number;
   data?: any;
   disabled?: boolean;
 };

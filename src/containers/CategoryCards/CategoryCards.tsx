@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from '@reach/router';
 import { Col, Row } from 'antd';
 import classNames from 'classnames';
@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Carousels from '@/components/Carousels';
 import ServiceCard from '@/components/ServiceCard';
-import { TSelectOption } from '@/components/Select';
 import Tags from '@/components/Tags';
 import GridBanners from '@/containers/GridBanners';
 
@@ -24,10 +23,14 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
   isGridList,
   primaryBackground,
   style,
+  valueTagsFilter,
+  onTagsFilterChange,
 }) => {
-  const [tagsValue, setTagsValue] = useState<TSelectOption | undefined>(tagsFilter?.[0]);
+  const isEmpty = data.length === 0;
 
-  return (
+  return isEmpty ? (
+    <></>
+  ) : (
     <div className={classNames('CategoryCards', { 'primary-background': primaryBackground })} style={style}>
       <div className="container">
         <div className="CategoryCards-wrapper">
@@ -55,11 +58,11 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
             </div>
           </div>
 
-          {gridBanners && <GridBanners {...gridBanners} />}
+          {gridBanners?.data && gridBanners.data.length > 0 && <GridBanners {...gridBanners} />}
 
           {tagsFilter && tagsFilter.length > 0 && (
             <div className="CategoryCards-tags">
-              <Tags value={tagsValue} options={tagsFilter} onChange={setTagsValue} />
+              <Tags value={valueTagsFilter} options={tagsFilter} onChange={onTagsFilterChange} />
             </div>
           )}
 

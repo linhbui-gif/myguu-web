@@ -10,6 +10,8 @@ export type TCategoryCardsProps = {
   title?: string;
   moreLink?: string;
   data?: any;
+  valueTagsFilter?: TSelectOption;
+  onTagsFilterChange?: (data: TSelectOption) => void;
   tagsFilter?: TSelectOption[];
   gridBanners?: TGridBannersProps;
   isGridList?: boolean;

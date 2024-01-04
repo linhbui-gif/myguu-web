@@ -16,6 +16,21 @@
 
   &-item {
     width: 11.5rem;
+    cursor: pointer;
+
+    &:hover {
+      .BookingServices-item {
+        &-icon {
+          &-image {
+            transform: scale(1.1);
+          }
+        }
+
+        &-title {
+          color: $tan-hide;
+        }
+      }
+    }
 
     &-icon {
       width: 11rem;
@@ -28,6 +43,7 @@
       &-image {
         width: 5.6rem;
         height: 5.6rem;
+        transition: $common-transition;
         @include centerOriginImage;
       }
     }
@@ -35,6 +51,7 @@
     &-title {
       font-size: 1.6rem;
       font-weight: 500;
+      transition: $common-transition;
       color: $emperor;
     }
   }
