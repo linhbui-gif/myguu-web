@@ -10,7 +10,7 @@ export type TUser = {
   introducer: unknown;
   name: string;
   phone: string;
-  rank: unknown;
+  rank: number;
   rank_config: TRank;
   ref: string;
   register_link: string;
@@ -139,4 +139,73 @@ export type TAlbum = {
   updated_at: string;
 };
 
-export type TVoucher = any;
+export type TVoucher = {
+  avatar: string;
+  banner: string;
+  code: string;
+  created_at: string;
+  description: string;
+  discount_money: number;
+  end_date: string;
+  exchange_gu: number;
+  id: number;
+  name: string;
+  order_money_min: number;
+  saved: boolean;
+  slug: string;
+  start_date: string;
+  store: TStore;
+  store_id: number;
+  title: string;
+  updated_at: string;
+  used: number;
+  used_limit: number;
+};
+
+export type TVote = {
+  comment: string;
+  created_at: string;
+  feedback: unknown;
+  id: number;
+  images: string[];
+  order: TOrder;
+  order_services: TOrderService[];
+  star: number;
+  updated_at: string;
+  user: TUser;
+};
+
+export type TOrder = {
+  id: number;
+  number_of_bookings: number;
+  date: string;
+  name: string;
+  process: string;
+  slug: string;
+};
+
+export type TOrderService = {
+  avatar: string;
+  banner: string[];
+  id: number;
+  price: number;
+  quantity: number;
+  service_id: number;
+  name: string;
+  slug: string;
+};
+
+export type TProvince = {
+  code: number;
+  lat: string;
+  lng: string;
+  name: string;
+};
+
+export type TDistrict = {
+  code: number;
+  lat: string;
+  lng: string;
+  name: string;
+  type: number;
+};

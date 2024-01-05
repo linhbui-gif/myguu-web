@@ -79,6 +79,8 @@ export enum EEmpty {
 export enum EFormat {
   'DD/MM/YYYY' = 'DD/MM/YYYY',
   'DD/MM/YYYY - HH:mm' = 'DD/MM/YYYY - HH:mm',
+  'DD-MM-YYYY' = 'DD-MM-YYYY',
+  'DD-MM-YYYY - HH:mm' = 'DD-MM-YYYY - HH:mm',
 }
 
 export enum ERole {
@@ -100,4 +102,10 @@ export enum EBannerScreen {
 export enum EBannerType {
   OVERVIEW = 'OVERVIEW',
   PROMINENT_PLACE = 'PROMINENT_PLACE',
+}
+
+export enum EVoucherType {
+  APP = 1,
+  STORE = 2,
+  OTHER = 3,
 }

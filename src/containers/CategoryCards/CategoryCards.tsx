@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from '@reach/router';
 import { Col, Row } from 'antd';
 import classNames from 'classnames';
@@ -27,6 +27,7 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
   onTagsFilterChange,
 }) => {
   const isEmpty = data.length === 0;
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
   return isEmpty ? (
     <></>
@@ -87,6 +88,7 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
                 slidesToShow={5}
                 arrows={false}
                 dots={false}
+                onDragging={setIsDragging}
                 responsive={[
                   {
                     breakpoint: 991,
@@ -111,7 +113,7 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
                 {data.map((item: any, index: number) => (
                   // eslint-disable-next-line react/no-array-index-key
                   <div key={index} className="CategoryCards-main-item">
-                    <ServiceCard {...item} />
+                    <ServiceCard {...item} link={!isDragging ? item.link : undefined} />
                   </div>
                 ))}
               </Carousels>

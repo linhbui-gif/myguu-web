@@ -58,6 +58,7 @@ const ServiceDetailCard: React.FC<TServiceDetailCardProps> = () => {
               address={serviceState?.store?.address}
               distance={serviceState?.store?.distance}
               vote={serviceState?.store?.vote}
+              voteNumber={serviceState?.store?.vote_number}
               moveTime={serviceState?.store?.move_time}
               link={Paths.ShopDetail(String(serviceState?.store?.id), String(serviceState?.store?.slug))}
             />

@@ -63,7 +63,7 @@ const Select: React.FC<TSelectProps> = ({
   };
 
   const handleChange = (changedValue: TSelectOption): void => {
-    const optionChanged = options.find((option) => option.value === changedValue.value);
+    const optionChanged = options.find((option) => option.value === changedValue?.value);
     onChange?.(optionChanged);
   };
 
@@ -109,7 +109,7 @@ const Select: React.FC<TSelectProps> = ({
             <Icon name={EIconName.AngleDown} color={EIconColor.HEATHER} />
           )
         }
-        clearIcon={<Icon name={EIconName.X} color={EIconColor.HEATHER} />}
+        clearIcon={<Icon name={EIconName.X} color={EIconColor.REGENT_GRAY} />}
       />
     </div>
   );

@@ -1,3 +1,5 @@
+import { TVote } from '@/common/models';
+import { TCommonResponse } from '@/common/types';
 import ApiService from '@/services/api';
 
 // TYPES
@@ -16,7 +18,9 @@ export type TGetServiceVotesMaterials = {
   params?: TGetServiceVotesParams;
 };
 
-export type TGetServiceVotesResponse = unknown;
+export type TGetServiceVotesResponse = TCommonResponse & {
+  data: TVote[];
+};
 
 // FUNCTION
 

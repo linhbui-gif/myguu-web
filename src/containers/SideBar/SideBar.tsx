@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { useSelector } from 'react-redux';
 import { Drawer } from 'antd';
+import { navigate, useLocation } from '@reach/router';
+import classNames from 'classnames';
 
 import Avatar from '@/components/Avatar';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button, { EButtonStyleType } from '@/components/Button';
+import { TRootState } from '@/redux/reducers';
 
 import { dataSidebarAccount, dataSidebarSetting } from './SideBar.data';
 import { TSideBarProps } from './SideBar.types.d';
@@ -13,13 +17,34 @@ import './SideBar.scss';
 const SideBar: React.FC<TSideBarProps> = () => {
   const [visibleMenuMobile, setVisibleMenuMobile] = useState<boolean>(false);
   const isTablet = useMediaQuery({ maxWidth: 991 });
+  const { pathname } = useLocation();
+
+  const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
+
+  const rankOptions = Object.keys(myProfileState?.rank_config || {}).map((key) => {
+    const dataRank = ((myProfileState?.rank_config || {}) as any)[key];
+    return {
+      value: dataRank?.value,
+      label: key,
+      data: dataRank,
+    };
+  });
 
   const menu = (
     <>
       <div className="SideBar-card">
         <div className="SideBar-card-wrapper">
           {dataSidebarAccount.map((item) => (
-            <div key={item.key} className="SideBar-card-item flex items-center">
+            <div
+              key={item.key}
+              className={classNames('SideBar-card-item flex items-center', {
+                active: (item?.activePaths as string[])?.includes(pathname),
+                disabled: item?.disabled,
+              })}
+              onClick={(): void => {
+                if (item.link && !item.disabled) navigate(item.link);
+              }}
+            >
               <div className="SideBar-card-item-icon">
                 <img src={item.icon} alt="" />
               </div>
@@ -35,7 +60,16 @@ const SideBar: React.FC<TSideBarProps> = () => {
       <div className="SideBar-card">
         <div className="SideBar-card-wrapper">
           {dataSidebarSetting.map((item) => (
-            <div key={item.key} className="SideBar-card-item flex items-center">
+            <div
+              key={item.key}
+              className={classNames('SideBar-card-item flex items-center', {
+                active: (item?.activePaths as string[])?.includes(pathname),
+                disabled: item?.disabled,
+              })}
+              onClick={(): void => {
+                if (item.link && !item.disabled) navigate(item.link);
+              }}
+            >
               <div className="SideBar-card-item-icon">
                 <img src={item.icon} alt="" />
               </div>
@@ -65,11 +99,13 @@ const SideBar: React.FC<TSideBarProps> = () => {
       )}
       <div className="SideBar-card flex items-center">
         <div className="SideBar-card-avatar">
-          <Avatar />
+          <Avatar image={myProfileState?.avatar} />
         </div>
         <div className="SideBar-card-info">
-          <div className="SideBar-card-title">Trần Minh Vũ</div>
-          <div className="SideBar-card-description">Hội viên Vàng</div>
+          <div className="SideBar-card-title">{myProfileState?.name}</div>
+          <div className="SideBar-card-description capitalize">
+            Hạng: {rankOptions.find((item) => Number(item.value) === myProfileState?.rank)?.label || 'Chưa có'}
+          </div>
         </div>
         <div className="SideBar-card-setting flex items-center" style={{ marginLeft: 'auto', columnGap: '.4rem' }}>
           <Icon className="cursor-pointer" name={EIconName.Setting} color={EIconColor.ALUMINIUM} />

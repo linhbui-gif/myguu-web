@@ -46,7 +46,7 @@ export const Paths = {
   Home: '/',
   ShopDetail: (id?: string, slug?: string): string => `/cua-hang/${slug || ':slug'}/${id || ':id'}`,
   ServiceDetail: (id?: string, slug?: string): string => `/dich-vu/${slug || ':slug'}/${id || ':id'}`,
-  Category: (id?: string): string => `/danh-muc/${id || ':id'}`,
+  Category: (id?: string, slug?: string): string => `/danh-muc/${slug || ':slug'}/${id || ':id'}`,
   Search: '/tim-kiem',
   Booking: '/dat-lich',
   MySchedules: '/lich-cua-toi',

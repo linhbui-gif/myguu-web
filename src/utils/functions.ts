@@ -6,6 +6,8 @@ import moment, { Moment } from 'moment';
 
 import { EFormat, ETypeNotification } from '@/common/enums';
 import { REGEX } from '@/common/constants';
+import ApiService from '@/services/api';
+import env from '@/env';
 
 export const removeAccents = (str: string): string => {
   let strConverted = str;
@@ -362,4 +364,13 @@ export const getRangeMomentBetweenTwoDate = (
     range.push(moment(startDate).add(i, type as any));
   }
   return range;
+};
+
+export const uploadSingleFile = async (file: File): Promise<string> => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await ApiService.post(`${env.api.baseUrl.service}/user/upload-file`, formData);
+
+  return response?.data?.data?.download_link;
 };

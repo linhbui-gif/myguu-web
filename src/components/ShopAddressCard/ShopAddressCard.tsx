@@ -3,6 +3,7 @@ import { navigate } from '@reach/router';
 
 import Button, { EButtonStyleType } from '@/components/Button';
 import Icon, { EIconName, EIconColor } from '@/components/Icon';
+import { formatCurrency } from '@/utils/functions';
 
 import { TShopAddressCardProps } from './ShopAddressCard.types.d';
 import './ShopAddressCard.scss';
@@ -13,8 +14,11 @@ const ShopAddressCard: React.FC<TShopAddressCardProps> = ({
   address,
   distance,
   vote,
+  voteNumber,
   favorited,
   link,
+  retailPrice,
+  sellingPrice,
 }) => {
   const handleNavigateLink = (): void => {
     if (link) navigate(link);
@@ -27,10 +31,27 @@ const ShopAddressCard: React.FC<TShopAddressCardProps> = ({
         <div className="ShopAddressCard-info-title capitalize" onClick={handleNavigateLink}>
           {title}
         </div>
-        <div className="ShopAddressCard-info-description flex items-center capitalize">
-          <Icon name={EIconName.House} color={EIconColor.REGENT_GRAY} />
-          {address}
-        </div>
+
+        {address && (
+          <div className="ShopAddressCard-info-description flex items-center capitalize">
+            <Icon name={EIconName.House} color={EIconColor.REGENT_GRAY} />
+            {address}
+          </div>
+        )}
+
+        {(typeof retailPrice === 'number' || typeof sellingPrice === 'number') && (
+          <div className="ShopAddressCard-info-description price flex items-center flex-wrap">
+            {formatCurrency({
+              amount: (typeof sellingPrice === 'number' ? sellingPrice : retailPrice) || 0,
+              showSuffix: true,
+            })}
+
+            {typeof retailPrice === 'number' && typeof sellingPrice === 'number' && (
+              <del>{formatCurrency({ amount: retailPrice, showSuffix: true })}</del>
+            )}
+          </div>
+        )}
+
         <div className="ShopAddressCard-info-detail flex items-center">
           {distance && (
             <div className="ShopAddressCard-info-detail-item flex items-center">
@@ -39,9 +60,11 @@ const ShopAddressCard: React.FC<TShopAddressCardProps> = ({
             </div>
           )}
 
-          <div className="ShopAddressCard-info-detail-item flex items-center">
-            <Icon name={EIconName.Chat} color={EIconColor.REGENT_GRAY} /> 0
-          </div>
+          {voteNumber && (
+            <div className="ShopAddressCard-info-detail-item flex items-center">
+              <Icon name={EIconName.Chat} color={EIconColor.REGENT_GRAY} /> {voteNumber}
+            </div>
+          )}
 
           {vote && (
             <div className="ShopAddressCard-info-detail-item flex items-center">
@@ -50,6 +73,7 @@ const ShopAddressCard: React.FC<TShopAddressCardProps> = ({
             </div>
           )}
         </div>
+
         {favorited ? (
           <div className="ShopAddressCard-info-heart">
             <Icon name={EIconName.Heart} color={EIconColor.POMEGRANATE} />

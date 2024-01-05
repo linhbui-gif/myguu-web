@@ -56,7 +56,12 @@
       cursor: pointer;
       transition: $common-transition;
 
-      &:hover,
+      &.disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+      }
+
+      &:not(.disabled):hover,
       &.active {
         background: $white-lilac;
       }

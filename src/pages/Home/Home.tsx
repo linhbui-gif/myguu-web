@@ -153,7 +153,7 @@ const Home: React.FC = () => {
         primaryBackground
         headerIcon={EIconName.Lightning}
         headerIconColor={EIconColor.WHITE}
-        moreLink={(servicesDealHotState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        moreLink={(servicesDealHotState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
         data={servicesDealHotState?.data?.map((item) => ({
           link: Paths.ServiceDetail(String(item.id), item.slug),
           border: true,
@@ -175,7 +175,7 @@ const Home: React.FC = () => {
           setGetStoresNearByParamsRequest({ ...getStoresNearByParamsRequest, categoryId: Number(option.value) })
         }
         tagsFilter={categoriesOptions}
-        moreLink={(storesNearByState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        moreLink={(storesNearByState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
         data={storesNearByState?.data?.map((item) => ({
           link: Paths.ShopDetail(String(item.id), item.slug),
           title: item.name,
@@ -188,7 +188,7 @@ const Home: React.FC = () => {
       />
       <CategoryCards
         title="Đề xuất cho bạn"
-        moreLink={(servicesProposeForYouState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        moreLink={(servicesProposeForYouState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
         data={servicesProposeForYouState?.data?.map((item) => ({
           border: true,
           link: Paths.ServiceDetail(String(item.id), item.slug),
@@ -205,7 +205,7 @@ const Home: React.FC = () => {
       />
       <CategoryCards
         title="Make-up tại nhà"
-        moreLink={(storesMakeupAtHomeState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        moreLink={(storesMakeupAtHomeState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
         data={storesMakeupAtHomeState?.data?.map((item) => ({
           link: Paths.ShopDetail(String(item.id), item.slug),
           title: item.name,
@@ -233,7 +233,7 @@ const Home: React.FC = () => {
           })
         }
         tagsFilter={categoriesOptions}
-        moreLink={(storesProminentPlaceState?.paging?.pageCount || 0) > 1 ? Paths.Category('1') : undefined}
+        moreLink={(storesProminentPlaceState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
         data={storesProminentPlaceState?.data?.map((item) => ({
           link: Paths.ShopDetail(String(item.id), item.slug),
           border: true,

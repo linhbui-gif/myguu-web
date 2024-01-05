@@ -2,10 +2,10 @@ import React from 'react';
 
 import Button, { EButtonStyleType } from '@/components/Button';
 import ImageService from '@/assets/images/image-service-card-4.png';
+import { EIconColor } from '@/components/Icon';
 
 import { TScheduleCardProps } from './ScheduleCard.types.d';
 import './ScheduleCard.scss';
-import { EIconColor } from '@/components/Icon';
 
 const ScheduleCard: React.FC<TScheduleCardProps> = () => {
   return (

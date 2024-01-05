@@ -67,6 +67,7 @@
       width: 3.2rem;
       border-radius: .4rem;
       overflow: hidden;
+      background: $alto;
       @include centerScaleImage;
     }
   }

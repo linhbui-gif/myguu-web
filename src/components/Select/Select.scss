@@ -5,12 +5,12 @@
     margin-top: 0;
     width: unset;
     height: unset;
-    right: 1rem;
     transform: translateY(-50%);
+    right: 1.6rem;
 
     .Icon {
-      width: 2rem;
-      height: 2rem;
+      width: 1.6rem;
+      height: 1.6rem;
     }
   }
 
@@ -38,7 +38,7 @@
       color: $mine-shaft;
 
       .ant-select-selection-search {
-        left: 1.6rem;
+        left: 1.2rem;
         right: 4.4rem;
 
         &-input {
@@ -53,6 +53,15 @@
     }
 
     &.ant-select-lg {
+
+      .ant-select-clear {
+        right: 1rem;
+
+        .Icon {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
 
       .ant-select-selection-item,
       .ant-select-selection-placeholder {
@@ -71,6 +80,11 @@
         font-size: 1.5rem;
         height: 4.8rem;
         padding: .4rem 1.6rem;
+
+        .ant-select-selection-search {
+          left: 1.6rem;
+          right: 4.4rem;
+        }
       }
     }
 

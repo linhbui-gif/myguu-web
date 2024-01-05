@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useParams } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,20 +11,15 @@ import Breadcrumb from '@/components/Breadcrumb';
 import ServiceDetailCard from '@/pages/ServiceDetail/ServiceDetailCard';
 import { getServiceAction, getServiceVotesAction, getServicesByStoreAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/constants';
+import { DEFAULT_PAGE } from '@/common/constants';
 
 const ServiceDetail: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const [getServiceVotesParamsRequest, setGetServiceVotesParamsRequest] = useState({
-    page: DEFAULT_PAGE,
-    limit: DEFAULT_PAGE_SIZE,
-    id,
-  });
-
   const serviceState = useSelector((state: TRootState) => state.serviceReducer.getServiceResponse)?.data;
   const serviceVotesState = useSelector((state: TRootState) => state.serviceReducer.getServiceVotesResponse);
+
   const servicesByStoreState = useSelector(
     (state: TRootState) => state.serviceReducer.getServicesByStoreResponse,
   )?.data;
@@ -38,7 +33,7 @@ const ServiceDetail: React.FC = () => {
     {
       key: 'review',
       title: 'Đánh giá dịch vụ',
-      children: <Reviews />,
+      children: <Reviews dataVoteState={serviceVotesState} />,
     },
   ];
 
@@ -47,8 +42,8 @@ const ServiceDetail: React.FC = () => {
   }, [id, dispatch]);
 
   const getServiceVotes = useCallback(() => {
-    if (id) dispatch(getServiceVotesAction.request({ paths: { id }, params: getServiceVotesParamsRequest }));
-  }, [dispatch, id, getServiceVotesParamsRequest]);
+    if (id) dispatch(getServiceVotesAction.request({ paths: { id }, params: { page: DEFAULT_PAGE, limit: 100 } }));
+  }, [dispatch, id]);
 
   const getServicesByStore = useCallback(() => {
     if (serviceState?.store?.id) {

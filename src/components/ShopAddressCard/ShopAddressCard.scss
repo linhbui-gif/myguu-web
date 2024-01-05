@@ -48,6 +48,16 @@
       color: $regent-gray;
       margin-bottom: .6rem;
 
+      &.price {
+        color: $pomegranate;
+        font-weight: 600;
+
+        del {
+          font-size: 1rem;
+          color: $regent-gray;
+        }
+      }
+
       .Icon {
         flex: 0 0 1.6rem;
         max-width: 1.6rem;

@@ -45,6 +45,7 @@ const Header: React.FC<THeaderProps> = () => {
   const handleLogoutSuccess = (): void => {
     Helpers.clearTokens();
     dispatch(getMyProfileAction.success(undefined));
+    navigate(Paths.Home);
   };
 
   const renderSearchDropdown = <SearchDropdown />;

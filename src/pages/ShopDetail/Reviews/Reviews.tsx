@@ -8,7 +8,7 @@ import { TRootState } from '@/redux/reducers';
 import { TReviewsProps } from './Reviews.types';
 import './Reviews.scss';
 
-const Reviews: React.FC<TReviewsProps> = () => {
+const Reviews: React.FC<TReviewsProps> = ({ dataVoteState }) => {
   const servicesByStoreState = useSelector(
     (state: TRootState) => state.serviceReducer.getServicesByStoreResponse,
   )?.data;
@@ -16,7 +16,7 @@ const Reviews: React.FC<TReviewsProps> = () => {
   return (
     <div className="Reviews">
       <div className="container">
-        <ReviewsList style={{ marginTop: '1.6rem' }} />
+        <ReviewsList dataVoteState={dataVoteState} style={{ marginTop: '1.6rem' }} />
       </div>
 
       {servicesByStoreState?.map((category, categoryIndex) => {

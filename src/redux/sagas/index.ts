@@ -1,5 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
 
+import addressSaga from './address';
 import authSaga from './auth';
 import bannerSaga from './banner';
 import categorySaga from './category';
@@ -10,6 +11,7 @@ import voucherSaga from './voucher';
 
 const rootSaga = function* root(): Generator {
   yield all([
+    fork(addressSaga),
     fork(authSaga),
     fork(bannerSaga),
     fork(categorySaga),

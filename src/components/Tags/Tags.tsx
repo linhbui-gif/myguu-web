@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import Icon from '@/components/Icon';
@@ -8,6 +8,8 @@ import { TTagsProps } from './Tags.types.d';
 import './Tags.scss';
 
 const Tags: React.FC<TTagsProps> = ({ value, onChange, shape, carousel, size, options = [] }) => {
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
   const renderTagItems = options.map((item) => (
     <div key={item.value}>
       <div
@@ -15,7 +17,9 @@ const Tags: React.FC<TTagsProps> = ({ value, onChange, shape, carousel, size, op
           active: value?.value === item?.value,
           reverse: item?.data?.reverse,
         })}
-        onClick={(): void => onChange?.(item)}
+        onClick={(): void => {
+          if (!isDragging) onChange?.(item);
+        }}
       >
         {item?.data?.iconName && (
           <div className="Tags-item-icon">
@@ -29,7 +33,7 @@ const Tags: React.FC<TTagsProps> = ({ value, onChange, shape, carousel, size, op
 
   return carousel ? (
     <div className="Tags">
-      <Carousels infinite={false} variableWidth dots={false} arrows={false}>
+      <Carousels infinite={false} variableWidth dots={false} arrows={false} onDragging={setIsDragging}>
         {renderTagItems}
       </Carousels>
     </div>

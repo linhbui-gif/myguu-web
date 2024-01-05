@@ -1,3 +1,5 @@
+import { EVoucherType } from '@/common/enums';
+
 /* eslint-disable no-useless-escape */
 export const REGEX = {
   email:
@@ -12,3 +14,9 @@ export const REGEX = {
 
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE = 10;
+
+export const dataVoucherTypeOptions = [
+  { value: EVoucherType.APP, label: 'Voucher Sàn' },
+  { value: EVoucherType.STORE, label: 'Voucher Shop' },
+  { value: EVoucherType.OTHER, label: 'Voucher Đổi Thưởng' },
+];

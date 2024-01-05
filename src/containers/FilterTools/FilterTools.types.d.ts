@@ -1,1 +1,4 @@
-export type TFilterToolsProps = unknown;
+export type TFilterToolsProps = {
+  paramsRequest?: any;
+  onFilterChange?: (data: any) => void;
+};

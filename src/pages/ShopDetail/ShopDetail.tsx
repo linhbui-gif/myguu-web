@@ -28,6 +28,7 @@ const ShopDetail: React.FC = () => {
   const { id } = useParams();
 
   const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
+  const storeVotesState = useSelector((state: TRootState) => state.storeReducer.getStoreVotesResponse);
 
   const {
     options: albumsOptions,
@@ -84,7 +85,7 @@ const ShopDetail: React.FC = () => {
     {
       key: 'review',
       title: 'Đánh Giá',
-      children: <Reviews />,
+      children: <Reviews dataVoteState={storeVotesState} />,
     },
   ];
 

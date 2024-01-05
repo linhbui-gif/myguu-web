@@ -26,9 +26,15 @@ const Vouchers: React.FC<TVouchersProps> = () => {
       <div className="container">
         <div className="Vouchers-wrapper">
           <Row gutter={[24, 24]}>
-            {[1, 2, 3, 4].map((item) => (
-              <Col key={item} span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-                <Ticket onClick={handleOpenModalTicketDetail} />
+            {vouchersByStoreState?.map((item) => (
+              <Col key={item.id} span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                <Ticket
+                  image={item?.avatar}
+                  subtitle={item?.store?.name}
+                  title={item?.name}
+                  endDate={item?.end_date}
+                  onClick={(): void => handleOpenModalTicketDetail(item)}
+                />
               </Col>
             ))}
           </Row>

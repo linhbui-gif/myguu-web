@@ -25,7 +25,7 @@ const Footer: React.FC<TFooterProps> = () => {
   ];
 
   const dataServicesLink = categoriesState?.map((item) => ({
-    link: Paths.Category(item.slug),
+    link: Paths.Category(String(item.id), item.slug),
     title: item.name,
   }));
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Collapse } from 'antd';
 import classNames from 'classnames';
 
@@ -12,6 +12,8 @@ import './CollapseCards.scss';
 const { Panel } = Collapse;
 
 const CollapseCards: React.FC<TCollapseCardsProps> = ({ data = [], herotitle, title, style }) => {
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
   const isEmpty = data.length === 0;
 
   return isEmpty ? (
@@ -52,6 +54,7 @@ const CollapseCards: React.FC<TCollapseCardsProps> = ({ data = [], herotitle, ti
                   slidesToShow={5}
                   arrows={false}
                   dots={false}
+                  onDragging={setIsDragging}
                   responsive={[
                     {
                       breakpoint: 991,
@@ -76,7 +79,7 @@ const CollapseCards: React.FC<TCollapseCardsProps> = ({ data = [], herotitle, ti
                   {data.map((item: any, index: number) => (
                     // eslint-disable-next-line react/no-array-index-key
                     <div key={index} className="CategoryCards-main-item">
-                      <ServiceCard {...item} />
+                      <ServiceCard {...item} link={!isDragging ? item.link : undefined} />
                     </div>
                   ))}
                 </Carousels>

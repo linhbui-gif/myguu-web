@@ -15,7 +15,7 @@ export type TGetVouchersByStoreMaterials = {
 };
 
 export type TGetVouchersByStoreResponse = TCommonResponse & {
-  data: TVoucher;
+  data: TVoucher[];
 };
 
 // FUNCTION

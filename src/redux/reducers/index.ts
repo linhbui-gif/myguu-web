@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { loadingReducer, errorReducer, successReducer } from './status';
+import addressReducer from './address';
 import authReducer from './auth';
 import bannerReducer from './banner';
 import categoryReducer from './category';
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   loadingReducer,
   errorReducer,
   successReducer,
+  addressReducer,
   authReducer,
   bannerReducer,
   categoryReducer,

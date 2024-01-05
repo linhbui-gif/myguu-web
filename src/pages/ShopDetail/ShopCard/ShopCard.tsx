@@ -26,15 +26,15 @@ const ShopCard: React.FC<TShopCardProps> = () => {
                 <h2 className="ShopCard-info-title">{storeState?.name}</h2>
                 <div className="ShopCard-info-detail flex items-center">
                   <div className="ShopCard-info-detail-item flex items-center">
-                    <Icon name={EIconName.Chat} color={EIconColor.REGENT_GRAY} /> 0
+                    <Icon name={EIconName.Chat} color={EIconColor.REGENT_GRAY} /> {storeState?.vote_number || 0}
                   </div>
 
                   <div className="ShopCard-info-detail-item flex items-center">
-                    <Icon name={EIconName.Heart} color={EIconColor.POMEGRANATE} /> {storeState?.like_number}
+                    <Icon name={EIconName.Heart} color={EIconColor.POMEGRANATE} /> {storeState?.like_number || 0}
                   </div>
 
                   <div className="ShopCard-info-detail-item flex items-center">
-                    <Icon name={EIconName.StarFill} /> {storeState?.vote}
+                    <Icon name={EIconName.StarFill} /> {storeState?.vote || 0}
                   </div>
                 </div>
               </div>
