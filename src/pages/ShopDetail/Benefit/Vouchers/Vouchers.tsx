@@ -1,17 +1,27 @@
 import React from 'react';
 import { Col, Row } from 'antd';
+import { useSelector } from 'react-redux';
 
 import Ticket from '@/components/Ticket';
 import ModalTicketDetail from '@/containers/ModalTicketDetail';
 import { useModalState } from '@/utils/hooks';
+import { TRootState } from '@/redux/reducers';
 
 import { TVouchersProps } from './Vouchers.types';
 import './Vouchers.scss';
 
 const Vouchers: React.FC<TVouchersProps> = () => {
+  const vouchersByStoreState = useSelector(
+    (state: TRootState) => state.voucherReducer.getVouchersByStoreResponse,
+  )?.data;
+
   const [modalTicketDetailState, handleOpenModalTicketDetail, handleCloseModalTicketDetail] = useModalState();
 
-  return (
+  const isEmpty = vouchersByStoreState?.length === 0;
+
+  return isEmpty ? (
+    <></>
+  ) : (
     <div className="Vouchers">
       <div className="container">
         <div className="Vouchers-wrapper">

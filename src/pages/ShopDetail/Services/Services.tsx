@@ -1,50 +1,37 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-import CategoryCards from '@/containers/CategoryCards';
-import { EIconColor, EIconName } from '@/components/Icon';
 import CollapseCards from '@/containers/CollapseCards';
+import { TRootState } from '@/redux/reducers';
 
 import { TServicesProps } from './Services.types';
 import './Services.scss';
 
 const Services: React.FC<TServicesProps> = () => {
+  const servicesByStoreState = useSelector(
+    (state: TRootState) => state.serviceReducer.getServicesByStoreResponse,
+  )?.data;
+
   return (
     <div className="Services">
-      <CategoryCards
-        style={{ margin: '-2.4rem 0 -1.6rem' }}
-        title="Deal Hot"
-        primaryBackground
-        headerIcon={EIconName.Lightning}
-        headerIconColor={EIconColor.WHITE}
-        data={[
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { border: true, subtitle: 'Lộc hương Spa', discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-        ]}
-      />
-      <CollapseCards
-        title="Trang điểm"
-        data={[
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-        ]}
-      />
-      <CollapseCards
-        style={{ marginBottom: '2.4rem' }}
-        title="Gội đầu"
-        data={[
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-          { showQuantity: true, discountPercent: 27, sellingPrice: 2250000, retailPrice: 2500000 },
-        ]}
-      />
+      {servicesByStoreState?.map((category, categoryIndex) => {
+        const isFirstItem = categoryIndex === 0;
+
+        return (
+          <CollapseCards
+            style={isFirstItem ? { marginTop: '3.2rem' } : undefined}
+            title={category?.name}
+            data={category?.services?.map((item) => ({
+              showQuantity: true,
+              title: item.name,
+              image: item?.banner?.[0],
+              discountPercent: item.discount_percent,
+              sellingPrice: item.discount_price,
+              retailPrice: item.price,
+            }))}
+          />
+        );
+      })}
     </div>
   );
 };

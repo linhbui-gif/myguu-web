@@ -93,5 +93,50 @@ export type TStore = {
   updated_at: string;
   vote: number;
   vote_number: number;
+  description: string;
+  ward_code: number;
+  experts: TExpert[];
+  start_time_week: string;
+  start_time_weekend: string;
+  end_time_week: string;
+  end_time_weekend: string;
+  branches: TBranch[];
+};
+
+export type TExpert = {
+  avatar: string;
+  id: number;
+  name: string;
+  role: string;
+  slug: string;
+};
+
+export type TBranch = {
+  address: string;
+  created_at: string;
+  district_code: number;
+  id: number;
+  lat: number;
+  lng: number;
+  location: { x: number; y: number };
+  name: string;
+  phone: string;
+  province_code: number;
+  slug: string;
+  store_id: number;
+  type: number;
+  updated_at: string;
   ward_code: number;
 };
+
+export type TAlbum = {
+  banner: string;
+  created_at: string;
+  id: number;
+  image_number: number;
+  name: string;
+  slug: string;
+  updated_at: string;
+};
+
+export type TVoucher = any;

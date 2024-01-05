@@ -4,7 +4,11 @@ import ApiService from '@/services/api';
 
 // TYPES
 
-export type TGetServicesByStoreParams = unknown;
+export type TGetServicesByStoreParams = {
+  store_id?: number;
+  page?: number;
+  limit?: number;
+};
 
 export type TGetServicesByStoreMaterials = {
   params?: TGetServicesByStoreParams;

@@ -43,7 +43,7 @@ const ServiceCard: React.FC<TServiceCardProps> = ({
 
       <div className="ServiceCard-info">
         {subtitle && (
-          <h5 className="ServiceCard-description ellipsis-1" style={{ marginBottom: '0rem' }}>
+          <h5 className="ServiceCard-description ellipsis-1 capitalize" style={{ marginBottom: '0rem' }}>
             {subtitle}
           </h5>
         )}
@@ -56,7 +56,7 @@ const ServiceCard: React.FC<TServiceCardProps> = ({
           )}
 
           {title && (
-            <h4 className="ServiceCard-title cursor-pointer ellipsis-1" onClick={handleNavigateLink}>
+            <h4 className="ServiceCard-title cursor-pointer ellipsis-1 capitalize" onClick={handleNavigateLink}>
               {title}
             </h4>
           )}

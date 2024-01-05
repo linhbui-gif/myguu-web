@@ -36,7 +36,7 @@ const CollapseCards: React.FC<TCollapseCardsProps> = ({ data = [], herotitle, ti
               header={
                 <div className="CollapseCards-header flex items-center justify-between">
                   <div className="CollapseCards-header-item">
-                    <h4 className="CollapseCards-header-title">{title}</h4>
+                    <h4 className="CollapseCards-header-title capitalize">{title}</h4>
                   </div>
                   <div className="CollapseCards-header-item flex items-center">
                     <strong>{data.length}</strong>

@@ -1,4 +1,12 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-shadow */
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/constants';
+import { TCommonResponse } from '@/common/types';
+import { TSelectOption } from '@/components/Select';
+import { TRootState } from '@/redux/reducers';
+import { getTotalPage } from '@/utils/functions';
 
 type TScroll = {
   x: number;
@@ -81,4 +89,113 @@ export const useModalState = (): [
   };
 
   return [modalState, handleOpenModal, handleCloseModal];
+};
+
+export const usePaginationLoadMoreOptionTool = (data: {
+  actions: any;
+  reducer: string;
+  response: string;
+  loadingAction: string;
+  initialParams?: { [key: string]: any };
+  initialPaths?: { [key: string]: any };
+  availableToCall?: boolean;
+}): {
+  paramsRequest: {
+    page: number;
+    limit: number;
+    [key: string]: any;
+  };
+  state: TCommonResponse & { data: any };
+  options: TSelectOption[];
+  loading?: boolean;
+  isLoadMore?: boolean;
+  setOptions: (data: TSelectOption[]) => void;
+  setParamsRequest: (data: any) => void;
+  handleReset: () => void;
+  handleLoadMore: () => void;
+  handleSearch: (keyword?: string) => void;
+} => {
+  const dispatch = useDispatch();
+
+  const state = useSelector((state: any) => state?.[data?.reducer]?.[data.response]);
+  const total = state?.paging?.total;
+
+  const loading = useSelector((state: TRootState) => state.loadingReducer[data?.loadingAction]);
+
+  const [options, setOptions] = useState<TSelectOption[]>([]);
+  const [paramsRequest, setParamsRequest] = useState<{
+    page: number;
+    limit: number;
+    [key: string]: any;
+  }>({
+    page: DEFAULT_PAGE,
+    limit: DEFAULT_PAGE_SIZE,
+    ...data?.initialParams,
+  });
+
+  const isLoadMore = paramsRequest.page < getTotalPage(total, paramsRequest.limit);
+
+  const handleSearch = (keyword?: string): void => {
+    setParamsRequest({
+      ...paramsRequest,
+      page: DEFAULT_PAGE,
+      search: keyword || undefined,
+    });
+  };
+
+  const handleLoadMore = (): void => {
+    if (!loading && isLoadMore) {
+      setParamsRequest({
+        ...paramsRequest,
+        page: paramsRequest.page + 1,
+      });
+    }
+  };
+
+  const handleReset = (): void => {
+    setParamsRequest({
+      page: DEFAULT_PAGE,
+      limit: DEFAULT_PAGE_SIZE,
+    });
+  };
+
+  const getData = useCallback(() => {
+    const typeIsBoolean = typeof data?.availableToCall === 'boolean';
+
+    if (!typeIsBoolean || (typeIsBoolean && data?.availableToCall)) {
+      dispatch(
+        data?.actions?.request(
+          { params: paramsRequest, paths: { ...data?.initialPaths } },
+          (fetchingResponse: any): void => {
+            const isFirstFetching = paramsRequest.page === DEFAULT_PAGE;
+            const dataFetching = fetchingResponse?.data?.map((item: any) => ({
+              value: item.id,
+              label: item.name,
+              data: item,
+            }));
+
+            setOptions(isFirstFetching ? dataFetching : [...options, ...dataFetching]);
+          },
+        ),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, paramsRequest, data?.availableToCall]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
+  return {
+    options,
+    loading,
+    paramsRequest,
+    state,
+    isLoadMore,
+    setOptions,
+    setParamsRequest,
+    handleReset,
+    handleLoadMore,
+    handleSearch,
+  };
 };

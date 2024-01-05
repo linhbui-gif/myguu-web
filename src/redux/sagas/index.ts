@@ -6,9 +6,18 @@ import categorySaga from './category';
 import serviceSaga from './service';
 import storeSaga from './store';
 import userSaga from './user';
+import voucherSaga from './voucher';
 
 const rootSaga = function* root(): Generator {
-  yield all([fork(authSaga), fork(bannerSaga), fork(categorySaga), fork(serviceSaga), fork(storeSaga), fork(userSaga)]);
+  yield all([
+    fork(authSaga),
+    fork(bannerSaga),
+    fork(categorySaga),
+    fork(serviceSaga),
+    fork(storeSaga),
+    fork(userSaga),
+    fork(voucherSaga),
+  ]);
 };
 
 export default rootSaga;

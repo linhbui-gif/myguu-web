@@ -8,6 +8,7 @@ import serviceReducer from './service';
 import storeReducer from './store';
 import uiReducer from './ui';
 import userReducer from './user';
+import voucherReducer from './voucher';
 
 const rootReducer = combineReducers({
   loadingReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   storeReducer,
   uiReducer,
   userReducer,
+  voucherReducer,
 });
 
 export default rootReducer;

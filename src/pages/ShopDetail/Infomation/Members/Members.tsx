@@ -1,22 +1,28 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import Avatar from '@/components/Avatar';
-import ImageAvatar from '@/assets/images/image-avatar.png';
+import { TRootState } from '@/redux/reducers';
 
 import { TMembersProps } from './Members.types';
 import './Members.scss';
 
 const Members: React.FC<TMembersProps> = () => {
-  return (
+  const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
+  const isEmpty = storeState?.experts?.length === 0;
+
+  return isEmpty ? (
+    <></>
+  ) : (
     <div className="Members">
       <h5 className="Infomation-title">Đội ngũ chuyên gia</h5>
       <div className="Members-list flex flex-wrap">
-        {[1, 2, 3, 4, 5].map((item) => (
-          <div key={item} className="Members-list-item">
+        {storeState?.experts.map((item) => (
+          <div key={item.id} className="Members-list-item">
             <div className="Members-list-item-avatar">
-              <Avatar image={ImageAvatar} />
+              <Avatar image={item?.avatar} />
             </div>
-            <div className="Members-list-item-title">Jaquon</div>
+            <div className="Members-list-item-title">{item.name}</div>
           </div>
         ))}
       </div>

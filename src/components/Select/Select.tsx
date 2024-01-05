@@ -8,7 +8,7 @@ import { ETimeoutDebounce } from '@/common/enums';
 import WrapperLazyLoad from '@/components/WrapperLazyLoad';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 
-import { TSelectProps } from './Select.types';
+import { TSelectOption, TSelectProps } from './Select.types';
 import './Select.scss';
 
 const Select: React.FC<TSelectProps> = ({
@@ -62,6 +62,11 @@ const Select: React.FC<TSelectProps> = ({
     }
   };
 
+  const handleChange = (changedValue: TSelectOption): void => {
+    const optionChanged = options.find((option) => option.value === changedValue.value);
+    onChange?.(optionChanged);
+  };
+
   const handleClear = (): void => {
     onChange?.(undefined);
   };
@@ -91,7 +96,7 @@ const Select: React.FC<TSelectProps> = ({
         searchValue={keyword}
         dropdownClassName={classNames('Select-dropdown', dropdownClassName)}
         getPopupContainer={(trigger: HTMLElement): HTMLElement => trigger}
-        onChange={onChange}
+        onChange={handleChange}
         onClear={handleClear}
         dropdownRender={dropdownRender}
         disabled={disabled}

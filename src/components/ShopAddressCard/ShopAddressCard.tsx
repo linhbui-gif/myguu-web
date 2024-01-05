@@ -11,7 +11,6 @@ const ShopAddressCard: React.FC<TShopAddressCardProps> = ({
   image,
   title,
   address,
-  moveTime,
   distance,
   vote,
   favorited,
@@ -33,13 +32,6 @@ const ShopAddressCard: React.FC<TShopAddressCardProps> = ({
           {address}
         </div>
         <div className="ShopAddressCard-info-detail flex items-center">
-          {moveTime && (
-            <div className="ShopAddressCard-info-detail-item flex items-center">
-              <Icon name={EIconName.Location} color={EIconColor.REGENT_GRAY} />
-              {moveTime} phút
-            </div>
-          )}
-
           {distance && (
             <div className="ShopAddressCard-info-detail-item flex items-center">
               <Icon name={EIconName.Location} color={EIconColor.REGENT_GRAY} />
@@ -47,10 +39,9 @@ const ShopAddressCard: React.FC<TShopAddressCardProps> = ({
             </div>
           )}
 
-          {/* <div className="ShopAddressCard-info-detail-item flex items-center">
-            <Icon name={EIconName.Chat} color={EIconColor.REGENT_GRAY} />
-            15
-          </div> */}
+          <div className="ShopAddressCard-info-detail-item flex items-center">
+            <Icon name={EIconName.Chat} color={EIconColor.REGENT_GRAY} /> 0
+          </div>
 
           {vote && (
             <div className="ShopAddressCard-info-detail-item flex items-center">

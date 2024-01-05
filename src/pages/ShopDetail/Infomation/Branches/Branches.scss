@@ -5,6 +5,11 @@
 
   &-select {
     margin-bottom: 1.6rem;
+
+    .ant-select-selection-item,
+    .ant-select-item {
+      text-transform: capitalize;
+    }
   }
 
   &-map {
@@ -22,6 +27,7 @@
       border-radius: 2.4rem;
       background: $white;
       box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.16);
+      text-transform: capitalize;
 
       .Icon {
         width: 1.6rem;
