@@ -17,7 +17,9 @@ const AppDownload: React.FC<TAppDownloadProps> = () => {
           </div>
           <div className="AppDownload-info flex items-center">
             <div className="AppDownload-info-item">
-              <h4 className="AppDownload-info-title">Tải App Myguu Tại Đây:</h4>
+              <h4 className="AppDownload-info-title">
+                Tải App <span>Myguu</span> Tại Đây:
+              </h4>
               <p className="AppDownload-info-description">
                 User tải app Myguu trên Apple Store và CH Play hoặc bằng mã QR do cửa hàng cung cấp
               </p>

@@ -13,6 +13,7 @@ import { TRootState } from '@/redux/reducers';
 import { dataSidebarAccount, dataSidebarSetting } from './SideBar.data';
 import { TSideBarProps } from './SideBar.types.d';
 import './SideBar.scss';
+import { LayoutPaths, Paths } from '@/pages/routers';
 
 const SideBar: React.FC<TSideBarProps> = () => {
   const [visibleMenuMobile, setVisibleMenuMobile] = useState<boolean>(false);
@@ -108,7 +109,14 @@ const SideBar: React.FC<TSideBarProps> = () => {
           </div>
         </div>
         <div className="SideBar-card-setting flex items-center" style={{ marginLeft: 'auto', columnGap: '.4rem' }}>
-          <Icon className="cursor-pointer" name={EIconName.Setting} color={EIconColor.ALUMINIUM} />
+          <Icon
+            className="cursor-pointer"
+            name={EIconName.Setting}
+            color={EIconColor.ALUMINIUM}
+            onClick={(): void => {
+              navigate(`${LayoutPaths.Profile}${Paths.ProfileInformation}`);
+            }}
+          />
         </div>
       </div>
 

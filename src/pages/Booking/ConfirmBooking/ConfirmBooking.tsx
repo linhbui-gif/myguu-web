@@ -1,19 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Form, Row } from 'antd';
+import { useSelector } from 'react-redux';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button, { EButtonStyleType } from '@/components/Button';
 import Input from '@/components/Input';
+import { TRootState } from '@/redux/reducers';
+import { EFormat } from '@/common/enums';
+import { formatCurrency } from '@/utils/functions';
+import { ECreateOrderAction } from '@/redux/actions';
 
 import { TConfirmBookingProps } from './ConfirmBooking.types';
 import './ConfirmBooking.scss';
 
-const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ onNext }) => {
+const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ data, onNext }) => {
   const [form] = Form.useForm();
+
+  const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
+
+  const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
+  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+
+  const createOrderLoading = useSelector((state: TRootState) => state.loadingReducer[ECreateOrderAction.CREATE_ORDER]);
+
+  const total = data?.totalOrder || 0;
 
   const handleSubmit = (values: any): void => {
     onNext?.(values);
   };
+
+  useEffect(() => {
+    if (data && myProfileState) {
+      const dataChanged = {
+        customer_name: data?.customer_name || myProfileState?.name,
+        customer_phone: data?.customer_phone || myProfileState?.phone,
+      };
+      form.setFieldsValue(dataChanged);
+    }
+  }, [form, data, myProfileState]);
 
   return (
     <div className="ConfirmBooking">
@@ -21,25 +45,27 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ onNext }) => {
         <div className="Booking-header flex items-center justify-center text-center">Xem lại lịch đặt</div>
         <div className="Booking-main">
           <Form form={form} layout="vertical" onFinish={handleSubmit}>
-            <div className="ConfirmBooking-title">Minh Vân Makeup</div>
+            <div className="ConfirmBooking-title">{storeState?.name}</div>
             <div className="ConfirmBooking-table">
               <table>
                 <tr>
                   <td>Chi nhánh</td>
                   <td>
-                    <span>Phường Mai Dịch - Q. Cầu Giấy, TP.Hà Nội</span>
+                    <span>{data?.branch?.label}</span>
                   </td>
                 </tr>
                 <tr>
                   <td>Thời gian</td>
                   <td>
-                    <span>16:00 19-05-2023</span>
+                    <span>
+                      {data?.time?.label} {data?.date?.format(EFormat['DD-MM-YYYY'])}
+                    </span>
                   </td>
                 </tr>
                 <tr>
                   <td>Số chỗ</td>
                   <td>
-                    <span>01</span>
+                    <span>{data?.numberOfBooking}</span>
                   </td>
                 </tr>
               </table>
@@ -48,34 +74,32 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ onNext }) => {
             <div className="ConfirmBooking-title">Dịch vụ</div>
             <div className="ConfirmBooking-table">
               <table>
-                <tr>
-                  <td style={{ color: EIconColor.MIRAGE }}>
-                    Trang điểm cô dâu
-                    <br />
-                    x1
-                  </td>
-                  <td style={{ color: EIconColor.MIRAGE, verticalAlign: 'bottom' }}>150,000đ</td>
-                </tr>
-                <tr>
-                  <td style={{ color: EIconColor.MIRAGE }}>
-                    Trang điểm chụp hình
-                    <br />
-                    x2
-                  </td>
-                  <td style={{ color: EIconColor.MIRAGE, verticalAlign: 'bottom' }}>300,000đ</td>
-                </tr>
+                {cartState?.map((service) => (
+                  <tr>
+                    <td style={{ color: EIconColor.MIRAGE }}>
+                      {service?.name}
+                      <br />x{service?.quantity}
+                    </td>
+                    <td style={{ color: EIconColor.MIRAGE, verticalAlign: 'bottom' }}>
+                      {formatCurrency({
+                        amount: typeof service?.discount_price === 'number' ? service?.discount_price : service?.price,
+                        showSuffix: true,
+                      })}
+                    </td>
+                  </tr>
+                ))}
                 <tr>
                   <td className="dashed-top" style={{ color: EIconColor.MIRAGE }}>
                     Tổng tiền
                   </td>
                   <td className="dashed-top" style={{ color: EIconColor.MIRAGE }}>
-                    <strong>450.000 đ</strong>
+                    <strong>{formatCurrency({ amount: data?.totalOrder, showSuffix: true })}</strong>
                   </td>
                 </tr>
                 <tr>
                   <td style={{ color: EIconColor.TAN_HIDE }}>Giảm giá voucher</td>
                   <td>
-                    <strong style={{ color: EIconColor.TAN_HIDE }}>-20.000 đ</strong>
+                    <strong style={{ color: EIconColor.TAN_HIDE }}>-0 đ</strong>
                   </td>
                 </tr>
                 <tr>
@@ -83,7 +107,7 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ onNext }) => {
                     Thanh toán
                   </td>
                   <td className="dashed-top" style={{ color: EIconColor.MIRAGE }}>
-                    <strong>430.000 đ</strong>
+                    <strong>{formatCurrency({ amount: total, showSuffix: true })}</strong>
                   </td>
                 </tr>
               </table>
@@ -92,18 +116,24 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ onNext }) => {
             <div className="ConfirmBooking-title">Thông tin khách đặt</div>
             <Row gutter={[24, 24]}>
               <Col span={24}>
-                <Form.Item name="name" label="Tên">
+                <Form.Item name="customer_name" label="Tên">
                   <Input size="large" suffix={<Icon name={EIconName.PencilEdit} color={EIconColor.DOVE_GRAY} />} />
                 </Form.Item>
               </Col>
               <Col span={24}>
-                <Form.Item name="phoneNumber" label="Số điện thoại">
+                <Form.Item name="customer_phone" label="Số điện thoại">
                   <Input size="large" numberstring numberic />
                 </Form.Item>
               </Col>
               <Col span={24}>
                 <div style={{ padding: '0 0 0.8rem' }}>
-                  <Button title="Xác nhận" size="large" styleType={EButtonStyleType.PRIMARY} htmlType="submit" />
+                  <Button
+                    title="Xác nhận"
+                    size="large"
+                    styleType={EButtonStyleType.PRIMARY}
+                    htmlType="submit"
+                    disabled={createOrderLoading}
+                  />
                 </div>
               </Col>
             </Row>

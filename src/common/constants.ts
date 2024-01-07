@@ -1,4 +1,5 @@
-import { EVoucherType } from '@/common/enums';
+import { EOrderProcess, EOrderStatus, EVoucherType } from '@/common/enums';
+import { EIconColor } from '@/components/Icon';
 
 /* eslint-disable no-useless-escape */
 export const REGEX = {
@@ -19,4 +20,18 @@ export const dataVoucherTypeOptions = [
   { value: EVoucherType.APP, label: 'Voucher Sàn' },
   { value: EVoucherType.STORE, label: 'Voucher Shop' },
   { value: EVoucherType.OTHER, label: 'Voucher Đổi Thưởng' },
+];
+
+export const dataOrderStatusOptions = [
+  { value: EOrderStatus.SCHEDULE, label: 'Lịch Hẹn' },
+  { value: EOrderStatus.IN_COMMING, label: 'Sắp Tới' },
+  { value: EOrderStatus.COMPLETE, label: 'Đã Hoàn Thành' },
+  { value: EOrderStatus.CANCELED, label: 'Đã Huỷ' },
+];
+
+export const dataOrderProcessOptions = [
+  { value: EOrderProcess.PENDING, label: 'Đang Chờ Nhận', data: { color: EIconColor.TAN_HIDE } },
+  { value: EOrderProcess.CONFIRMED, label: 'Đã Nhận', data: { color: EIconColor.HAVELOCK_BLUE } },
+  { value: EOrderProcess.COMPLETE, label: 'Hoàn Thành', data: { color: EIconColor.MOUNTAIN_MEADOW } },
+  { value: EOrderProcess.CANCEL, label: 'Đã Huỷ', data: { color: EIconColor.POMEGRANATE } },
 ];

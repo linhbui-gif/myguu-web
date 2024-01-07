@@ -9,7 +9,7 @@
 
   &-title {
     font-size: 2.4rem;
-    font-weight: 700;
+    font-weight: 600;
     color: $pickled-bluewood;
     text-transform: uppercase;
     margin-bottom: 3.6rem;
@@ -17,20 +17,20 @@
 
   &-link,
   &-description {
-    font-weight: 500;
     font-size: 1.3rem;
-    color: $scorpion;
+    color: $dove-gray;
 
     &.gray {
       color: $regent-gray;
     }
 
     &.darken {
-      color: $black;
+      color: $scorpion;
     }
 
     &.highlight {
       color: $tan-hide;
+      font-weight: 500;
     }
   }
 

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
 import { useMediaQuery } from 'react-responsive';
+import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 import Select from '@/components/Select';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import CalendarSelect from '@/pages/Booking/BookingForm/CalendarSelect';
-import ImageAvatar from '@/assets/images/image-avatar.png';
 import Tags from '@/components/Tags';
 import StaffSelect from '@/pages/Booking/BookingForm/StaffSelect';
 import QuantitySelect from '@/pages/Booking/BookingForm/QuantitySelect';
@@ -13,7 +14,10 @@ import ServiceSelect from '@/pages/Booking/BookingForm/ServiceSelect';
 import TextArea from '@/components/TextArea';
 import VoucherSelect from '@/pages/Booking/BookingForm/VoucherSelect';
 import Button, { EButtonStyleType } from '@/components/Button';
+import { TRootState } from '@/redux/reducers';
+import { formatCurrency, validationRules } from '@/utils/functions';
 
+import { dataBookingTime } from './BookingForm.data';
 import { TBookingFormProps } from './BookingForm.types';
 import './BookingForm.scss';
 
@@ -21,20 +25,72 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   const [form] = Form.useForm();
   const isMobile = useMediaQuery({ maxWidth: 575 });
 
+  const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
+  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+
+  const [formValues, setFormValues] = useState<any>({});
+
+  const dataAddressOptions =
+    storeState?.branches?.map((item) => ({
+      value: item.id,
+      label: item.name,
+      data: item,
+    })) || [];
+
+  const dataMemberOptions = [
+    {
+      value: '',
+      label: 'Tự động',
+      data: { iconNameDefault: EIconName.Users, iconColorDefault: EIconColor.WHITE },
+    },
+    ...(storeState?.experts?.map((item) => ({
+      value: item.id,
+      label: item.name,
+      data: { avatar: item?.avatar },
+    })) || []),
+  ];
+
+  const totalOrder =
+    cartState?.reduce((result, service) => {
+      const price = typeof service?.discount_price === 'number' ? service?.discount_price : service?.price;
+      return result + price * (service.quantity || 0);
+    }, 0) || 0;
+
   const handleSubmit = (values: any): void => {
-    onNext?.(values);
+    onNext?.({ ...values, totalOrder });
   };
+
+  useEffect(() => {
+    if (storeState) {
+      const dataChanged = {
+        branch: dataAddressOptions?.[0],
+        date: moment(),
+        time: dataBookingTime(moment()).find((option) => !option.data?.disabled),
+        staff: dataMemberOptions[0],
+        numberOfBooking: 1,
+        note: '',
+      };
+      setFormValues({ ...formValues, ...dataChanged });
+      form.setFieldsValue(dataChanged);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeState]);
 
   return (
     <div className="BookingForm">
       <div className="Booking-header flex items-center justify-center text-center">Đặt lịch hẹn</div>
       <div className="Booking-main">
-        <Form form={form} layout="vertical" onFinish={handleSubmit}>
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={handleSubmit}
+          onValuesChange={(_, values): void => setFormValues({ ...formValues, ...values })}
+        >
           <Row gutter={[24, 24]}>
             <Col span={24}>
               <Form.Item className="Booking-label" name="branch" label="Chọn chi nhánh">
                 <Select
-                  options={[]}
+                  options={dataAddressOptions}
                   suffixIcon={EIconName.CaretDown}
                   suffixIconColor={EIconColor.TAN_HIDE}
                   size="large"
@@ -43,48 +99,24 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
             </Col>
             <Col span={24}>
               <Form.Item className="Booking-label" name="date" label="Chọn ngày">
-                <CalendarSelect rangeDays={isMobile ? 2 : 3} />
+                <CalendarSelect
+                  rangeDays={isMobile ? 2 : 3}
+                  disabledDate={(date): boolean => date.valueOf() < moment().subtract(1, 'day').valueOf()}
+                />
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item className="Booking-label" name="time" label="Giờ hẹn">
-                <Tags
-                  shape="rectangle"
-                  size="large"
-                  carousel
-                  options={[
-                    { value: '08:00', label: '08:00' },
-                    { value: '09:00', label: '09:00' },
-                    { value: '10:00', label: '10:00' },
-                    { value: '11:00', label: '11:00' },
-                    { value: '12:00', label: '12:00' },
-                    { value: '13:00', label: '13:00' },
-                    { value: '14:00', label: '14:00' },
-                    { value: '15:00', label: '15:00' },
-                    { value: '16:00', label: '16:00' },
-                    { value: '17:00', label: '17:00' },
-                  ]}
-                />
+              <Form.Item className="Booking-label" name="time" label="Giờ hẹn" rules={[validationRules.required()]}>
+                <Tags shape="rectangle" size="large" carousel options={dataBookingTime(formValues?.date)} />
               </Form.Item>
             </Col>
             <Col span={24}>
               <Form.Item className="Booking-label" name="staff" label="Nhân viên">
-                <StaffSelect
-                  options={[
-                    {
-                      value: '',
-                      label: 'Tự động',
-                      data: { iconNameDefault: EIconName.Users, iconColorDefault: EIconColor.WHITE },
-                    },
-                    { value: '1', label: 'Thu Hương', data: { avatar: ImageAvatar } },
-                    { value: '2', label: 'Hà Nhi', data: { avatar: ImageAvatar } },
-                    { value: '3', label: 'Thu Trang', data: { avatar: ImageAvatar } },
-                  ]}
-                />
+                <StaffSelect options={dataMemberOptions} />
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item className="Booking-label" name="quantity">
+              <Form.Item className="Booking-label" name="numberOfBooking">
                 <QuantitySelect />
               </Form.Item>
             </Col>
@@ -94,7 +126,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item className="Booking-label" name="services">
+              <Form.Item className="Booking-label" name="voucher">
                 <VoucherSelect />
               </Form.Item>
             </Col>
@@ -103,10 +135,10 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
                 <div className="BookingForm-coin-item flex items-center">
                   <Icon name={EIconName.GuCoin} />
                   Điểm Gu
-                  <span>(7.500 Gu đang có)</span>
+                  <span>({formatCurrency({ amount: 0 })} Gu đang có)</span>
                 </div>
                 <div className="BookingForm-coin-item">
-                  <strong>-7.500 đ</strong>
+                  <strong>-0 đ</strong>
                 </div>
               </div>
             </Col>
@@ -131,16 +163,22 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
               <div className="BookingForm-total flex items-center justify-between">
                 <div className="BookingForm-total-item flex items-center">
                   Tạm tính
-                  <span>3 dịch vụ</span>
+                  <span>{cartState?.length || 0} dịch vụ</span>
                 </div>
                 <div className="BookingForm-total-item">
-                  <strong>450.000 đ</strong>
+                  <strong>{formatCurrency({ amount: totalOrder, showSuffix: true })}</strong>
                 </div>
               </div>
             </Col>
             <Col span={24}>
               <div style={{ padding: '1.6rem 0' }}>
-                <Button title="Tiếp theo" size="large" styleType={EButtonStyleType.PRIMARY} htmlType="submit" />
+                <Button
+                  title="Tiếp theo"
+                  size="large"
+                  styleType={EButtonStyleType.PRIMARY}
+                  htmlType="submit"
+                  disabled={cartState?.length === 0}
+                />
               </div>
             </Col>
           </Row>

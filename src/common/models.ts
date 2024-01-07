@@ -71,6 +71,7 @@ export type TService = {
   vote_number: number;
   work_time: unknown;
   store?: TStore;
+  quantity?: number;
 };
 
 export type TStore = {
@@ -175,15 +176,6 @@ export type TVote = {
   user: TUser;
 };
 
-export type TOrder = {
-  id: number;
-  number_of_bookings: number;
-  date: string;
-  name: string;
-  process: string;
-  slug: string;
-};
-
 export type TOrderService = {
   avatar: string;
   banner: string[];
@@ -193,6 +185,8 @@ export type TOrderService = {
   service_id: number;
   name: string;
   slug: string;
+  price_discount: number;
+  service: TService;
 };
 
 export type TProvince = {
@@ -208,4 +202,38 @@ export type TDistrict = {
   lng: string;
   name: string;
   type: number;
+};
+
+export type TOrder = {
+  cancel_reason: string;
+  created_at: string;
+  date: string;
+  exchange_discount: number;
+  floor_discount: number;
+  id: number;
+  name: string;
+  note: string;
+  number_of_bookings: number;
+  order_services: TOrderService[];
+  order_users: TOrderUser[];
+  process: string;
+  qr_code: string;
+  rank_discount: number;
+  remind: number;
+  remind_hour: number;
+  slug: string;
+  status: number;
+  time: string;
+  total_money: number;
+  total_money_discount: number;
+  updated_at: string;
+  voucher_discount: number;
+};
+
+export type TOrderUser = {
+  customer_address: string;
+  customer_name: string;
+  customer_phone: string;
+  id: number;
+  user_id: number;
 };

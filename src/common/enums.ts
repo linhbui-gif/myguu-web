@@ -79,6 +79,7 @@ export enum EEmpty {
 export enum EFormat {
   'DD/MM/YYYY' = 'DD/MM/YYYY',
   'DD/MM/YYYY - HH:mm' = 'DD/MM/YYYY - HH:mm',
+  'DD/MM/YYYY - HH:mm A' = 'DD/MM/YYYY - HH:mm A',
   'DD-MM-YYYY' = 'DD-MM-YYYY',
   'DD-MM-YYYY - HH:mm' = 'DD-MM-YYYY - HH:mm',
 }
@@ -108,4 +109,18 @@ export enum EVoucherType {
   APP = 1,
   STORE = 2,
   OTHER = 3,
+}
+
+export enum EOrderStatus {
+  SCHEDULE = 'SCHEDULE',
+  IN_COMMING = 'IN_COMMING',
+  COMPLETE = 'COMPLETE',
+  CANCELED = 'CANCELED',
+}
+
+export enum EOrderProcess {
+  PENDING = 'PENDING',
+  CONFIRMED = 'CONFIRMED',
+  COMPLETE = 'COMPLETE',
+  CANCEL = 'CANCEL',
 }

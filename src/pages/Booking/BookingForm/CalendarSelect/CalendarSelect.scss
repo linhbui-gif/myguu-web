@@ -32,7 +32,7 @@
     white-space: nowrap;
 
     &.small {
-      width: 4.2rem;
+      width: 5rem;
     }
 
     &-description {
@@ -57,7 +57,21 @@
       background: $java;
     }
 
-    &:hover {
+    &.disabled {
+      opacity: 0.6;
+      background: $gallery;
+      cursor: not-allowed;
+      color: $aluminium;
+
+      .CalendarSelect-item {
+        &-description {
+          color: $aluminium;
+        }
+      }
+    }
+
+    &.today,
+    &:not(.disabled):hover {
       border-color: $tan-hide;
     }
 

@@ -24,7 +24,7 @@ export type TGetStoreRequest = {
 
 export type TGetStoreSuccess = {
   type: EGetStoreAction.GET_STORE_SUCCESS;
-  payload: { response: TGetStoreResponse };
+  payload: { response?: TGetStoreResponse };
 };
 
 export type TGetStoreFailed = { type: EGetStoreAction.GET_STORE_FAILED };
@@ -45,7 +45,7 @@ export const getStoreAction = {
   success: createActionCreator(
     EGetStoreAction.GET_STORE_SUCCESS,
     (resolve) =>
-      (response: TGetStoreResponse): TGetStoreSuccess =>
+      (response?: TGetStoreResponse): TGetStoreSuccess =>
         resolve({ response }),
   ),
   failure: createActionCreator(

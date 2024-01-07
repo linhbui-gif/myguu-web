@@ -22,6 +22,9 @@ import Helpers from '@/services/helpers';
 
 import { THeaderProps } from './Header.types.d';
 import './Header.scss';
+import ModalOtherShopWarning from '@/containers/ModalOtherShopWarning';
+import { showNotification } from '@/utils/functions';
+import { ETypeNotification } from '@/common/enums';
 
 const Header: React.FC<THeaderProps> = () => {
   const dispatch = useDispatch();
@@ -31,11 +34,29 @@ const Header: React.FC<THeaderProps> = () => {
   const [visibleSearchDropdown, setVisibleSearchDropdown] = useState<boolean>(false);
   const [visibleMenuMobile, setVisibleMenuMobile] = useState<boolean>(false);
 
+  const [searchValue, setSearchValue] = useState<string>('');
+
+  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
   const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
 
-  const handleSubmit = (): void => {
-    setVisibleMenuMobile(false);
+  const handleSubmit = (searchData?: string): void => {
+    if (searchData || searchValue) {
+      setVisibleMenuMobile(false);
+      setVisibleSearchDropdown(false);
+      const searchHistories = Helpers.getSearchHistories();
+
+      if (searchData) {
+        setSearchValue(searchData);
+      }
+
+      Helpers.storeSearchHistories([
+        { value: searchData || searchValue, label: searchData || searchValue },
+        ...searchHistories,
+      ]);
+      navigate(Paths.Search, { state: { search: searchData || searchValue } });
+    }
   };
 
   const handleLogout = (): void => {
@@ -48,7 +69,7 @@ const Header: React.FC<THeaderProps> = () => {
     navigate(Paths.Home);
   };
 
-  const renderSearchDropdown = <SearchDropdown />;
+  const renderSearchDropdown = <SearchDropdown visible={visibleSearchDropdown} onClickTag={handleSubmit} />;
 
   const renderBranchSelect = (
     <div className="Header-location flex items-center cursor-pointer">
@@ -101,7 +122,13 @@ const Header: React.FC<THeaderProps> = () => {
           <Icon name={EIconName.Search} color={EIconColor.TAN_HIDE} />
         </div>
         <div className="Header-search-input">
-          <Input placeholder="Nhập từ khoá tìm kiếm..." size="small" onEnter={handleSubmit} />
+          <Input
+            value={searchValue}
+            onChange={(search): void => setSearchValue(String(search))}
+            placeholder="Nhập từ khoá tìm kiếm..."
+            size="small"
+            onEnter={(): void => handleSubmit()}
+          />
         </div>
         <div className="Header-search-filter">
           <Button
@@ -109,7 +136,7 @@ const Header: React.FC<THeaderProps> = () => {
             iconColor={EIconColor.WHITE}
             styleType={EButtonStyleType.PRIMARY}
             size="small"
-            onClick={handleSubmit}
+            onClick={(): void => handleSubmit()}
           />
         </div>
       </div>
@@ -123,9 +150,18 @@ const Header: React.FC<THeaderProps> = () => {
         styleType={EButtonStyleType.PRIMARY}
         iconName={EIconName.Calendar}
         iconColor={EIconColor.WHITE}
+        countNumber={cartState?.length}
         onClick={(): void => {
-          setVisibleMenuMobile(false);
-          navigate(Paths.Booking);
+          if (myProfileState) {
+            setVisibleMenuMobile(false);
+            if (cartState?.length === 0) {
+              showNotification(ETypeNotification.ERROR, 'Vui lòng chọn 1 dịch vụ để đặt lịch !');
+            } else {
+              navigate(Paths.Booking(String(cartState?.[0]?.store?.id)));
+            }
+          } else {
+            showNotification(ETypeNotification.ERROR, 'Vui lòng đăng nhập để tiếp tục đặt lịch !');
+          }
         }}
       />
     </div>
@@ -179,6 +215,7 @@ const Header: React.FC<THeaderProps> = () => {
       )}
 
       <ModalAuth {...modalAuthState} onClose={handleCloseModalAuth} />
+      <ModalOtherShopWarning />
     </div>
   );
 };

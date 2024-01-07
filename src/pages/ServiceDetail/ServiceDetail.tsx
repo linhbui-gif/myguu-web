@@ -17,6 +17,7 @@ const ServiceDetail: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
+  const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
   const serviceState = useSelector((state: TRootState) => state.serviceReducer.getServiceResponse)?.data;
   const serviceVotesState = useSelector((state: TRootState) => state.serviceReducer.getServiceVotesResponse);
 
@@ -63,6 +64,13 @@ const ServiceDetail: React.FC = () => {
     getService();
   }, [getService]);
 
+  useEffect(() => {
+    return (): void => {
+      dispatch(getServiceAction.success(undefined));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="ServiceDetail">
       <Breadcrumb
@@ -90,6 +98,7 @@ const ServiceDetail: React.FC = () => {
             herotitle={isFirstItem ? 'Dịch vụ liên quan' : undefined}
             title={category?.name}
             data={category?.services?.map((item) => ({
+              serviceData: { ...item, store: serviceState?.store || storeState },
               showQuantity: true,
               title: item.name,
               image: item?.banner?.[0],

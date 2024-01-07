@@ -10,26 +10,38 @@ import './Tags.scss';
 const Tags: React.FC<TTagsProps> = ({ value, onChange, shape, carousel, size, options = [] }) => {
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
-  const renderTagItems = options.map((item) => (
-    <div key={item.value}>
-      <div
-        className={classNames('Tags-item flex items-center justify-center', size, shape, {
-          active: value?.value === item?.value,
-          reverse: item?.data?.reverse,
-        })}
-        onClick={(): void => {
-          if (!isDragging) onChange?.(item);
-        }}
-      >
-        {item?.data?.iconName && (
-          <div className="Tags-item-icon">
-            <Icon name={item.data.iconName} color={item?.data?.iconColor} />
-          </div>
-        )}
-        {item?.label}
+  const renderTagItems = options.map((item) => {
+    const isDisabled = item?.data?.disabled;
+    return (
+      <div key={item.value}>
+        <div
+          className={classNames('Tags-item flex items-center justify-center', size, shape, {
+            active: value?.value === item?.value,
+            reverse: item?.data?.reverse,
+            disabled: isDisabled,
+          })}
+          onClick={(): void => {
+            if (!isDragging && !isDisabled) onChange?.(item);
+          }}
+        >
+          {item?.data?.iconName && (
+            <div className="Tags-item-icon">
+              <Icon
+                name={item.data.iconName}
+                color={item?.data?.iconColor}
+                onClick={(e): void => {
+                  e?.preventDefault();
+                  e?.stopPropagation();
+                  item?.data?.onClickIcon?.();
+                }}
+              />
+            </div>
+          )}
+          {item?.label}
+        </div>
       </div>
-    </div>
-  ));
+    );
+  });
 
   return carousel ? (
     <div className="Tags">

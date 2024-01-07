@@ -11,4 +11,10 @@
   &-date {
     margin: 2.4rem 0;
   }
+
+  &-schedules {
+    .ScheduleCard {
+      height: 100%;
+    }
+  }
 }

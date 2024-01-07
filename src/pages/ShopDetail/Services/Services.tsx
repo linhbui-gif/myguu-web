@@ -8,6 +8,7 @@ import { TServicesProps } from './Services.types';
 import './Services.scss';
 
 const Services: React.FC<TServicesProps> = () => {
+  const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
   const servicesByStoreState = useSelector(
     (state: TRootState) => state.serviceReducer.getServicesByStoreResponse,
   )?.data;
@@ -22,6 +23,7 @@ const Services: React.FC<TServicesProps> = () => {
             style={isFirstItem ? { marginTop: '3.2rem' } : undefined}
             title={category?.name}
             data={category?.services?.map((item) => ({
+              serviceData: { ...item, store: storeState },
               showQuantity: true,
               title: item.name,
               image: item?.banner?.[0],

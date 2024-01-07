@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Redirect, Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { LayoutPaths, Pages, Paths, PublicRoute } from '@/pages/routers';
+import { LayoutPaths, Pages, Paths, ProtectedRoute, PublicRoute } from '@/pages/routers';
 import Guest from '@/layouts/Guest';
 import Profile from '@/layouts/Profile/Profile';
 import { getMyProfileAction, uiActions } from '@/redux/actions';
@@ -69,18 +69,18 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.ServiceDetail()} component={Pages.ServiceDetail} />
           <PublicRoute path={Paths.Category()} component={Pages.Category} />
           <PublicRoute path={Paths.Search} component={Pages.Search} />
-          <PublicRoute path={Paths.Booking} component={Pages.Booking} />
+          <ProtectedRoute path={Paths.Booking()} component={Pages.Booking} />
 
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>
 
         <Profile path={LayoutPaths.Profile}>
-          <PublicRoute path={Paths.MySchedules} component={Pages.MySchedules} />
-          <PublicRoute path={Paths.ProfileInformation} component={Pages.ProfileInformation} />
-          <PublicRoute path={Paths.FavoritesShop} component={Pages.FavoritesShop} />
-          <PublicRoute path={Paths.Vouchers} component={Pages.Vouchers} />
-          <PublicRoute path={Paths.Notifications} component={Pages.Notifications} />
-          <PublicRoute path={Paths.MyAddress} component={Pages.MyAddress} />
+          <ProtectedRoute path={Paths.MySchedules} component={Pages.MySchedules} />
+          <ProtectedRoute path={Paths.ProfileInformation} component={Pages.ProfileInformation} />
+          <ProtectedRoute path={Paths.FavoritesShop} component={Pages.FavoritesShop} />
+          <ProtectedRoute path={Paths.Vouchers} component={Pages.Vouchers} />
+          <ProtectedRoute path={Paths.Notifications} component={Pages.Notifications} />
+          <ProtectedRoute path={Paths.MyAddress} component={Pages.MyAddress} />
 
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Profile>

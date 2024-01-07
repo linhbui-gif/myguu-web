@@ -24,7 +24,7 @@ export type TGetServiceRequest = {
 
 export type TGetServiceSuccess = {
   type: EGetServiceAction.GET_SERVICE_SUCCESS;
-  payload: { response: TGetServiceResponse };
+  payload: { response?: TGetServiceResponse };
 };
 
 export type TGetServiceFailed = { type: EGetServiceAction.GET_SERVICE_FAILED };
@@ -45,7 +45,7 @@ export const getServiceAction = {
   success: createActionCreator(
     EGetServiceAction.GET_SERVICE_SUCCESS,
     (resolve) =>
-      (response: TGetServiceResponse): TGetServiceSuccess =>
+      (response?: TGetServiceResponse): TGetServiceSuccess =>
         resolve({ response }),
   ),
   failure: createActionCreator(

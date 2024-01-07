@@ -1,3 +1,26 @@
 @import '@/assets/styles/_global.scss';
 
-.Switch {}
+.Switch {
+  .ant-switch {
+    width: 4rem;
+    height: 2.4rem;
+    min-width: auto;
+
+    &.ant-switch-checked {
+      background: $tan-hide;
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba($tan-hide, 0.2);
+      }
+
+      .ant-switch-handle {
+        left: calc(100% - 2rem - 2px)
+      }
+    }
+
+    .ant-switch-handle {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}

@@ -42,8 +42,9 @@ const FilterTools: React.FC<TFilterToolsProps> = ({ paramsRequest, onFilterChang
   }, [dispatch]);
 
   const getDistricts = useCallback(() => {
-    if (paramsRequest?.province_code)
+    if (!districtsState && paramsRequest?.province_code)
       dispatch(getDistrictsAction.request({ params: { province_code: paramsRequest?.province_code } }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, paramsRequest]);
 
   useEffect(() => {
@@ -108,9 +109,11 @@ const FilterTools: React.FC<TFilterToolsProps> = ({ paramsRequest, onFilterChang
                 showSearch
                 options={provinceOptions}
                 onChange={(option): void => {
-                  onFilterChange?.({ province_code: option?.value });
-                  if (!option) {
-                    dispatch(getDistrictsAction.success(undefined));
+                  dispatch(getDistrictsAction.success(undefined));
+
+                  if (option) {
+                    onFilterChange?.({ province_code: option?.value, district_code: undefined });
+                  } else {
                     onFilterChange?.({ province_code: undefined, district_code: undefined });
                   }
                 }}

@@ -25,6 +25,7 @@ const Button: React.FC<TButtonProps> = ({
   disabled,
   loading,
   styleType,
+  countNumber,
   onClick,
 }) => {
   const handleClickButton = (): void => {
@@ -54,6 +55,7 @@ const Button: React.FC<TButtonProps> = ({
           </div>
         )}
         {title && <span className="Button-title">{title}</span>}
+        {!!countNumber && <div className="Button-count flex items-center justify-center">{countNumber}</div>}
       </AntdButton>
     </div>
   );

@@ -9,6 +9,9 @@ import { TReviewsProps } from './Reviews.types';
 import './Reviews.scss';
 
 const Reviews: React.FC<TReviewsProps> = ({ dataVoteState }) => {
+  const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
+  const serviceState = useSelector((state: TRootState) => state.serviceReducer.getServiceResponse)?.data;
+
   const servicesByStoreState = useSelector(
     (state: TRootState) => state.serviceReducer.getServicesByStoreResponse,
   )?.data;
@@ -28,6 +31,7 @@ const Reviews: React.FC<TReviewsProps> = ({ dataVoteState }) => {
             herotitle={isFirstItem ? 'Dịch vụ liên quan' : undefined}
             title={category?.name}
             data={category?.services?.map((item) => ({
+              serviceData: { ...item, store: serviceState?.store || storeState },
               showQuantity: true,
               title: item.name,
               image: item?.banner?.[0],

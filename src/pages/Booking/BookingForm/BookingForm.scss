@@ -1,6 +1,12 @@
 @import '@/assets/styles/_global.scss';
 
 .BookingForm {
+  .ant-form-item-required {
+    &::before {
+      display: none !important;
+    }
+  }
+
   &-coin {
     margin-bottom: 2.4rem;
 

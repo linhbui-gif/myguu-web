@@ -21,6 +21,7 @@ export type TButtonProps = {
   disabled?: boolean;
   loading?: boolean;
   styleType?: EButtonStyleType;
+  countNumber?: number;
   shape?: 'rounded' | 'rectangle';
   onClick?: () => void;
 };

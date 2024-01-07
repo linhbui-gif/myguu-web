@@ -2,10 +2,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import { navigate } from '@reach/router';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { formatCurrency } from '@/utils/functions';
 import Quantity from '@/components/Quantity';
+import { TRootState } from '@/redux/reducers';
+import { uiActions } from '@/redux/actions';
 
 import { TServiceCardProps } from './ServiceCard.types.d';
 import './ServiceCard.scss';
@@ -26,9 +29,43 @@ const ServiceCard: React.FC<TServiceCardProps> = ({
   distance,
   vote,
   link,
+  serviceData,
 }) => {
+  const dispatch = useDispatch();
+
+  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+
   const handleNavigateLink = (): void => {
     if (link) navigate(link);
+  };
+
+  const quantityValue = cartState?.find((service) => service.id === serviceData?.id)?.quantity || 0;
+
+  const handleSelectService = (quantity: number): void => {
+    if (serviceData) {
+      if (quantity === 0) {
+        const newData = cartState?.filter((service) => service.id !== serviceData.id);
+        dispatch(uiActions.setCart(newData));
+      } else {
+        const isExisted = cartState?.find((service) => service.id === serviceData?.id);
+        if (isExisted) {
+          const newData = cartState?.map((service) => {
+            if (service.id === serviceData?.id) {
+              return {
+                ...service,
+                quantity,
+              };
+            }
+
+            return service;
+          });
+          dispatch(uiActions.setCart(newData));
+        } else {
+          const newData = [...(cartState || []), { ...serviceData, quantity }];
+          dispatch(uiActions.setCart(newData));
+        }
+      }
+    }
   };
 
   return (
@@ -77,7 +114,7 @@ const ServiceCard: React.FC<TServiceCardProps> = ({
           </div>
         )}
 
-        {showQuantity && <Quantity />}
+        {showQuantity && <Quantity value={quantityValue} onChange={handleSelectService} />}
 
         {!showQuantity && (
           <div className="ServiceCard-footer flex items-center flex-wrap" style={{ columnGap: '.8rem' }}>

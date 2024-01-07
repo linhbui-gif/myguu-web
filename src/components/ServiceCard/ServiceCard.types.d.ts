@@ -1,3 +1,5 @@
+import { TService } from '@/common/models';
+
 export type TServiceCardProps = {
   verify?: boolean;
   discountPercent?: number;
@@ -14,4 +16,5 @@ export type TServiceCardProps = {
   distance?: number;
   vote?: number;
   link?: string;
+  serviceData?: TService;
 };

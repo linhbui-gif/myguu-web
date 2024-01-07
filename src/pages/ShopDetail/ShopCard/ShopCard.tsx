@@ -20,6 +20,11 @@ const ShopCard: React.FC<TShopCardProps> = () => {
           <div className="ShopCard-info flex items-end">
             <div className="ShopCard-info-avatar">
               <Avatar image={storeState?.avatar} />
+              {false && (
+                <div className="ShopCard-info-verify">
+                  <Icon name={EIconName.Verify} />
+                </div>
+              )}
             </div>
             <div className="ShopCard-info-main flex items-center justify-between">
               <div className="ShopCard-info-main-item">

@@ -1,18 +1,44 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Icon, { EIconName, EIconColor } from '@/components/Icon';
 import Button, { EButtonStyleType } from '@/components/Button';
 import ShopAddressCard from '@/components/ShopAddressCard';
 import { TRootState } from '@/redux/reducers';
 import { formatCurrency } from '@/utils/functions';
+import { Paths } from '@/pages/routers';
+import { uiActions } from '@/redux/actions';
 
 import { TServiceDetailCardProps } from './ServiceDetailCard.types';
 import './ServiceDetailCard.scss';
-import { Paths } from '@/pages/routers';
 
 const ServiceDetailCard: React.FC<TServiceDetailCardProps> = () => {
+  const dispatch = useDispatch();
+
   const serviceState = useSelector((state: TRootState) => state.serviceReducer.getServiceResponse)?.data;
+  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+
+  const handleSelectService = (): void => {
+    if (serviceState) {
+      const isExisted = cartState?.find((service) => service.id === serviceState?.id);
+      if (isExisted) {
+        const newData = cartState?.map((service) => {
+          if (service.id === serviceState?.id) {
+            return {
+              ...service,
+              quantity: (service?.quantity || 0) + 1,
+            };
+          }
+
+          return service;
+        });
+        dispatch(uiActions.setCart(newData));
+      } else {
+        const newData = [...(cartState || []), { ...serviceState, quantity: 1 }];
+        dispatch(uiActions.setCart(newData));
+      }
+    }
+  };
 
   return (
     <div className="ServiceDetailCard">
@@ -71,6 +97,7 @@ const ServiceDetailCard: React.FC<TServiceDetailCardProps> = () => {
                 styleType={EButtonStyleType.PRIMARY}
                 title="Chọn dịch vụ"
                 size="large"
+                onClick={handleSelectService}
               />
               <Button
                 iconName={EIconName.Chat}

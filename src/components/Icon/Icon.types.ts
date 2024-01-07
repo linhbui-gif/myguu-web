@@ -7,7 +7,7 @@ export type TIconProps = TColor & {
   className?: string;
   strokeWidth?: number;
   style?: CSSProperties;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
 };
 
 export type TSvgProps = TColor;

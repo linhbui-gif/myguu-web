@@ -1,7 +1,7 @@
 @import '@/assets/styles/_global.scss';
 
 .Banner {
-  margin: 3.2rem 0;
+  margin: 0rem 0 3.2rem;
 
   &-item {
     @include centerScaleImage;

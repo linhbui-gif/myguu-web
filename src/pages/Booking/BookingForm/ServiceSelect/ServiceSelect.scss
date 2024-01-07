@@ -4,6 +4,10 @@
   &-item {
     column-gap: 1.2rem;
 
+    &:not(:last-child) {
+      margin-bottom: 1.2rem;
+    }
+
     &-image {
       flex: 0 0 6.4rem;
       max-width: 6.4rem;

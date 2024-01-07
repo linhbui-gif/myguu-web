@@ -93,10 +93,6 @@ const ShopDetail: React.FC = () => {
     if (id) dispatch(getStoreAction.request({ paths: { id } }));
   }, [dispatch, id]);
 
-  useEffect(() => {
-    getStore();
-  }, [getStore]);
-
   const getServicesByStore = useCallback(() => {
     if (id) dispatch(getServicesByStoreAction.request({ params: { store_id: id, page: DEFAULT_PAGE, limit: 100 } }));
   }, [dispatch, id]);
@@ -110,6 +106,10 @@ const ShopDetail: React.FC = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
+    getStore();
+  }, [getStore]);
+
+  useEffect(() => {
     getServicesByStore();
   }, [getServicesByStore]);
 
@@ -120,6 +120,13 @@ const ShopDetail: React.FC = () => {
   useEffect(() => {
     getStoreVotes();
   }, [getStoreVotes]);
+
+  useEffect(() => {
+    return (): void => {
+      dispatch(getStoreAction.success(undefined));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="ShopDetail">

@@ -2,6 +2,7 @@ export * from './address';
 export * from './auth';
 export * from './banner';
 export * from './category';
+export * from './order';
 export * from './service';
 export * from './store';
 export * from './ui';

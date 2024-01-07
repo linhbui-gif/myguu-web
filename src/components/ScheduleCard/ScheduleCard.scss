@@ -1,6 +1,8 @@
 @import '@/assets/styles/_global.scss';
 
 .ScheduleCard {
+  display: flex;
+  flex-direction: column;
   padding: .8rem 1.6rem;
   background: $white;
   border-radius: 1.2rem;
@@ -45,7 +47,14 @@
     }
   }
 
+  &-remind {
+    column-gap: .8rem;
+    font-size: 1.3rem;
+    color: $regent-gray;
+  }
+
   &-price {
+    margin-top: auto;
     padding: 1rem 0;
     border-top: 1px solid $mercury;
     border-bottom: 1px solid $mercury;
