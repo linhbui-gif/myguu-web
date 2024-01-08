@@ -8,6 +8,7 @@ import { ECreateAddressAction, EUpdateAddressAction, createAddressAction, update
 import { showNotification, validationRules } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
+import MapPicker from '@/components/MapPicker';
 
 import { TModalAddressFormProps } from './ModalAddressForm.types';
 import './ModalAddressForm.scss';
@@ -16,6 +17,7 @@ const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, data, onC
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
+  const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
   const [formValues, setFormValues] = useState<any>({});
 
   const createAddressLoading = useSelector(
@@ -32,8 +34,8 @@ const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, data, onC
       const body = {
         name: values?.name,
         detail: values?.detail,
-        lat: 0,
-        lng: 0,
+        lat: values?.mapPicker?.lat,
+        lng: values?.mapPicker?.lng,
       };
 
       if (data) {
@@ -52,15 +54,30 @@ const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, data, onC
 
   useEffect(() => {
     if (visible) {
-      const dataChanged = {
-        name: data?.name,
-        detail: data?.detail,
-      };
-      setFormValues({ ...formValues, ...dataChanged });
-      form.setFieldsValue(dataChanged);
+      if (data) {
+        const dataChanged = {
+          name: data?.name,
+          detail: data?.detail,
+          mapPicker: { lat: data?.lat, lng: data?.lng },
+        };
+        setFormValues({ ...formValues, ...dataChanged });
+        form.setFieldsValue(dataChanged);
+      } else {
+        const dataChanged = {
+          mapPicker: {
+            lat: appGeoLoactionState?.latitude || 21.027762580927508,
+            lng: appGeoLoactionState?.longitude || 105.83427070693538,
+          },
+        };
+        setFormValues({ ...formValues, ...dataChanged });
+        form.setFieldsValue(dataChanged);
+      }
+    } else {
+      form.resetFields();
+      setFormValues({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form, visible, data]);
+  }, [form, visible, data, appGeoLoactionState]);
 
   return (
     <Modal
@@ -90,6 +107,12 @@ const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, data, onC
                 <Input size="large" />
               </Form.Item>
             </Col>
+            <Col span={24}>
+              <Form.Item name="mapPicker">
+                <MapPicker />
+              </Form.Item>
+            </Col>
+
             {/* <Col span={24}>
               <div className="ModalAddressForm-iframe">
                 <iframe

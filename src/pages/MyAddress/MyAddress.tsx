@@ -17,6 +17,7 @@ import './MyAddress.scss';
 const MyAddress: React.FC = () => {
   const dispatch = useDispatch();
 
+  const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
   const [modalAddressFormState, handleOpenModalAddressForm, handleCloseModalAddressForm] = useModalState();
 
   const myAddressState = useSelector((state: TRootState) => state.addressReducer.getMyAddressesResponse)?.data;
@@ -63,7 +64,13 @@ const MyAddress: React.FC = () => {
           </div>
           <div className="MyAddress-location-info">
             <div className="MyAddress-location-info-title">Vị trí hiện tại</div>
-            <div className="MyAddress-location-info-description">97-99 Láng Hạ, Ba Đình, Hà nội</div>
+            {appGeoLoactionState?.latitude && appGeoLoactionState?.longitude ? (
+              <div className="MyAddress-location-info-description">
+                Latitude: {appGeoLoactionState?.latitude} - Longitude: {appGeoLoactionState?.longitude}
+              </div>
+            ) : (
+              <div className="MyAddress-location-info-description">Không xác định</div>
+            )}
           </div>
         </div>
 
@@ -75,7 +82,7 @@ const MyAddress: React.FC = () => {
                 name={item?.name}
                 description={item?.detail}
                 disabled={deleteAddressLoading}
-                onEdit={handleOpenModalAddressForm}
+                onEdit={(): void => handleOpenModalAddressForm(item)}
                 onDelete={(): void => {
                   handleDeleteAddress(item);
                 }}
