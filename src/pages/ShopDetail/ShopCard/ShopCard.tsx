@@ -1,16 +1,22 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { navigate } from '@reach/router';
 
 import Avatar from '@/components/Avatar';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button, { EButtonStyleType } from '@/components/Button';
 import { TRootState } from '@/redux/reducers';
+import { ETypeNotification } from '@/common/enums';
+import { Paths } from '@/pages/routers';
+import { showNotification } from '@/utils/functions';
 
 import { TShopCardProps } from './ShopCard.types';
 import './ShopCard.scss';
 
 const ShopCard: React.FC<TShopCardProps> = () => {
   const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
+  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+  const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
 
   return (
     <div className="ShopCard">
@@ -57,6 +63,18 @@ const ShopCard: React.FC<TShopCardProps> = () => {
                     iconColor={EIconColor.WHITE}
                     styleType={EButtonStyleType.PRIMARY}
                     title="ĐẶT LỊCH"
+                    countNumber={cartState?.filter((service) => service?.store?.id === storeState?.id)?.length}
+                    onClick={(): void => {
+                      if (myProfileState) {
+                        if (cartState?.length === 0) {
+                          showNotification(ETypeNotification.ERROR, 'Vui lòng chọn 1 dịch vụ để đặt lịch !');
+                        } else {
+                          navigate(Paths.Booking(String(cartState?.[0]?.store?.id)));
+                        }
+                      } else {
+                        showNotification(ETypeNotification.ERROR, 'Vui lòng đăng nhập để tiếp tục đặt lịch !');
+                      }
+                    }}
                   />
                 </div>
               </div>

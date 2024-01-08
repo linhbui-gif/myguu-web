@@ -1,15 +1,33 @@
 import React from 'react';
+import { navigate } from '@reach/router';
+import { useSelector } from 'react-redux';
 
 import Modal from '@/components/Modal';
 import Button, { EButtonStyleType } from '@/components/Button';
 import Avatar from '@/components/Avatar';
-import { EFormat } from '@/common/enums';
-import { formatISODateToDateTime } from '@/utils/functions';
+import { EFormat, ETypeNotification } from '@/common/enums';
+import { formatISODateToDateTime, showNotification } from '@/utils/functions';
+import { Paths } from '@/pages/routers';
+import { TRootState } from '@/redux/reducers';
 
 import { TModalTicketDetailProps } from './ModalTicketDetail.types.d';
 import './ModalTicketDetail.scss';
 
 const ModalTicketDetail: React.FC<TModalTicketDetailProps> = ({ visible, data, onClose }) => {
+  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+  const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
+
+  const handleUseVoucher = (): void => {
+    if (myProfileState) {
+      if (cartState?.length === 0) {
+        showNotification(ETypeNotification.ERROR, 'Vui lòng chọn 1 dịch vụ để sử dụng voucher !');
+      } else {
+        navigate(Paths.Booking(String(cartState?.[0]?.store?.id)), { state: { voucher: data } });
+      }
+    } else {
+      showNotification(ETypeNotification.ERROR, 'Vui lòng đăng nhập để tiếp tục sử dụng voucher !');
+    }
+  };
   return (
     <Modal visible={visible} closeable={false} width={472} className="ModalTicketDetail" onClose={onClose}>
       <div className="ModalTicketDetail-wrapper">
@@ -36,7 +54,7 @@ const ModalTicketDetail: React.FC<TModalTicketDetailProps> = ({ visible, data, o
         <div className="ModalTicketDetail-content" dangerouslySetInnerHTML={{ __html: data?.description || '' }} />
 
         <div className="ModalTicketDetail-btn flex justify-center">
-          <Button title="Sử dụng" styleType={EButtonStyleType.PRIMARY} />
+          <Button title="Sử dụng" styleType={EButtonStyleType.PRIMARY} onClick={handleUseVoucher} />
         </div>
       </div>
     </Modal>

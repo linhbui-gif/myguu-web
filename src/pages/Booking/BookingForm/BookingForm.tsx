@@ -3,6 +3,7 @@ import { Col, Form, Row } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import { useLocation } from '@reach/router';
 
 import Select from '@/components/Select';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
@@ -16,6 +17,7 @@ import VoucherSelect from '@/pages/Booking/BookingForm/VoucherSelect';
 import Button, { EButtonStyleType } from '@/components/Button';
 import { TRootState } from '@/redux/reducers';
 import { formatCurrency, validationRules } from '@/utils/functions';
+import { TVoucher } from '@/common/models';
 
 import { dataBookingTime } from './BookingForm.data';
 import { TBookingFormProps } from './BookingForm.types';
@@ -24,6 +26,9 @@ import './BookingForm.scss';
 const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   const [form] = Form.useForm();
   const isMobile = useMediaQuery({ maxWidth: 575 });
+
+  const location = useLocation();
+  const voucher: TVoucher = (location?.state as any)?.voucher;
 
   const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
   const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
@@ -56,8 +61,29 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
       return result + price * (service.quantity || 0);
     }, 0) || 0;
 
+  const isValidVoucher =
+    (formValues?.voucher?.store ? formValues?.voucher?.store?.id === cartState?.[0]?.store?.id : true) &&
+    (typeof formValues?.voucher?.order_money_min === 'number'
+      ? totalOrder >= formValues?.voucher?.order_money_min
+      : true) &&
+    formValues?.voucher?.used < formValues?.voucher?.used_limit;
+
+  const discount = (): number => {
+    if (formValues?.voucher) {
+      if (isValidVoucher) {
+        return formValues?.voucher?.discount_money;
+      }
+
+      return 0;
+    }
+
+    return 0;
+  };
+
+  const total = totalOrder - discount();
+
   const handleSubmit = (values: any): void => {
-    onNext?.({ ...values, totalOrder });
+    onNext?.({ ...values, total, totalOrder, discount: discount() });
   };
 
   useEffect(() => {
@@ -75,6 +101,17 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeState]);
+
+  useEffect(() => {
+    if (voucher) {
+      const dataChanged = {
+        voucher,
+      };
+      form.setFieldsValue(dataChanged);
+      setFormValues({ ...formValues, ...dataChanged });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [voucher]);
 
   return (
     <div className="BookingForm">
@@ -127,7 +164,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
             </Col>
             <Col span={24}>
               <Form.Item className="Booking-label" name="voucher">
-                <VoucherSelect />
+                <VoucherSelect totalOrder={totalOrder} disabled={!isValidVoucher} />
               </Form.Item>
             </Col>
             <Col span={24}>
@@ -166,7 +203,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
                   <span>{cartState?.length || 0} dịch vụ</span>
                 </div>
                 <div className="BookingForm-total-item">
-                  <strong>{formatCurrency({ amount: totalOrder, showSuffix: true })}</strong>
+                  <strong>{formatCurrency({ amount: total, showSuffix: true })}</strong>
                 </div>
               </div>
             </Col>

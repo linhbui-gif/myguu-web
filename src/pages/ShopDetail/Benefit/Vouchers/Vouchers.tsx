@@ -22,13 +22,15 @@ const Vouchers: React.FC<TVouchersProps> = () => {
   return isEmpty ? (
     <></>
   ) : (
-    <div className="Vouchers">
+    <div className="VouchersInStore">
       <div className="container">
-        <div className="Vouchers-wrapper">
+        <div className="VouchersInStore-wrapper">
           <Row gutter={[24, 24]}>
             {vouchersByStoreState?.map((item) => (
               <Col key={item.id} span={24} md={{ span: 12 }} lg={{ span: 8 }}>
                 <Ticket
+                  data={item}
+                  banner={item?.banner}
                   image={item?.avatar}
                   subtitle={item?.store?.name}
                   title={item?.name}

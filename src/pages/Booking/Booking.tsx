@@ -25,6 +25,7 @@ const Booking: React.FC = () => {
       date: values?.date?.format(EFormat['DD-MM-YYYY']),
       time: values?.time?.value,
       branch_id: values?.branch?.value,
+      voucher_id: values?.voucher?.id,
       note: values?.note,
       customer_name: values?.customer_name,
       customer_phone: values?.customer_phone,
@@ -32,7 +33,6 @@ const Booking: React.FC = () => {
         id: service.id,
         quantity: service.quantity,
       })),
-      voucher_id: undefined,
       wallet_voucher_id: undefined,
       customer_address: undefined,
     };
@@ -77,7 +77,6 @@ const Booking: React.FC = () => {
               data={stepState?.data}
               onNext={(values): void => {
                 handleSubmit({ ...stepState?.data, ...values });
-                scrollToTop();
               }}
             />
           )}

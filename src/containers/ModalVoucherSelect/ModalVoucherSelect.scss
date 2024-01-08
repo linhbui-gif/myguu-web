@@ -1,0 +1,68 @@
+@import '@/assets/styles/_global.scss';
+
+.ModalVoucherSelect {
+  .ant-modal-content {
+    overflow: hidden;
+    background: $wild-sand;
+
+    .ant-modal-close {
+      top: 2.2rem;
+      right: 2.4rem;
+    }
+
+    .ant-modal-body {
+      padding: 0;
+    }
+  }
+
+  &-title {
+    font-size: 2rem;
+    font-weight: 500;
+    background: $white;
+    padding: 1.6rem 2.4rem;
+  }
+
+  &-subtitle {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $mine-shaft;
+    margin-bottom: 1.6rem;
+  }
+
+  &-description {
+    margin-top: 0.8rem;
+    font-size: 1.3rem;
+    color: $pomegranate;
+  }
+
+  &-body {
+    padding: 1.6rem 2.4rem;
+    min-height: 50rem;
+  }
+
+  &-list {
+    margin-bottom: 1.6rem;
+
+    &-item {
+      &:not(:last-child) {
+        margin-bottom: 1.6rem;
+      }
+    }
+  }
+
+  &-btn {
+    margin-top: auto;
+    margin-bottom: -1.2rem;
+    column-gap: 1.2rem;
+
+    .Button {
+      width: 100%;
+
+      &.PRIMARY_OUTLINE {
+        .ant-btn {
+          background: $white;
+        }
+      }
+    }
+  }
+}

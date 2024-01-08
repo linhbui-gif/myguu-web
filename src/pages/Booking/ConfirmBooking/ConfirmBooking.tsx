@@ -23,8 +23,6 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ data, onNext }) => {
 
   const createOrderLoading = useSelector((state: TRootState) => state.loadingReducer[ECreateOrderAction.CREATE_ORDER]);
 
-  const total = data?.totalOrder || 0;
-
   const handleSubmit = (values: any): void => {
     onNext?.(values);
   };
@@ -99,7 +97,9 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ data, onNext }) => {
                 <tr>
                   <td style={{ color: EIconColor.TAN_HIDE }}>Giảm giá voucher</td>
                   <td>
-                    <strong style={{ color: EIconColor.TAN_HIDE }}>-0 đ</strong>
+                    <strong style={{ color: EIconColor.TAN_HIDE }}>
+                      -{formatCurrency({ amount: data?.discount || 0, showSuffix: true })}
+                    </strong>
                   </td>
                 </tr>
                 <tr>
@@ -107,7 +107,7 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ data, onNext }) => {
                     Thanh toán
                   </td>
                   <td className="dashed-top" style={{ color: EIconColor.MIRAGE }}>
-                    <strong>{formatCurrency({ amount: total, showSuffix: true })}</strong>
+                    <strong>{formatCurrency({ amount: data?.total || 0, showSuffix: true })}</strong>
                   </td>
                 </tr>
               </table>

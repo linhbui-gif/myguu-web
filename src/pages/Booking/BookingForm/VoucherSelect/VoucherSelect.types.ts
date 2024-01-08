@@ -1,7 +1,9 @@
-import { TSelectOption } from '@/components/Select';
+import { TVoucher } from '@/common/models';
 
 export type TVoucherSelectProps = {
   className?: string;
-  value?: TSelectOption;
-  onChange?: (data: TSelectOption) => void;
+  value?: TVoucher;
+  totalOrder?: number;
+  disabled?: boolean;
+  onChange?: (data: TVoucher) => void;
 };

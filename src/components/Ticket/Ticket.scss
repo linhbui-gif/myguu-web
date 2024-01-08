@@ -5,7 +5,57 @@
   cursor: pointer;
   border-radius: 1rem;
 
-  &:hover {
+  &.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:not(.disabled).active {
+    .Ticket {
+      &-image {
+        border: 1px solid $tan-hide;
+        border-right: none;
+      }
+
+      &-info {
+        border: 1px solid $tan-hide;
+        border-left: none;
+
+        &::before {
+          border-color: $tan-hide;
+        }
+      }
+    }
+  }
+
+  &.small {
+    .Ticket {
+      &-image {
+        flex: 0 0 8.5rem;
+        max-width: 8.5rem;
+        height: 8.5rem;
+        width: 8.5rem;
+      }
+
+      &-info {
+        height: 8.5rem;
+
+        &-description {
+          font-size: 1.2rem;
+        }
+
+        &-title {
+          font-size: 1.4rem;
+        }
+      }
+
+      &-action {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  &:not(.disabled):hover {
     transform: translateY(-0.2rem);
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
   }
@@ -41,6 +91,16 @@
       height: 90%;
       border-left: 1px dashed $mercury;
       content: '';
+    }
+
+    &-image {
+      flex: 0 0 1.6rem;
+      max-width: 1.6rem;
+      height: 1.6rem;
+      width: 1.6rem;
+      border-radius: 50%;
+      overflow: hidden;
+      @include centerScaleImage;
     }
 
     &-description {

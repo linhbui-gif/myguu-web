@@ -64,6 +64,8 @@ const Vouchers: React.FC = () => {
             // eslint-disable-next-line react/no-array-index-key
             <Col key={index} span={24} lg={{ span: 12 }}>
               <Ticket
+                data={item}
+                banner={item?.banner}
                 image={item?.avatar}
                 subtitle={item?.store?.name}
                 title={item?.name}
