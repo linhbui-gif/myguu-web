@@ -188,7 +188,11 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
                     className="flex items-center"
                     style={{ fontWeight: 400, fontSize: '1.5rem', columnGap: '.4rem' }}
                   >
-                    <Icon name={EIconName.Note} color={EIconColor.REGENT_GRAY} />
+                    <Icon
+                      name={EIconName.Note}
+                      color={EIconColor.REGENT_GRAY}
+                      style={{ width: '2.4rem', height: '2.4rem' }}
+                    />
                     Ghi chú:
                   </span>
                 }

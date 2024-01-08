@@ -1,15 +1,45 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button, { EButtonStyleType } from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import AddressCard from '@/components/AddressCard';
 import ModalAddressForm from '@/pages/MyAddress/ModalAddressForm';
+import { useModalState } from '@/utils/hooks';
+import { EDeleteAddressAction, deleteAddressAction, getMyAddressesAction } from '@/redux/actions';
+import { TRootState } from '@/redux/reducers';
+import { TAddress } from '@/common/models';
+import { showNotification } from '@/utils/functions';
+import { ETypeNotification } from '@/common/enums';
 
 import './MyAddress.scss';
-import { useModalState } from '@/utils/hooks';
 
 const MyAddress: React.FC = () => {
+  const dispatch = useDispatch();
+
   const [modalAddressFormState, handleOpenModalAddressForm, handleCloseModalAddressForm] = useModalState();
+
+  const myAddressState = useSelector((state: TRootState) => state.addressReducer.getMyAddressesResponse)?.data;
+  const deleteAddressLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EDeleteAddressAction.DELETE_ADDRESS],
+  );
+
+  const handleDeleteAddress = (data: TAddress): void => {
+    dispatch(deleteAddressAction.request({ paths: { id: data.id } }, handleDeleteSuccess));
+  };
+
+  const handleDeleteSuccess = (): void => {
+    showNotification(ETypeNotification.SUCCESS, 'Xoá địa chỉ thành công !');
+    getMyAddresses();
+  };
+
+  const getMyAddresses = useCallback(() => {
+    dispatch(getMyAddressesAction.request({}));
+  }, [dispatch]);
+
+  useEffect(() => {
+    getMyAddresses();
+  }, [getMyAddresses]);
 
   return (
     <div className="MyAddress">
@@ -38,13 +68,24 @@ const MyAddress: React.FC = () => {
         </div>
 
         <div className="MyAddress-list">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <AddressCard active={item === 1} key={item} onEdit={handleOpenModalAddressForm} />
-          ))}
+          {myAddressState?.map((item) => {
+            return (
+              <AddressCard
+                key={item.id}
+                name={item?.name}
+                description={item?.detail}
+                disabled={deleteAddressLoading}
+                onEdit={handleOpenModalAddressForm}
+                onDelete={(): void => {
+                  handleDeleteAddress(item);
+                }}
+              />
+            );
+          })}
         </div>
       </div>
 
-      <ModalAddressForm {...modalAddressFormState} onClose={handleCloseModalAddressForm} />
+      <ModalAddressForm {...modalAddressFormState} onClose={handleCloseModalAddressForm} onSuccess={getMyAddresses} />
     </div>
   );
 };

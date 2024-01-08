@@ -97,6 +97,13 @@
       }
     }
 
+    &-arrow {
+      .Icon {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+
     &-title {
       font-size: 1.4rem;
       color: $mine-shaft;

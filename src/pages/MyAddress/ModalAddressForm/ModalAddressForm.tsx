@@ -1,19 +1,66 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Form, Row } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from '@/components/Modal';
 import Input from '@/components/Input';
-import Radio from '@/components/Radio';
+import { ECreateAddressAction, EUpdateAddressAction, createAddressAction, updateAddressAction } from '@/redux/actions';
+import { showNotification, validationRules } from '@/utils/functions';
+import { ETypeNotification } from '@/common/enums';
+import { TRootState } from '@/redux/reducers';
 
 import { TModalAddressFormProps } from './ModalAddressForm.types';
 import './ModalAddressForm.scss';
 
-const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, onClose }) => {
+const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, data, onClose, onSuccess }) => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   const [formValues, setFormValues] = useState<any>({});
 
-  const handleSubmit = (): void => {};
+  const createAddressLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[ECreateAddressAction.CREATE_ADDRESS],
+  );
+  const updateAddressLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EUpdateAddressAction.UPDATE_ADDRESS],
+  );
+
+  const loading = createAddressLoading || updateAddressLoading;
+
+  const handleSubmit = (): void => {
+    form.validateFields().then((values: any) => {
+      const body = {
+        name: values?.name,
+        detail: values?.detail,
+        lat: 0,
+        lng: 0,
+      };
+
+      if (data) {
+        dispatch(updateAddressAction.request({ paths: { id: data?.id }, body }, handleSubmitSuccess));
+      } else {
+        dispatch(createAddressAction.request({ body }, handleSubmitSuccess));
+      }
+    });
+  };
+
+  const handleSubmitSuccess = (): void => {
+    showNotification(ETypeNotification.SUCCESS, `${data ? 'Cập nhật' : 'Tạo mới'} địa chỉ thành công !`);
+    onClose?.();
+    onSuccess?.();
+  };
+
+  useEffect(() => {
+    if (visible) {
+      const dataChanged = {
+        name: data?.name,
+        detail: data?.detail,
+      };
+      setFormValues({ ...formValues, ...dataChanged });
+      form.setFieldsValue(dataChanged);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form, visible, data]);
 
   return (
     <Modal
@@ -21,8 +68,8 @@ const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, onClose }
       visible={visible}
       onClose={onClose}
       width={624}
-      confirmButton={{ title: 'Lưu' }}
-      cancelButton={{ title: 'Huỷ' }}
+      confirmButton={{ title: 'Lưu', disabled: loading }}
+      cancelButton={{ title: 'Huỷ', disabled: loading }}
       onSubmit={handleSubmit}
     >
       <div className="ModalAddressForm-wrapper">
@@ -34,12 +81,12 @@ const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, onClose }
         >
           <Row gutter={[16, 16]}>
             <Col span={24}>
-              <Form.Item name="name" label="Tên">
+              <Form.Item name="name" label="Tên" rules={[validationRules.required()]}>
                 <Input size="large" />
               </Form.Item>
             </Col>
             <Col span={24}>
-              <Form.Item name="address" label="Địa chỉ">
+              <Form.Item name="detail" label="Địa chỉ" rules={[validationRules.required()]}>
                 <Input size="large" />
               </Form.Item>
             </Col>
@@ -54,11 +101,11 @@ const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, onClose }
                 />
               </div>
             </Col> */}
-            <Col span={24}>
+            {/* <Col span={24}>
               <Form.Item name="isDefault">
                 <Radio label="Đặt Làm Mặc Định" />
               </Form.Item>
-            </Col>
+            </Col> */}
           </Row>
         </Form>
       </div>

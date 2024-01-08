@@ -43,7 +43,10 @@ const SideBar: React.FC<TSideBarProps> = () => {
                 disabled: item?.disabled,
               })}
               onClick={(): void => {
-                if (item.link && !item.disabled) navigate(item.link);
+                if (item.link && !item.disabled) {
+                  setVisibleMenuMobile(false);
+                  navigate(item.link);
+                }
               }}
             >
               <div className="SideBar-card-item-icon">

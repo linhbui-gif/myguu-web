@@ -1,6 +1,10 @@
 @import '@/assets/styles/_global.scss';
 
 .ModalAddressForm {
+  &-wrapper {
+    margin-bottom: 3.2rem;
+  }
+
   &-title {
     font-size: 1.6rem;
     font-weight: 600;

@@ -8,7 +8,7 @@ import Radio from '@/components/Radio';
 import { TAddressCardProps } from './AddressCard.types.d';
 import './AddressCard.scss';
 
-const AddressCard: React.FC<TAddressCardProps> = ({ active, onEdit, onDelete }) => {
+const AddressCard: React.FC<TAddressCardProps> = ({ active, name, description, disabled, onEdit, onDelete }) => {
   return (
     <div className="AddressCard flex items-center justify-between flex-wrap">
       <div className="AddressCard-icon">
@@ -19,14 +19,16 @@ const AddressCard: React.FC<TAddressCardProps> = ({ active, onEdit, onDelete }) 
         )}
       </div>
       <div className="AddressCard-info">
-        <div className="AddressCard-info-title">Home</div>
-        <div className="AddressCard-info-description">D3 - Vĩnh Phúc, Ba Đình, Hà Nội</div>
+        <div className="AddressCard-info-title">{name}</div>
+        <div className="AddressCard-info-description">{description}</div>
       </div>
       <div className="AddressCard-action flex items-center">
         {active ? (
           <Radio label="Mặc định" value />
         ) : (
-          <Button shape="rectangle" size="small" title="Đặt làm Mặc định" styleType={EButtonStyleType.GRAY_OUTLINE} />
+          <>
+            {/* <Button shape="rectangle" size="small" title="Đặt làm Mặc định" styleType={EButtonStyleType.GRAY_OUTLINE} /> */}
+          </>
         )}
 
         <Button
@@ -36,6 +38,7 @@ const AddressCard: React.FC<TAddressCardProps> = ({ active, onEdit, onDelete }) 
           iconColor={EIconColor.GRAY_CHATEAU}
           styleType={EButtonStyleType.TRANSPARENT}
           onClick={onEdit}
+          disabled={disabled}
         />
 
         {!active && (
@@ -45,6 +48,7 @@ const AddressCard: React.FC<TAddressCardProps> = ({ active, onEdit, onDelete }) 
             iconColor={EIconColor.GRAY_CHATEAU}
             styleType={EButtonStyleType.TRANSPARENT}
             onClick={onDelete}
+            disabled={disabled}
           />
         )}
       </div>

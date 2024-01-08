@@ -237,3 +237,18 @@ export type TOrderUser = {
   id: number;
   user_id: number;
 };
+
+export type TAddress = {
+  created_at: string;
+  detail: string;
+  id: number;
+  lat: number;
+  lng: number;
+  location: { x: number; y: number };
+  name: string;
+  reminiscent_name: unknown;
+  slug: string;
+  type: unknown;
+  updated_at: string;
+  user_id: number;
+};

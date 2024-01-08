@@ -117,7 +117,16 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ data, onNext }) => {
             <Row gutter={[24, 24]}>
               <Col span={24}>
                 <Form.Item name="customer_name" label="Tên">
-                  <Input size="large" suffix={<Icon name={EIconName.PencilEdit} color={EIconColor.DOVE_GRAY} />} />
+                  <Input
+                    size="large"
+                    suffix={
+                      <Icon
+                        style={{ width: '2.4rem', height: '2.4rem' }}
+                        name={EIconName.PencilEdit}
+                        color={EIconColor.DOVE_GRAY}
+                      />
+                    }
+                  />
                 </Form.Item>
               </Col>
               <Col span={24}>
