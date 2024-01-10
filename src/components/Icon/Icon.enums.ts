@@ -39,6 +39,11 @@ export enum EIconName {
   Trash = 'Trash',
   LocationFill = 'LocationFill',
   Menu = 'Menu',
+  Bell = 'Bell',
+  Calendar2 = 'Calendar2',
+  ChatCircle = 'ChatCircle',
+  User = 'User',
+  HeartOutline = 'HeartOutline',
 }
 
 export enum EIconColor {

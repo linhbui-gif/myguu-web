@@ -1,6 +1,55 @@
 @import "@/assets/styles/_global.scss";
 
 .Search {
+  &-main {
+    @media (max-width: 991px) {
+      padding-top: 0rem !important;
+    }
+  }
+
+  &-tab {
+    .Tabs {
+      .ant-tabs {
+        .ant-tabs-nav-operations {
+          display: none;
+        }
+
+        .ant-tabs-nav-list {
+          width: 100%;
+        }
+
+        .ant-tabs-nav {
+          padding: 0;
+        }
+
+        .ant-tabs-ink-bar {
+          @media (max-width: 991px) {
+            background: $white;
+          }
+        }
+
+        .ant-tabs-tab {
+          flex: 0 0 50%;
+          max-width: 50%;
+          padding-top: 0;
+          justify-content: center;
+
+          &.ant-tabs-tab-active {
+            .ant-tabs-tab-btn {
+              @media (max-width: 991px) {
+                color: $white;
+              }
+            }
+          }
+
+          @media (max-width: 991px) {
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+
   &-total {
     height: 4rem;
     padding: .4rem 1.6rem;

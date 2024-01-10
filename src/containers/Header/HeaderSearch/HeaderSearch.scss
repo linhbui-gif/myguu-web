@@ -1,0 +1,44 @@
+@import '@/assets/styles/_global.scss';
+
+.HeaderSearch {
+  padding: .4rem .4rem .4rem 1.6rem;
+  height: 4rem;
+  border-radius: 2.4rem;
+  border: 1px solid $alto;
+  transition: $common-transition;
+  column-gap: .8rem;
+
+  &-wrapper {
+    flex: 1;
+  }
+
+  &-icon {
+    .Icon {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+
+  &-input {
+    flex: 1;
+
+    .Input {
+      .ant-input {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+  }
+
+  &-filter {
+    .Button {
+      .ant-btn {
+        padding-left: 1.4rem;
+        padding-right: 1.4rem;
+        width: auto !important;
+      }
+    }
+  }
+}

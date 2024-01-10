@@ -1,6 +1,8 @@
 @import '@/assets/styles/_global.scss';
 
 .SideBar {
+  position: relative;
+
   &-card {
     padding: 1.6rem;
     background: $white;

@@ -1,3 +1,3 @@
-import Category from './Search';
+import Search from './Search';
 
-export default Category;
+export default Search;

@@ -18,8 +18,8 @@ const Carousels: React.FC<TCarouselsProps> = ({
   responsive = [],
   autoplay,
   variableWidth = false,
-  onDragging,
   children,
+  onDragging,
 }) => {
   const renderPrevArrow = (): React.ReactElement => {
     return <Button className="Carousels-arrow prev" iconName={EIconName.AngleLeft} iconColor={EIconColor.WHITE} />;

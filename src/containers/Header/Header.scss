@@ -29,7 +29,7 @@
     // }
 
     span {
-      @include ellipsis(2);
+      @include ellipsis(1);
       font-size: 1.2rem;
       color: $scorpion;
     }
@@ -39,49 +39,6 @@
       max-width: 2.4rem;
       width: 2.4rem;
       height: 2.4rem;
-    }
-  }
-
-  &-search {
-    padding: .4rem .4rem .4rem 1.6rem;
-    height: 4rem;
-    border-radius: 2.4rem;
-    border: 1px solid $alto;
-    transition: $common-transition;
-    column-gap: .8rem;
-
-    &-wrapper {
-      flex: 1;
-    }
-
-    &-icon {
-      .Icon {
-        width: 1.6rem;
-        height: 1.6rem;
-      }
-    }
-
-    &-input {
-      flex: 1;
-
-      .Input {
-        .ant-input {
-          background: transparent;
-          border: none;
-          box-shadow: none;
-          padding: 0;
-        }
-      }
-    }
-
-    &-filter {
-      .Button {
-        .ant-btn {
-          padding-left: 1.4rem;
-          padding-right: 1.4rem;
-          width: auto !important;
-        }
-      }
     }
   }
 

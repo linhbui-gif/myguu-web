@@ -1,23 +1,18 @@
-import React, { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { Drawer } from 'antd';
 import { navigate, useLocation } from '@reach/router';
 import classNames from 'classnames';
 
 import Avatar from '@/components/Avatar';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
-import Button, { EButtonStyleType } from '@/components/Button';
 import { TRootState } from '@/redux/reducers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 
 import { dataSidebarAccount, dataSidebarSetting } from './SideBar.data';
 import { TSideBarProps } from './SideBar.types.d';
 import './SideBar.scss';
-import { LayoutPaths, Paths } from '@/pages/routers';
 
 const SideBar: React.FC<TSideBarProps> = () => {
-  const [visibleMenuMobile, setVisibleMenuMobile] = useState<boolean>(false);
-  const isTablet = useMediaQuery({ maxWidth: 991 });
   const { pathname } = useLocation();
 
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
@@ -44,7 +39,6 @@ const SideBar: React.FC<TSideBarProps> = () => {
               })}
               onClick={(): void => {
                 if (item.link && !item.disabled) {
-                  setVisibleMenuMobile(false);
                   navigate(item.link);
                 }
               }}
@@ -90,17 +84,6 @@ const SideBar: React.FC<TSideBarProps> = () => {
 
   return (
     <div className="SideBar">
-      {isTablet && (
-        <div className="SideBar-menu-btn flex" style={{ marginBottom: '2.4rem' }}>
-          <Button
-            styleType={EButtonStyleType.PRIMARY}
-            title="Menu"
-            iconName={EIconName.Menu}
-            iconColor={EIconColor.WHITE}
-            onClick={(): void => setVisibleMenuMobile(true)}
-          />
-        </div>
-      )}
       <div className="SideBar-card flex items-center">
         <div className="SideBar-card-avatar">
           <Avatar image={myProfileState?.avatar} />
@@ -123,19 +106,7 @@ const SideBar: React.FC<TSideBarProps> = () => {
         </div>
       </div>
 
-      {!isTablet && menu}
-
-      {isTablet && (
-        <Drawer
-          className="HeaderMobile"
-          visible={visibleMenuMobile}
-          closeIcon={<Icon name={EIconName.X} color={EIconColor.REGENT_GRAY} />}
-          placement="left"
-          onClose={(): void => setVisibleMenuMobile(false)}
-        >
-          <div style={{ marginTop: '3.6rem' }}>{menu}</div>
-        </Drawer>
-      )}
+      {menu}
     </div>
   );
 };

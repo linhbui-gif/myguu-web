@@ -7,57 +7,34 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import Logo from '@/assets/images/logo.svg';
 
-import DropdownCustom from '@/components/DropdownCustom';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
-import Input from '@/components/Input';
 import Button, { EButtonStyleType } from '@/components/Button';
 import Avatar from '@/components/Avatar';
 import ModalAuth, { EModalAuthType } from '@/containers/ModalAuth';
 import { useModalState } from '@/utils/hooks';
-import SearchDropdown from '@/containers/Header/SearchDropdown';
 import DropdownMenu from '@/components/DropdownMenu';
 import { TRootState } from '@/redux/reducers';
 import { getMyProfileAction, logoutAction } from '@/redux/actions';
 import Helpers from '@/services/helpers';
-
-import { THeaderProps } from './Header.types.d';
-import './Header.scss';
 import ModalOtherShopWarning from '@/containers/ModalOtherShopWarning';
 import { showNotification } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
+import HeaderSearch from '@/containers/Header/HeaderSearch';
+
+import { THeaderProps } from './Header.types.d';
+import './Header.scss';
 
 const Header: React.FC<THeaderProps> = () => {
   const dispatch = useDispatch();
 
   const isTablet = useMediaQuery({ maxWidth: 991 });
   const [modalAuthState, handleOpenModalAuth, handleCloseModalAuth] = useModalState();
-  const [visibleSearchDropdown, setVisibleSearchDropdown] = useState<boolean>(false);
   const [visibleMenuMobile, setVisibleMenuMobile] = useState<boolean>(false);
-
-  const [searchValue, setSearchValue] = useState<string>('');
 
   const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
 
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
   const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
-
-  const handleSubmit = (searchData?: string): void => {
-    if (searchData || searchValue) {
-      setVisibleMenuMobile(false);
-      setVisibleSearchDropdown(false);
-      const searchHistories = Helpers.getSearchHistories();
-
-      if (searchData) {
-        setSearchValue(searchData);
-      }
-
-      Helpers.storeSearchHistories([
-        { value: searchData || searchValue, label: searchData || searchValue },
-        ...searchHistories,
-      ]);
-      navigate(Paths.Search, { state: { search: searchData || searchValue } });
-    }
-  };
 
   const handleLogout = (): void => {
     dispatch(logoutAction.request({}, handleLogoutSuccess, handleLogoutSuccess));
@@ -69,12 +46,10 @@ const Header: React.FC<THeaderProps> = () => {
     navigate(Paths.Home);
   };
 
-  const renderSearchDropdown = <SearchDropdown visible={visibleSearchDropdown} onClickTag={handleSubmit} />;
-
   const renderBranchSelect = (
     <div className="Header-location flex items-center cursor-pointer">
       <Icon name={EIconName.Location} color={EIconColor.TAN_HIDE} />
-      <span>{appGeoLoactionState ? 'Vị Trí Của Bạn' : 'Mặc Định'}</span>
+      <span>{appGeoLoactionState ? 'Hà Nội, Việt Nam' : 'Đang Tìm Kiếm'}</span>
     </div>
   );
 
@@ -110,37 +85,11 @@ const Header: React.FC<THeaderProps> = () => {
   );
 
   const renderHeaderSearch = (
-    <DropdownCustom
-      className="Header-search-wrapper"
-      visible={visibleSearchDropdown}
-      onVisibleChange={setVisibleSearchDropdown}
-      overlay={renderSearchDropdown}
-      placement="bottomLeft"
-    >
-      <div className="Header-search flex items-center">
-        <div className="Header-search-icon">
-          <Icon name={EIconName.Search} color={EIconColor.TAN_HIDE} />
-        </div>
-        <div className="Header-search-input">
-          <Input
-            value={searchValue}
-            onChange={(search): void => setSearchValue(String(search))}
-            placeholder="Nhập từ khoá tìm kiếm..."
-            size="small"
-            onEnter={(): void => handleSubmit()}
-          />
-        </div>
-        <div className="Header-search-filter">
-          <Button
-            iconName={EIconName.Filter}
-            iconColor={EIconColor.WHITE}
-            styleType={EButtonStyleType.PRIMARY}
-            size="small"
-            onClick={(): void => handleSubmit()}
-          />
-        </div>
-      </div>
-    </DropdownCustom>
+    <HeaderSearch
+      onSearch={(): void => {
+        setVisibleMenuMobile(false);
+      }}
+    />
   );
 
   const renderHeaderBooking = (

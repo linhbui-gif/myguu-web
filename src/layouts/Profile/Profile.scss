@@ -6,6 +6,8 @@
     padding: 3.2rem 0;
 
     &-wrapper {
+      position: relative;
+      z-index: 1;
       column-gap: 2.4rem;
 
       @media (max-width: 991px) {

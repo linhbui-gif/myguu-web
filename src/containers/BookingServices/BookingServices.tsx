@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
+import { useMediaQuery } from 'react-responsive';
 
 import Carousels from '@/components/Carousels';
 import { TRootState } from '@/redux/reducers';
@@ -10,6 +11,7 @@ import { TBookingServicesProps } from './BookingServices.types.d';
 import './BookingServices.scss';
 
 const BookingServices: React.FC<TBookingServicesProps> = () => {
+  const isTablet = useMediaQuery({ maxWidth: 991 });
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
   const categoriesState = useSelector((state: TRootState) => state.categoryReducer.getCategoriesResponse)?.data || [];
@@ -24,14 +26,30 @@ const BookingServices: React.FC<TBookingServicesProps> = () => {
     <div className="BookingServices">
       <div className="container">
         <div className="BookingServices-wrapper">
-          <Carousels dots={false} arrows={false} variableWidth infinite={false} onDragging={setIsDragging}>
+          <Carousels
+            dots={false}
+            arrows={false}
+            variableWidth
+            infinite={false}
+            onDragging={setIsDragging}
+            responsive={[
+              {
+                breakpoint: 991,
+                settings: {
+                  variableWidth: false,
+                  rows: 2,
+                  slidesToShow: 4,
+                },
+              },
+            ]}
+          >
             {dataServices.map((item, index) => (
               <div
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 className="BookingServices-item-wrapper"
                 onClick={(): void => {
-                  if (!isDragging) navigate(item.link);
+                  if (isTablet || !isDragging) navigate(item.link);
                 }}
               >
                 <div className="BookingServices-item">

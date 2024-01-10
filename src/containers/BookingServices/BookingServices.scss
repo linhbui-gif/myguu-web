@@ -7,16 +7,39 @@
   .Carousels {
     .slick-slide>div {
       margin: 0 1.8rem;
+
+      @media (max-width: 991px) {
+        margin: 0 0.6rem;
+      }
     }
 
     .slick-list {
       margin: 0 -1.8rem;
+
+      @media (max-width: 991px) {
+        margin: 0 -0.6rem;
+      }
     }
   }
 
   &-item {
     width: 11.5rem;
     cursor: pointer;
+
+    @media (max-width: 991px) {
+      width: 100%;
+      border-radius: .8rem;
+      padding: 1.6rem 0;
+      background: linear-gradient(84deg, rgba(254, 164, 137, 0.30) 0%, rgba(246, 191, 135, 0.30) 100%);
+      margin-bottom: 1.2rem;
+    }
+
+    &-wrapper {
+      @media (max-width: 991px) {
+        display: flex !important;
+        justify-content: center;
+      }
+    }
 
     &:hover {
       .BookingServices-item {
@@ -37,8 +60,14 @@
       height: 11rem;
       margin: 0 auto 1.6rem;
       border-radius: 50%;
-      border-radius: 62px;
       background: linear-gradient(180deg, rgba(254, 164, 137, 0.20) 0%, rgba(246, 191, 135, 0.20) 100%);
+
+      @media (max-width: 991px) {
+        width: 6.4rem;
+        height: 6.4rem;
+        background: $white;
+        margin-bottom: 0.4rem;
+      }
 
       &-image {
         width: 5.6rem;
@@ -53,6 +82,10 @@
       font-weight: 500;
       transition: $common-transition;
       color: $emperor;
+
+      @media (max-width: 991px) {
+        font-size: 1.4rem;
+      }
     }
   }
 }

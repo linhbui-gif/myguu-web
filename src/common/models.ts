@@ -67,7 +67,7 @@ export type TService = {
   store_distance: number;
   store_name: string;
   updated_at: string;
-  vote: unknown;
+  vote: number;
   vote_number: number;
   work_time: unknown;
   store?: TStore;

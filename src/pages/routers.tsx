@@ -32,6 +32,7 @@ const FavoritesShop = lazy(() => retryLoadComponent(() => import('@/pages/Favori
 const Vouchers = lazy(() => retryLoadComponent(() => import('@/pages/Vouchers')));
 const Notifications = lazy(() => retryLoadComponent(() => import('@/pages/Notifications')));
 const MyAddress = lazy(() => retryLoadComponent(() => import('@/pages/MyAddress')));
+const Account = lazy(() => retryLoadComponent(() => import('@/pages/Account')));
 
 export const LayoutPaths = {
   Guest: '/',
@@ -55,6 +56,7 @@ export const Paths = {
   Vouchers: '/vouchers',
   Notifications: '/thong-bao',
   MyAddress: '/danh-sach-dia-chi',
+  Account: '/dieu-huong',
 
   Rest: '*',
 };
@@ -72,6 +74,7 @@ export const Pages = {
   Vouchers,
   Notifications,
   MyAddress,
+  Account,
 };
 
 interface IRouteProps extends RouteComponentProps {

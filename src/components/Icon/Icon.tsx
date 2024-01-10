@@ -45,6 +45,11 @@ import Gps from './Gps';
 import Trash from './Trash';
 import LocationFill from './LocationFill';
 import Menu from './Menu';
+import Bell from './Bell';
+import Calendar2 from './Calendar2';
+import ChatCircle from './ChatCircle';
+import User from './User';
+import HeartOutline from './HeartOutline';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, strokeWidth, onClick, style }) => {
   const renderIcon = (): React.ReactElement => {
@@ -129,7 +134,16 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, strokeWidth, onCli
         return <LocationFill color={color} />;
       case EIconName.Menu:
         return <Menu color={color} />;
-
+      case EIconName.Bell:
+        return <Bell color={color} />;
+      case EIconName.Calendar2:
+        return <Calendar2 color={color} />;
+      case EIconName.ChatCircle:
+        return <ChatCircle color={color} />;
+      case EIconName.User:
+        return <User color={color} />;
+      case EIconName.HeartOutline:
+        return <HeartOutline color={color} />;
       default:
         return <></>;
     }

@@ -70,6 +70,7 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.Category()} component={Pages.Category} />
           <PublicRoute path={Paths.Search} component={Pages.Search} />
           <ProtectedRoute path={Paths.Booking()} component={Pages.Booking} />
+          <ProtectedRoute path={Paths.Account} component={Pages.Account} />
 
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>

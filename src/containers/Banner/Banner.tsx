@@ -13,8 +13,23 @@ const Banner: React.FC<TBannerProps> = ({ data = [] }) => {
     <div className="Banner">
       <div className="container">
         <div className="Banner-wrapper">
-          <Carousels arrows dots={false} infinite slidesToShow={1} autoplay>
-            {data.map((item, index) => (
+          <Carousels
+            arrows
+            dots={false}
+            infinite
+            slidesToShow={1}
+            autoplay
+            responsive={[
+              {
+                breakpoint: 991,
+                settings: {
+                  arrows: false,
+                  dots: true,
+                },
+              },
+            ]}
+          >
+            {[...data, ...data].map((item, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <div key={index} className="Banner-item">
                 <img src={item} alt="" />

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { Col, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 
 import Button, { EButtonStyleType } from '@/components/Button';
 import RadioGroup from '@/components/RadioGroup';
@@ -15,7 +16,7 @@ import { getDistrictsAction, getProvincesAction } from '@/redux/actions';
 import { TFilterToolsProps } from './FilterTools.types.d';
 import './FilterTools.scss';
 
-const FilterTools: React.FC<TFilterToolsProps> = ({ paramsRequest, onFilterChange }) => {
+const FilterTools: React.FC<TFilterToolsProps> = ({ paramsRequest, showFooter, onFilterChange, onApply, onReset }) => {
   const dispatch = useDispatch();
   const categoriesState = useSelector((state: TRootState) => state.categoryReducer.getCategoriesResponse)?.data || [];
 
@@ -56,7 +57,7 @@ const FilterTools: React.FC<TFilterToolsProps> = ({ paramsRequest, onFilterChang
   }, [getDistricts]);
 
   return (
-    <div className="FilterTools">
+    <div className={classNames('FilterTools', { 'show-footer': showFooter })}>
       <Button className="FilterTools-btn" title="Bộ lọc" styleType={EButtonStyleType.PRIMARY} />
 
       <div className="FilterTools-card">
@@ -149,6 +150,13 @@ const FilterTools: React.FC<TFilterToolsProps> = ({ paramsRequest, onFilterChang
           />
         </div>
       </div>
+
+      {showFooter && (
+        <div className="FilterTools-footer flex items-center">
+          <Button title="Áp dụng" size="large" styleType={EButtonStyleType.PRIMARY} onClick={onApply} />
+          <Button title="Đặt lại" size="large" styleType={EButtonStyleType.PRIMARY_OUTLINE} onClick={onReset} />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,0 +1,47 @@
+@import '@/assets/styles/_global.scss';
+
+.MobileHeader {
+  position: relative;
+  background: linear-gradient(180deg, #FEA389 0%, #F6BF87 60.94%, rgba(246, 191, 135, 0) 100%, #F6BF87 100%);
+  height: 25rem;
+  padding: 1.6rem 0;
+  margin-bottom: -10.8rem;
+
+  &-header {
+    &-location {
+      column-gap: .4rem;
+      font-size: 1.2rem;
+      color: $white;
+
+      .Icon {
+        flex: 0 0 1.6rem;
+        max-width: 1.6rem;
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+
+    &-item {
+      font-size: 1.4rem;
+      color: $white;
+    }
+  }
+
+  &-search {
+    margin-top: 1.6rem;
+
+    .HeaderSearch {
+      background: $white;
+      border-radius: 1rem;
+      padding-left: 1rem;
+
+      &-filter {
+        .Button .ant-btn {
+          width: 3.2rem !important;
+          border-radius: .4rem;
+          padding: 0;
+        }
+      }
+    }
+  }
+}

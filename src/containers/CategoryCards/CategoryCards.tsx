@@ -63,7 +63,7 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
 
           {tagsFilter && tagsFilter.length > 0 && (
             <div className="CategoryCards-tags">
-              <Tags value={valueTagsFilter} options={tagsFilter} onChange={onTagsFilterChange} />
+              <Tags value={valueTagsFilter} options={tagsFilter} onChange={onTagsFilterChange} carousel />
             </div>
           )}
 
