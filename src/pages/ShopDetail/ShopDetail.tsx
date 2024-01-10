@@ -23,6 +23,8 @@ import { TRootState } from '@/redux/reducers';
 import { usePaginationLoadMoreOptionTool } from '@/utils/hooks';
 import { DEFAULT_PAGE } from '@/common/constants';
 
+import './ShopDetail.scss';
+
 const ShopDetail: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();

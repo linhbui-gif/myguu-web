@@ -8,7 +8,6 @@ import Breadcrumb from '@/components/Breadcrumb';
 import ServiceCard from '@/components/ServiceCard';
 import Pagination from '@/components/Pagination';
 import FilterTools, { EFilterType } from '@/containers/FilterTools';
-import Button, { EButtonStyleType } from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { TRootState } from '@/redux/reducers';
 import { TGetStoresByCategoryBody } from '@/services/api';
@@ -16,6 +15,8 @@ import { DEFAULT_PAGE } from '@/common/constants';
 import { getStoresByCategoryAction } from '@/redux/actions';
 import { scrollToTop } from '@/utils/functions';
 import { Paths } from '@/pages/routers';
+
+import './Category.scss';
 
 const Category: React.FC = () => {
   const { id } = useParams();
@@ -29,7 +30,7 @@ const Category: React.FC = () => {
 
   const [getStoresByCategoryParamsRequest, setGetStoresByCategoryParamsRequest] = useState<TGetStoresByCategoryBody>({
     page: DEFAULT_PAGE,
-    limit: 9,
+    limit: isTablet ? 10 : 9,
     category_ids: [Number(id)],
     filter_type: EFilterType.NEAR_YOU,
     filter_vote: '',
@@ -76,18 +77,8 @@ const Category: React.FC = () => {
         <div className="container">
           <div className="Category-main-wrapper">
             <Row gutter={[24, 24]}>
-              <Col span={24} lg={{ span: 6 }}>
-                {isTablet ? (
-                  <div className="flex">
-                    <Button
-                      title="Bộ Lọc"
-                      styleType={EButtonStyleType.PRIMARY}
-                      iconName={EIconName.Filter}
-                      iconColor={EIconColor.WHITE}
-                      onClick={(): void => setVisibleFilter(true)}
-                    />
-                  </div>
-                ) : (
+              {!isTablet && (
+                <Col span={24} lg={{ span: 6 }}>
                   <FilterTools
                     paramsRequest={getStoresByCategoryParamsRequest}
                     onFilterChange={(dataChanged): void =>
@@ -98,8 +89,22 @@ const Category: React.FC = () => {
                       })
                     }
                   />
-                )}
-              </Col>
+                  {/* {isTablet ? (
+                    <div className="flex">
+                      <Button
+                        title="Bộ Lọc"
+                        styleType={EButtonStyleType.PRIMARY}
+                        iconName={EIconName.Filter}
+                        iconColor={EIconColor.WHITE}
+                        onClick={(): void => setVisibleFilter(true)}
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )} */}
+                </Col>
+              )}
+
               <Col span={24} lg={{ span: 18 }}>
                 <Row gutter={isMobile ? [16, 16] : [24, 24]}>
                   {storesByCategoryState?.data?.map((item) => (

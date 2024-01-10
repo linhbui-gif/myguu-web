@@ -81,7 +81,7 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
               </Row>
             </div>
           ) : (
-            <div className="CategoryCards-main">
+            <div className="CategoryCards-main carousel">
               <Carousels
                 autoplay={false}
                 infinite={false}
@@ -93,19 +93,8 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
                   {
                     breakpoint: 991,
                     settings: {
-                      slidesToShow: 4,
-                    },
-                  },
-                  {
-                    breakpoint: 768,
-                    settings: {
-                      slidesToShow: 3,
-                    },
-                  },
-                  {
-                    breakpoint: 575,
-                    settings: {
-                      slidesToShow: 2,
+                      slidesToShow: 1,
+                      variableWidth: true,
                     },
                   },
                 ]}

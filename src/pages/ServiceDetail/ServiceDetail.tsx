@@ -13,6 +13,8 @@ import { getServiceAction, getServiceVotesAction, getServicesByStoreAction } fro
 import { TRootState } from '@/redux/reducers';
 import { DEFAULT_PAGE } from '@/common/constants';
 
+import './ServiceDetail.scss';
+
 const ServiceDetail: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();

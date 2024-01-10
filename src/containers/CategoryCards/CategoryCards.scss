@@ -14,7 +14,8 @@
 
     .CategoryCards {
       &-header-item {
-        &-more ,
+
+        &-more,
         &-title {
           color: $white;
         }
@@ -38,6 +39,10 @@
 
     .slick-list {
       margin: 0 -0.75rem;
+
+      @media (max-width: 991px) {
+        margin-right: -1.5rem;
+      }
     }
   }
 
@@ -77,6 +82,20 @@
           max-width: 1.6rem;
           width: 1.6rem;
           height: 1.6rem;
+        }
+      }
+    }
+  }
+
+  &-main {
+    &.carousel {
+      .ServiceCard {
+        @media (max-width: 991px) {
+          width: 150px;
+
+          &-image {
+            height: 120px;
+          }
         }
       }
     }
