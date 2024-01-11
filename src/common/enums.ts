@@ -82,6 +82,7 @@ export enum EFormat {
   'DD/MM/YYYY - HH:mm A' = 'DD/MM/YYYY - HH:mm A',
   'DD-MM-YYYY' = 'DD-MM-YYYY',
   'DD-MM-YYYY - HH:mm' = 'DD-MM-YYYY - HH:mm',
+  'HH:mm' = 'HH:mm',
 }
 
 export enum ERole {

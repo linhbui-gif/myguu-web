@@ -14,7 +14,7 @@ import ModalAuth, { EModalAuthType } from '@/containers/ModalAuth';
 import { useModalState } from '@/utils/hooks';
 import DropdownMenu from '@/components/DropdownMenu';
 import { TRootState } from '@/redux/reducers';
-import { getMyProfileAction, logoutAction } from '@/redux/actions';
+import { ELogoutAction, getMyProfileAction, logoutAction } from '@/redux/actions';
 import Helpers from '@/services/helpers';
 import ModalOtherShopWarning from '@/containers/ModalOtherShopWarning';
 import { showNotification } from '@/utils/functions';
@@ -32,6 +32,7 @@ const Header: React.FC<THeaderProps> = () => {
   const [visibleMenuMobile, setVisibleMenuMobile] = useState<boolean>(false);
 
   const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+  const logoutLoading = useSelector((state: TRootState) => state.loadingReducer[ELogoutAction.LOGOUT]);
 
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
   const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
@@ -57,7 +58,7 @@ const Header: React.FC<THeaderProps> = () => {
     <DropdownMenu
       options={[
         { value: '1', label: 'Thông tin cá nhân', link: `${LayoutPaths.Profile}${Paths.ProfileInformation}` },
-        { value: '2', label: 'Đăng xuất', danger: true, onClick: handleLogout },
+        { value: '2', label: 'Đăng xuất', danger: true, onClick: handleLogout, disabled: logoutLoading },
       ]}
     >
       <div className="Header-account flex items-center">

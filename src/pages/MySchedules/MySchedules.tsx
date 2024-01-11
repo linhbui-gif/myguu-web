@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
+import { navigate } from '@reach/router';
 
 import Tags from '@/components/Tags';
 import CalendarSelect from '@/pages/Booking/BookingForm/CalendarSelect';
@@ -11,6 +12,7 @@ import { TGetOrdersParams } from '@/services/api';
 import { DEFAULT_PAGE, dataOrderStatusOptions } from '@/common/constants';
 import { EOrderStatus } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 
 import './MySchedules.scss';
 
@@ -59,6 +61,7 @@ const MySchedules: React.FC = () => {
         </div>
         <div className="MySchedules-status">
           <Tags
+            carousel
             size="middle"
             value={dataOrderStatusOptions.find((option) => option.value === getMyOrdersParamsRequest?.tab)}
             options={dataOrderStatusOptions}
@@ -108,9 +111,17 @@ const MySchedules: React.FC = () => {
                 services={item.order_services}
                 remind={item.remind === 1}
                 total={typeof item.total_money_discount === 'number' ? item.total_money_discount : item.total_money}
-                onClickDetail={(): void => {}}
+                onClickDetail={(): void => {
+                  navigate(`${LayoutPaths.Profile}${Paths.MyScheduleDetail(String(item.id))}`);
+                }}
                 onClickReview={(): void => {}}
-                onClickReOrder={(): void => {}}
+                onClickReOrder={(): void => {
+                  const dataServices = item?.order_services?.map((subItem) => ({
+                    ...subItem.service,
+                    quantity: subItem?.quantity,
+                  }));
+                  navigate(Paths.Booking(String(dataServices?.[0]?.store?.id)), { state: { services: dataServices } });
+                }}
               />
             </Col>
           ))}

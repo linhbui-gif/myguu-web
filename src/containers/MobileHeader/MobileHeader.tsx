@@ -9,6 +9,7 @@ import ModalAuth, { EModalAuthType } from '@/containers/ModalAuth';
 import { useModalState } from '@/utils/hooks';
 import { TRootState } from '@/redux/reducers';
 import { Paths } from '@/pages/routers';
+import ModalOtherShopWarning from '@/containers/ModalOtherShopWarning';
 
 import { TMobileHeaderProps } from './MobileHeader.types.d';
 import './MobileHeader.scss';
@@ -51,6 +52,7 @@ const MobileHeader: React.FC<TMobileHeaderProps> = () => {
       </div>
 
       <ModalAuth {...modalAuthState} onClose={handleCloseModalAuth} />
+      <ModalOtherShopWarning />
     </div>
   );
 };

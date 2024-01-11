@@ -164,7 +164,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
             </Col>
             <Col span={24}>
               <Form.Item className="Booking-label" name="voucher">
-                <VoucherSelect totalOrder={totalOrder} disabled={!isValidVoucher} />
+                <VoucherSelect totalOrder={totalOrder} disabled={formValues?.voucher ? !isValidVoucher : undefined} />
               </Form.Item>
             </Col>
             <Col span={24}>

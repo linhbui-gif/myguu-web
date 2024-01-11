@@ -18,6 +18,11 @@
       transition: $common-transition;
       cursor: pointer;
 
+      &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
       &:not(:last-child) {
         margin-bottom: 0.2rem;
       }
@@ -30,7 +35,7 @@
         background: rgba($tan-hide, 0.2);
       }
 
-      &:hover {
+      &:not(.disabled):hover {
         background: rgba($tan-hide, 0.1);
       }
     }

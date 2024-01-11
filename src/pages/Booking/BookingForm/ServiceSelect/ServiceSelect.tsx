@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from '@reach/router';
 
 import Quantity from '@/components/Quantity';
 import Button, { EButtonStyleType } from '@/components/Button';
@@ -15,7 +16,13 @@ import './ServiceSelect.scss';
 
 const ServiceSelect: React.FC<TServiceSelectProps> = () => {
   const dispatch = useDispatch();
-  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+  const location = useLocation();
+
+  const appCartState = useSelector((state: TRootState) => state.uiReducer.cart);
+  const dataServices: TService[] = (location?.state as any)?.services;
+
+  const cartState = dataServices && dataServices.length > 0 ? dataServices : appCartState;
+
   const isEmpty = cartState?.length === 0;
 
   const handleSelectService = (quantity: number, serviceData: TService): void => {

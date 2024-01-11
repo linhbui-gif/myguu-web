@@ -34,12 +34,14 @@ const DropdownMenu: React.FC<TDropdownMenuProps> = ({
         {options.map((item) => (
           <div
             key={item.value}
-            className={classNames('DropdownMenu-list-item', { danger: item.danger })}
+            className={classNames('DropdownMenu-list-item', { disabled: item?.disabled, danger: item.danger })}
             onClick={(): void => {
-              if (item?.link) {
-                navigate(item.link);
-              } else {
-                item.onClick?.(item);
+              if (!item?.disabled) {
+                if (item?.link) {
+                  navigate(item.link);
+                } else {
+                  item.onClick?.(item);
+                }
               }
             }}
           >

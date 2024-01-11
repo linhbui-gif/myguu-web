@@ -67,13 +67,13 @@ const Home: React.FC = () => {
   }, [dispatch, appGeoLoactionState]);
 
   const getStoresNearBy = useCallback(() => {
-    if (getStoresNearByParamsRequest?.categoryId) {
+    if (getStoresNearByParamsRequest?.category_id) {
       dispatch(
         getStoresNearByAction.request({
           params: {
             lat: appGeoLoactionState?.latitude,
             lng: appGeoLoactionState?.longitude,
-            categoryId: getStoresNearByParamsRequest?.categoryId,
+            category_id: getStoresNearByParamsRequest?.category_id,
           },
         }),
       );
@@ -81,13 +81,13 @@ const Home: React.FC = () => {
   }, [dispatch, appGeoLoactionState, getStoresNearByParamsRequest]);
 
   const getStoresProminentPlace = useCallback(() => {
-    if (getStoresProminentPlaceParamsRequest?.categoryId) {
+    if (getStoresProminentPlaceParamsRequest?.category_id) {
       dispatch(
         getStoresProminentPlaceAction.request({
           params: {
             lat: appGeoLoactionState?.latitude,
             lng: appGeoLoactionState?.longitude,
-            categoryId: getStoresProminentPlaceParamsRequest?.categoryId,
+            category_id: getStoresProminentPlaceParamsRequest?.category_id,
           },
         }),
       );
@@ -111,10 +111,10 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (categoriesState) {
-      setGetStoresNearByParamsRequest({ ...getStoresNearByParamsRequest, categoryId: categoriesOptions?.[0]?.value });
+      setGetStoresNearByParamsRequest({ ...getStoresNearByParamsRequest, category_id: categoriesOptions?.[0]?.value });
       setGetStoresProminentPlaceParamsRequest({
         ...getStoresProminentPlaceParamsRequest,
-        categoryId: categoriesOptions?.[0]?.value,
+        category_id: categoriesOptions?.[0]?.value,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -170,9 +170,9 @@ const Home: React.FC = () => {
       />
       <CategoryCards
         title="Cửa hàng gần bạn"
-        valueTagsFilter={categoriesOptions.find((option) => option.value === getStoresNearByParamsRequest?.categoryId)}
+        valueTagsFilter={categoriesOptions.find((option) => option.value === getStoresNearByParamsRequest?.category_id)}
         onTagsFilterChange={(option): void =>
-          setGetStoresNearByParamsRequest({ ...getStoresNearByParamsRequest, categoryId: Number(option.value) })
+          setGetStoresNearByParamsRequest({ ...getStoresNearByParamsRequest, category_id: Number(option.value) })
         }
         tagsFilter={categoriesOptions}
         moreLink={(storesNearByState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
@@ -224,12 +224,12 @@ const Home: React.FC = () => {
           span: 24,
         }}
         valueTagsFilter={categoriesOptions.find(
-          (option) => option.value === getStoresProminentPlaceParamsRequest?.categoryId,
+          (option) => option.value === getStoresProminentPlaceParamsRequest?.category_id,
         )}
         onTagsFilterChange={(option): void =>
           setGetStoresProminentPlaceParamsRequest({
             ...getStoresProminentPlaceParamsRequest,
-            categoryId: Number(option.value),
+            category_id: Number(option.value),
           })
         }
         tagsFilter={categoriesOptions}

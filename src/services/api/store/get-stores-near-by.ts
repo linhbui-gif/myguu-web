@@ -7,7 +7,7 @@ import ApiService from '@/services/api';
 export type TGetStoresNearByParams = {
   page?: number;
   limit?: number;
-  categoryId?: number;
+  category_id?: number;
   lat?: number;
   lng?: number;
 };

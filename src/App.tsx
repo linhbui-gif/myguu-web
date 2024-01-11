@@ -77,6 +77,7 @@ const App: React.FC = () => {
 
         <Profile path={LayoutPaths.Profile}>
           <ProtectedRoute path={Paths.MySchedules} component={Pages.MySchedules} />
+          <ProtectedRoute path={Paths.MyScheduleDetail()} component={Pages.MyScheduleDetail} />
           <ProtectedRoute path={Paths.ProfileInformation} component={Pages.ProfileInformation} />
           <ProtectedRoute path={Paths.FavoritesShop} component={Pages.FavoritesShop} />
           <ProtectedRoute path={Paths.Vouchers} component={Pages.Vouchers} />

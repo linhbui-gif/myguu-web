@@ -8,12 +8,16 @@ import { LayoutPaths, Paths } from '@/pages/routers';
 import ModalAuth, { EModalAuthType } from '@/containers/ModalAuth';
 import { TRootState } from '@/redux/reducers';
 import { useModalState } from '@/utils/hooks';
+import { showNotification } from '@/utils/functions';
+import { ETypeNotification } from '@/common/enums';
 
 import { TMobileFooterProps } from './MobileFooter.types.d';
 import './MobileFooter.scss';
 
 const MobileFooter: React.FC<TMobileFooterProps> = () => {
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
+  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+
   const [modalAuthState, handleOpenModalAuth, handleCloseModalAuth] = useModalState();
 
   const { pathname } = useLocation();
@@ -28,11 +32,13 @@ const MobileFooter: React.FC<TMobileFooterProps> = () => {
       auth: true,
     },
     {
-      link: `${LayoutPaths.Profile}${Paths.MySchedules}`,
-      activePaths: [`${LayoutPaths.Profile}${Paths.MySchedules}`],
-      title: 'Lịch Hẹn',
+      link: Paths.Booking(String(cartState?.[0]?.store?.id)),
+      activePaths: [Paths.Booking(String(cartState?.[0]?.store?.id))],
+      title: 'Đặt Lịch',
       icon: EIconName.Calendar2,
       auth: true,
+      cart: true,
+      badge: cartState?.length === 0 ? undefined : cartState?.length,
     },
     {
       link: `${LayoutPaths.Profile}${Paths.FavoritesShop}`,
@@ -62,7 +68,15 @@ const MobileFooter: React.FC<TMobileFooterProps> = () => {
           onClick={(): void => {
             if (item?.auth) {
               if (myProfileState) {
-                if (item.link) navigate(item.link);
+                if (item.cart) {
+                  if (cartState?.length === 0) {
+                    showNotification(ETypeNotification.ERROR, 'Vui lòng chọn 1 dịch vụ để đặt lịch !');
+                  } else if (item.link) {
+                    navigate(item.link);
+                  }
+                } else if (item.link) {
+                  navigate(item.link);
+                }
               } else {
                 handleOpenModalAuth({ key: EModalAuthType.SIGN_IN });
               }
@@ -71,6 +85,8 @@ const MobileFooter: React.FC<TMobileFooterProps> = () => {
             }
           }}
         >
+          {item?.badge && <div className="MobileFooter-item-badge flex items-center justify-center">{item.badge}</div>}
+
           <div className="MobileFooter-item-icon flex">
             <Icon name={item.icon} color={EIconColor.DOVE_GRAY} />
           </div>

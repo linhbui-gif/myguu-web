@@ -205,6 +205,7 @@ export type TDistrict = {
 };
 
 export type TOrder = {
+  branch: TBranch;
   cancel_reason: string;
   created_at: string;
   date: string;
