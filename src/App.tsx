@@ -24,13 +24,13 @@ const App: React.FC = () => {
   ] = useModalState();
 
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse);
+  const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
 
   const getGeoLocation = (): void => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position): void => {
           const { latitude, longitude } = position.coords;
-          dispatch(getAddressGeocodeAction.request({ params: { lat: latitude, lng: longitude } }));
           dispatch(uiActions.setGeoLocationApp({ latitude, longitude }));
         },
         (err): void => {
@@ -46,6 +46,16 @@ const App: React.FC = () => {
     getGeoLocation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (appGeoLoactionState && myProfileState) {
+      dispatch(
+        getAddressGeocodeAction.request({
+          params: { lat: appGeoLoactionState?.latitude, lng: appGeoLoactionState?.longitude },
+        }),
+      );
+    }
+  }, [dispatch, appGeoLoactionState, myProfileState]);
 
   useEffect(() => {
     if (atk && !myProfileState) {
