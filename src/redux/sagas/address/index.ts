@@ -3,6 +3,7 @@ import { all, takeLatest } from 'redux-saga/effects';
 import {
   createAddressAction,
   deleteAddressAction,
+  getAddressGeocodeAction,
   getDistrictsAction,
   getMyAddressesAction,
   getProvincesAction,
@@ -11,6 +12,7 @@ import {
 
 import { createAddressSaga } from './create-address';
 import { deleteAddressSaga } from './delete-address';
+import { getAddressGeocodeSaga } from './get-address-geocode';
 import { getDistrictsSaga } from './get-districts';
 import { getMyAddressesSaga } from './get-my-addresses';
 import { getProvincesSaga } from './get-provinces';
@@ -20,6 +22,7 @@ export default function* root(): Generator {
   yield all([
     takeLatest(createAddressAction.request.type, createAddressSaga),
     takeLatest(deleteAddressAction.request.type, deleteAddressSaga),
+    takeLatest(getAddressGeocodeAction.request.type, getAddressGeocodeSaga),
     takeLatest(getDistrictsAction.request.type, getDistrictsSaga),
     takeLatest(getMyAddressesAction.request.type, getMyAddressesSaga),
     takeLatest(getProvincesAction.request.type, getProvincesSaga),

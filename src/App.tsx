@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LayoutPaths, Pages, Paths, ProtectedRoute, PublicRoute } from '@/pages/routers';
 import Guest from '@/layouts/Guest';
 import Profile from '@/layouts/Profile/Profile';
-import { getMyProfileAction, uiActions } from '@/redux/actions';
+import { getAddressGeocodeAction, getMyProfileAction, uiActions } from '@/redux/actions';
 import Helpers from '@/services/helpers';
 import { TRootState } from '@/redux/reducers';
 import { useModalState } from '@/utils/hooks';
@@ -30,6 +30,7 @@ const App: React.FC = () => {
       navigator.geolocation.getCurrentPosition(
         (position): void => {
           const { latitude, longitude } = position.coords;
+          dispatch(getAddressGeocodeAction.request({ params: { lat: latitude, lng: longitude } }));
           dispatch(uiActions.setGeoLocationApp({ latitude, longitude }));
         },
         (err): void => {
@@ -69,6 +70,8 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.ServiceDetail()} component={Pages.ServiceDetail} />
           <PublicRoute path={Paths.Category()} component={Pages.Category} />
           <PublicRoute path={Paths.Search} component={Pages.Search} />
+          <PublicRoute path={Paths.Services} component={Pages.Services} />
+          <PublicRoute path={Paths.Shops} component={Pages.Shops} />
           <ProtectedRoute path={Paths.Booking()} component={Pages.Booking} />
           <ProtectedRoute path={Paths.Account} component={Pages.Account} />
 

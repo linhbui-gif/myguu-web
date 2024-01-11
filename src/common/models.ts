@@ -253,3 +253,19 @@ export type TAddress = {
   updated_at: string;
   user_id: number;
 };
+
+export type TAddressGeoCode = {
+  address: string;
+  address_components: {
+    long_name: string;
+    short_name: string;
+  }[];
+  compound: { district: string; commune: string; province: string };
+  formatted_address: string;
+  geometry: { location: { lat: number; lng: number }; boundary: null };
+  name: string;
+  place_id: string;
+  plus_code: { compound_code: string; global_code: string };
+  reference: string;
+  types: [];
+};

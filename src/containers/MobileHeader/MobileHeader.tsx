@@ -16,7 +16,7 @@ import './MobileHeader.scss';
 
 const MobileHeader: React.FC<TMobileHeaderProps> = () => {
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
-  const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
+  const addressGeoCodeState = useSelector((state: TRootState) => state.addressReducer.getAddressGeocodeResponse)?.data;
 
   const [modalAuthState, handleOpenModalAuth, handleCloseModalAuth] = useModalState();
 
@@ -28,9 +28,9 @@ const MobileHeader: React.FC<TMobileHeaderProps> = () => {
             <div className="MobileHeader-header-item">
               <div className="MobileHeader-header-location flex items-center">
                 <Icon name={EIconName.LocationFill} color={EIconColor.WHITE} />
-                {appGeoLoactionState ? 'Vị Trí Của Bạn' : 'Đang Tìm Kiếm'}
+                Vị Trí Của Bạn
               </div>
-              Hà Nội, Việt Nam
+              {addressGeoCodeState?.[0]?.address || 'Đang Tìm Kiếm'}
             </div>
             <div
               className="MobileHeader-header-item cursor-pointer"

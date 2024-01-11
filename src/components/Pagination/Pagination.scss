@@ -1,6 +1,9 @@
 @import '@/assets/styles/_global.scss';
 
 .Pagination {
+  .ant-pagination {
+    font-size: 1.4rem;
+  }
 
   .ant-pagination-disabled .ant-pagination-item-link,
   .ant-pagination-disabled:hover .ant-pagination-item-link {
@@ -12,9 +15,8 @@
   .ant-pagination-next,
   .ant-pagination-jump-prev,
   .ant-pagination-jump-next {
-    width: 3.2rem;
+    min-width: 3.2rem;
     height: 3.2rem;
-    min-width: unset;
   }
 
   .ant-pagination-item,

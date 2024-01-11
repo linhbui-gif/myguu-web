@@ -35,7 +35,7 @@ const Header: React.FC<THeaderProps> = () => {
   const logoutLoading = useSelector((state: TRootState) => state.loadingReducer[ELogoutAction.LOGOUT]);
 
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
-  const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
+  const addressGeoCodeState = useSelector((state: TRootState) => state.addressReducer.getAddressGeocodeResponse)?.data;
 
   const handleLogout = (): void => {
     dispatch(logoutAction.request({}, handleLogoutSuccess, handleLogoutSuccess));
@@ -50,7 +50,7 @@ const Header: React.FC<THeaderProps> = () => {
   const renderBranchSelect = (
     <div className="Header-location flex items-center cursor-pointer">
       <Icon name={EIconName.Location} color={EIconColor.TAN_HIDE} />
-      <span>{appGeoLoactionState ? 'Hà Nội, Việt Nam' : 'Đang Tìm Kiếm'}</span>
+      <span>{addressGeoCodeState?.[0]?.address || 'Đang Tìm Kiếm'}</span>
     </div>
   );
 

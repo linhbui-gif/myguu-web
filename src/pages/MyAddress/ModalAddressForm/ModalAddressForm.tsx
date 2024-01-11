@@ -112,18 +112,6 @@ const ModalAddressForm: React.FC<TModalAddressFormProps> = ({ visible, data, onC
                 <MapPicker />
               </Form.Item>
             </Col>
-
-            {/* <Col span={24}>
-              <div className="ModalAddressForm-iframe">
-                <iframe
-                  title="map"
-                  src={`https://www.google.com/maps?z=19&q=${formValues?.address || 'hanoi'}`}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </Col> */}
             {/* <Col span={24}>
               <Form.Item name="isDefault">
                 <Radio label="Đặt Làm Mặc Định" />

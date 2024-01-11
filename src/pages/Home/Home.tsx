@@ -18,6 +18,8 @@ import { EBannerScreen, EBannerType } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
 import { Paths } from '@/pages/routers';
 import { TGetStoresNearByParams, TGetStoresProminentPlaceParams } from '@/services/api';
+import { EServicesType } from '@/pages/Services';
+import { EShopsType } from '@/pages/Shops';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -153,7 +155,11 @@ const Home: React.FC = () => {
         primaryBackground
         headerIcon={EIconName.Lightning}
         headerIconColor={EIconColor.WHITE}
-        moreLink={(servicesDealHotState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
+        moreLink={
+          (servicesDealHotState?.paging?.pageCount || 0) > 1
+            ? `${Paths.Services}?type=${EServicesType.DEAL_HOT}`
+            : undefined
+        }
         data={servicesDealHotState?.data?.map((item) => ({
           link: Paths.ServiceDetail(String(item.id), item.slug),
           border: true,
@@ -175,7 +181,11 @@ const Home: React.FC = () => {
           setGetStoresNearByParamsRequest({ ...getStoresNearByParamsRequest, category_id: Number(option.value) })
         }
         tagsFilter={categoriesOptions}
-        moreLink={(storesNearByState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
+        moreLink={
+          (storesNearByState?.paging?.pageCount || 0) > 1
+            ? `${Paths.Shops}?type=${EShopsType.NEAR_YOU}&category_id=${getStoresNearByParamsRequest?.category_id}`
+            : undefined
+        }
         data={storesNearByState?.data?.map((item) => ({
           link: Paths.ShopDetail(String(item.id), item.slug),
           title: item.name,
@@ -188,7 +198,11 @@ const Home: React.FC = () => {
       />
       <CategoryCards
         title="Đề xuất cho bạn"
-        moreLink={(servicesProposeForYouState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
+        moreLink={
+          (servicesProposeForYouState?.paging?.pageCount || 0) > 1
+            ? `${Paths.Services}?type=${EServicesType.PROPOSE_FOR_YOU}`
+            : undefined
+        }
         data={servicesProposeForYouState?.data?.map((item) => ({
           border: true,
           link: Paths.ServiceDetail(String(item.id), item.slug),
@@ -205,7 +219,11 @@ const Home: React.FC = () => {
       />
       <CategoryCards
         title="Make-up tại nhà"
-        moreLink={(storesMakeupAtHomeState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
+        moreLink={
+          (storesMakeupAtHomeState?.paging?.pageCount || 0) > 1
+            ? `${Paths.Shops}?type=${EShopsType.MAKEUP_AT_HOME}`
+            : undefined
+        }
         data={storesMakeupAtHomeState?.data?.map((item) => ({
           link: Paths.ShopDetail(String(item.id), item.slug),
           title: item.name,
@@ -233,7 +251,11 @@ const Home: React.FC = () => {
           })
         }
         tagsFilter={categoriesOptions}
-        moreLink={(storesProminentPlaceState?.paging?.pageCount || 0) > 1 ? '#' : undefined}
+        moreLink={
+          (storesProminentPlaceState?.paging?.pageCount || 0) > 1
+            ? `${Paths.Shops}?type=${EShopsType.PROMINENT_PLACE}&category_id=${getStoresProminentPlaceParamsRequest?.category_id}`
+            : undefined
+        }
         data={storesProminentPlaceState?.data?.map((item) => ({
           link: Paths.ShopDetail(String(item.id), item.slug),
           border: true,
