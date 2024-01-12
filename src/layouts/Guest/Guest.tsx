@@ -24,7 +24,7 @@ const Guest: React.FC<TGuestProps> = ({ children }) => {
       <div className="Guest-footer">
         <Footer />
       </div>
-      {isTablet && <MobileFooter />}
+      <MobileFooter />
     </div>
   );
 };

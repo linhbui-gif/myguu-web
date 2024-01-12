@@ -39,7 +39,7 @@ const Profile: React.FC<TProfileProps> = ({ children }) => {
       <div className="Profile-footer">
         <Footer />
       </div>
-      {isTablet && <MobileFooter />}
+      <MobileFooter />
     </div>
   );
 };
