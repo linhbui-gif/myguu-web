@@ -68,7 +68,7 @@ const Category: React.FC = () => {
     <div className="Category">
       <Breadcrumb
         options={[
-          { key: '1', title: 'Trang chủ' },
+          { key: '1', title: 'Trang chủ', link: Paths.Home },
           { key: '2', title: 'Danh mục' },
           { key: '3', title: categoriesState?.find((item) => Number(item.id) === Number(id))?.name },
         ]}

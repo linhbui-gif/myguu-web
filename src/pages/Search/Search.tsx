@@ -106,7 +106,7 @@ const Search: React.FC = () => {
     <div className="Search">
       <Breadcrumb
         options={[
-          { key: '1', title: 'Trang chủ' },
+          { key: '1', title: 'Trang chủ', link: Paths.Home },
           { key: '2', title: 'Tìm kiếm' },
           { key: '3', title: searchValue },
         ]}

@@ -109,7 +109,7 @@ const Services: React.FC = () => {
     <div className="Services">
       <Breadcrumb
         options={[
-          { key: '1', title: 'Trang chủ' },
+          { key: '1', title: 'Trang chủ', link: Paths.Home },
           { key: '2', title: 'Dịch vụ' },
           { key: '3', title: renderTitle() },
         ]}

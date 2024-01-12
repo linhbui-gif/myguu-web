@@ -3,6 +3,9 @@
 .Shops {
   position: relative;
 
+  &-tags {
+    margin-top: 0.4rem;
+  }
 
   &-header {
     text-align: center;
@@ -15,6 +18,12 @@
     @media (max-width: 991px) {
       padding: .8rem;
       background: transparent;
+    }
+  }
+
+  &-main {
+    &-wrapper {
+      margin-top: 2.4rem;
     }
   }
 }

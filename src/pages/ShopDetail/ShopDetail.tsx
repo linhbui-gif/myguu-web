@@ -24,6 +24,7 @@ import { usePaginationLoadMoreOptionTool } from '@/utils/hooks';
 import { DEFAULT_PAGE } from '@/common/constants';
 
 import './ShopDetail.scss';
+import { Paths } from '@/pages/routers';
 
 const ShopDetail: React.FC = () => {
   const dispatch = useDispatch();
@@ -134,7 +135,7 @@ const ShopDetail: React.FC = () => {
     <div className="ShopDetail">
       <Breadcrumb
         options={[
-          { key: '1', title: 'Trang chủ' },
+          { key: '1', title: 'Trang chủ', link: Paths.Home },
           { key: '2', title: 'Cửa hàng' },
           { key: '3', title: storeState?.name },
         ]}

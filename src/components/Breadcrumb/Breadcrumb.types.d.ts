@@ -9,5 +9,6 @@ export type TBreadcrumbProps = {
 export type TBreadcrumbData = {
   key: string | number;
   title: React.ReactNode;
+  link?: string;
   onClick?: () => void;
 };

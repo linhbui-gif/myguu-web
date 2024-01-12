@@ -38,7 +38,15 @@ const MobileFooter: React.FC<TMobileFooterProps> = () => {
       icon: EIconName.Calendar2,
       auth: true,
       cart: true,
+      hide: true,
       badge: cartState?.length === 0 ? undefined : cartState?.length,
+    },
+    {
+      link: `${LayoutPaths.Profile}${Paths.MySchedules}`,
+      activePaths: [`${LayoutPaths.Profile}${Paths.MySchedules}`],
+      title: 'Lịch Hẹn',
+      icon: EIconName.Calendar2,
+      auth: true,
     },
     {
       link: `${LayoutPaths.Profile}${Paths.FavoritesShop}`,
@@ -58,41 +66,45 @@ const MobileFooter: React.FC<TMobileFooterProps> = () => {
 
   return (
     <div className="MobileFooter flex items-start justify-around">
-      {dataMobileFooterMenu.map((item, index) => (
-        <div
-          // eslint-disable-next-line react/no-array-index-key
-          key={index}
-          className={classNames('MobileFooter-item', {
-            active: (item?.activePaths as string[])?.includes(pathname),
-          })}
-          onClick={(): void => {
-            if (item?.auth) {
-              if (myProfileState) {
-                if (item.cart) {
-                  if (cartState?.length === 0) {
-                    showNotification(ETypeNotification.ERROR, 'Vui lòng chọn 1 dịch vụ để đặt lịch !');
+      {dataMobileFooterMenu
+        ?.filter((item) => !item.hide)
+        .map((item, index) => (
+          <div
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+            className={classNames('MobileFooter-item', {
+              active: (item?.activePaths as string[])?.includes(pathname),
+            })}
+            onClick={(): void => {
+              if (item?.auth) {
+                if (myProfileState) {
+                  if (item.cart) {
+                    if (cartState?.length === 0) {
+                      showNotification(ETypeNotification.ERROR, 'Vui lòng chọn 1 dịch vụ để đặt lịch !');
+                    } else if (item.link) {
+                      navigate(item.link);
+                    }
                   } else if (item.link) {
                     navigate(item.link);
                   }
-                } else if (item.link) {
-                  navigate(item.link);
+                } else {
+                  handleOpenModalAuth({ key: EModalAuthType.SIGN_IN });
                 }
-              } else {
-                handleOpenModalAuth({ key: EModalAuthType.SIGN_IN });
+              } else if (item.link) {
+                navigate(item.link);
               }
-            } else if (item.link) {
-              navigate(item.link);
-            }
-          }}
-        >
-          {item?.badge && <div className="MobileFooter-item-badge flex items-center justify-center">{item.badge}</div>}
+            }}
+          >
+            {item?.badge && (
+              <div className="MobileFooter-item-badge flex items-center justify-center">{item.badge}</div>
+            )}
 
-          <div className="MobileFooter-item-icon flex">
-            <Icon name={item.icon} color={EIconColor.DOVE_GRAY} />
+            <div className="MobileFooter-item-icon flex">
+              <Icon name={item.icon} color={EIconColor.DOVE_GRAY} />
+            </div>
+            <div className="MobileFooter-item-label">{item.title}</div>
           </div>
-          <div className="MobileFooter-item-label">{item.title}</div>
-        </div>
-      ))}
+        ))}
 
       <ModalAuth {...modalAuthState} onClose={handleCloseModalAuth} />
     </div>

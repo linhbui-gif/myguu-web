@@ -2,6 +2,7 @@ import React from 'react';
 import { Breadcrumb as AntdBreadcrumb } from 'antd';
 import classNames from 'classnames';
 import { useMediaQuery } from 'react-responsive';
+import { navigate } from '@reach/router';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 
@@ -18,7 +19,17 @@ const Breadcrumb: React.FC<TBreadcrumbProps> = ({ className, options = [] }) => 
         <div className="Breadcrumb-wrapper">
           <AntdBreadcrumb separator={<Icon name={EIconName.AngleRight} color={EIconColor.REGENT_GRAY} />}>
             {options.map((option) => (
-              <AntdBreadcrumb.Item key={option.key} onClick={option.onClick}>
+              <AntdBreadcrumb.Item
+                className={classNames({ 'cursor-pointer': option.link })}
+                key={option.key}
+                onClick={(): void => {
+                  if (option?.link) {
+                    navigate(option.link);
+                  } else {
+                    option?.onClick?.();
+                  }
+                }}
+              >
                 {option.title}
               </AntdBreadcrumb.Item>
             ))}

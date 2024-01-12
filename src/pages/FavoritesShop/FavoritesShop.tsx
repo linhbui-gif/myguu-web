@@ -60,42 +60,46 @@ const FavoritesShop: React.FC = () => {
         </div>
       </div>
 
-      <div className="FavoritesShop-main">
-        <Row gutter={[16, 16]}>
-          {myFavouriteStoresState?.map((item) => (
-            <Col key={item.id} span={24} lg={{ span: 12 }}>
-              <ShopAddressCard
-                image={item?.avatar}
-                title={item?.name}
-                address={item?.address}
-                distance={item?.distance}
-                voteNumber={item?.vote_number}
-                vote={item?.vote}
-                moveTime={item?.move_time}
-                favorited
-                link={Paths.ShopDetail(String(item.id), item.slug)}
-              />
-            </Col>
-          ))}
-        </Row>
-      </div>
+      {currentFavoriteType?.value === EFavoritesType.STORE && (
+        <div className="FavoritesShop-main">
+          <Row gutter={[16, 16]}>
+            {myFavouriteStoresState?.map((item) => (
+              <Col key={item.id} span={24} lg={{ span: 12 }}>
+                <ShopAddressCard
+                  image={item?.avatar}
+                  title={item?.name}
+                  address={item?.address}
+                  distance={item?.distance}
+                  voteNumber={item?.vote_number}
+                  vote={item?.vote}
+                  moveTime={item?.move_time}
+                  favorited
+                  link={Paths.ShopDetail(String(item.id), item.slug)}
+                />
+              </Col>
+            ))}
+          </Row>
+        </div>
+      )}
 
-      <div className="FavoritesShop-main">
-        <Row gutter={[16, 16]}>
-          {myFavouriteServicesState?.map((item) => (
-            <Col key={item.id} span={24} lg={{ span: 12 }}>
-              <ShopAddressCard
-                image={item?.avatar}
-                title={item?.name}
-                retailPrice={item?.price}
-                sellingPrice={item?.discount_price}
-                favorited
-                link={Paths.ServiceDetail(String(item.id), item.slug)}
-              />
-            </Col>
-          ))}
-        </Row>
-      </div>
+      {currentFavoriteType?.value === EFavoritesType.SERVICE && (
+        <div className="FavoritesShop-main">
+          <Row gutter={[16, 16]}>
+            {myFavouriteServicesState?.map((item) => (
+              <Col key={item.id} span={24} lg={{ span: 12 }}>
+                <ShopAddressCard
+                  image={item?.avatar}
+                  title={item?.name}
+                  retailPrice={item?.price}
+                  sellingPrice={item?.discount_price}
+                  favorited
+                  link={Paths.ServiceDetail(String(item.id), item.slug)}
+                />
+              </Col>
+            ))}
+          </Row>
+        </div>
+      )}
     </div>
   );
 };

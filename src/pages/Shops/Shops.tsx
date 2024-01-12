@@ -13,6 +13,7 @@ import ServiceCard from '@/components/ServiceCard';
 import { Paths } from '@/pages/routers';
 import { TStore } from '@/common/models';
 import Pagination from '@/components/Pagination';
+import Tags from '@/components/Tags';
 
 import './Shops.scss';
 
@@ -23,6 +24,12 @@ const Shops: React.FC = () => {
   const category_id = getQueryParam('category_id') as string;
 
   const appGeoLoactionState = useSelector((state: TRootState) => state.uiReducer.geoAppLocation);
+
+  const categoriesState = useSelector((state: TRootState) => state.categoryReducer.getCategoriesResponse)?.data || [];
+  const categoriesOptions = categoriesState?.map((item) => ({
+    value: item.id,
+    label: item.name,
+  }));
 
   const storesNearByState = useSelector((state: TRootState) => state.storeReducer.getStoresNearByResponse);
   const storesProminentPlaceState = useSelector(
@@ -35,7 +42,7 @@ const Shops: React.FC = () => {
     limit: 8 * 5,
     lat: undefined,
     lng: undefined,
-    category_id: undefined,
+    category_id,
   });
 
   const handlePaginateChange = (): void => {
@@ -78,11 +85,7 @@ const Shops: React.FC = () => {
       case EShopsType.NEAR_YOU: {
         dispatch(
           getStoresNearByAction.request({
-            params: {
-              lat: appGeoLoactionState?.latitude,
-              lng: appGeoLoactionState?.longitude,
-              category_id: category_id || undefined,
-            },
+            params: getParamsRequest,
           }),
         );
         break;
@@ -90,10 +93,7 @@ const Shops: React.FC = () => {
       case EShopsType.MAKEUP_AT_HOME: {
         dispatch(
           getStoresMakeupAtHomeAction.request({
-            params: {
-              lat: appGeoLoactionState?.latitude,
-              lng: appGeoLoactionState?.longitude,
-            },
+            params: getParamsRequest,
           }),
         );
         break;
@@ -101,11 +101,7 @@ const Shops: React.FC = () => {
       case EShopsType.PROMINENT_PLACE: {
         dispatch(
           getStoresProminentPlaceAction.request({
-            params: {
-              lat: appGeoLoactionState?.latitude,
-              lng: appGeoLoactionState?.longitude,
-              category_id: category_id || undefined,
-            },
+            params: getParamsRequest,
           }),
         );
         break;
@@ -135,14 +131,29 @@ const Shops: React.FC = () => {
     <div className="Shops">
       <Breadcrumb
         options={[
-          { key: '1', title: 'Trang chủ' },
+          { key: '1', title: 'Trang chủ', link: Paths.Home },
           { key: '2', title: 'Dịch vụ' },
           { key: '3', title: renderTitle() },
         ]}
       />
-      <div className="Shops-header">{renderTitle()}</div>
-      <div className="Shops-main" style={{ padding: '4.8rem 0 6.4rem' }}>
+
+      <div className="Shops-main" style={{ padding: '0rem 0 6.4rem' }}>
         <div className="container">
+          <div className="Shops-header">{renderTitle()}</div>
+          {[EShopsType.NEAR_YOU].includes(type as EShopsType) && (
+            <div className="Shops-tags">
+              <Tags
+                carousel
+                options={categoriesOptions}
+                value={categoriesOptions.find(
+                  (option) => String(option.value) === String(getParamsRequest?.category_id),
+                )}
+                onChange={(option): void => {
+                  setGetParamsRequest({ ...getParamsRequest, page: DEFAULT_PAGE, category_id: option.value });
+                }}
+              />
+            </div>
+          )}
           <div className="Shops-main-wrapper">
             <Row gutter={[24, 24]}>
               <Col span={24}>
