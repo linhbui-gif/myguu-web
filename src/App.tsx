@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Redirect, Router } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { LayoutPaths, Pages, Paths, ProtectedRoute, PublicRoute } from '@/pages/routers';
 import Guest from '@/layouts/Guest';
 import Profile from '@/layouts/Profile/Profile';
-import { getAddressGeocodeAction, getMyProfileAction, uiActions } from '@/redux/actions';
+import { getAddressGeocodeAction, getCategoriesAction, getMyProfileAction, uiActions } from '@/redux/actions';
 import Helpers from '@/services/helpers';
 import { TRootState } from '@/redux/reducers';
 import { useModalState } from '@/utils/hooks';
@@ -41,6 +41,14 @@ const App: React.FC = () => {
       handleOpenModalRequireTurnOnShareLocation();
     }
   };
+
+  const getCategories = useCallback(() => {
+    dispatch(getCategoriesAction.request({}));
+  }, [dispatch]);
+
+  useEffect(() => {
+    getCategories();
+  }, [getCategories]);
 
   useEffect(() => {
     getGeoLocation();
