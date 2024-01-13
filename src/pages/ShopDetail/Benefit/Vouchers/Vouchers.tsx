@@ -9,6 +9,7 @@ import { TRootState } from '@/redux/reducers';
 
 import { TVouchersProps } from './Vouchers.types';
 import './Vouchers.scss';
+import Empty from '@/components/Empty';
 
 const Vouchers: React.FC<TVouchersProps> = () => {
   const vouchersByStoreState = useSelector(
@@ -20,7 +21,9 @@ const Vouchers: React.FC<TVouchersProps> = () => {
   const isEmpty = vouchersByStoreState?.length === 0;
 
   return isEmpty ? (
-    <></>
+    <>
+      <Empty />
+    </>
   ) : (
     <div className="VouchersInStore">
       <div className="container">

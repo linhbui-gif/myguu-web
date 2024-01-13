@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Col, Drawer, Row } from 'antd';
+import { Col, Drawer, Empty, Row } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from '@reach/router';
@@ -166,40 +166,52 @@ const Search: React.FC = () => {
                 <Row gutter={isMobile ? [16, 16] : [24, 24]}>
                   {isServiceTab ? (
                     <>
-                      {servicesBySearchState?.data?.map((item) => (
-                        <Col key={item.id} span={12} md={{ span: 8 }}>
-                          <ServiceCard
-                            border
-                            link={Paths.ServiceDetail(String(item.id), item.slug)}
-                            subtitle={item?.store?.name}
-                            title={item.name}
-                            image={item?.banner?.[0]}
-                            discountPercent={item.discount_percent}
-                            sellingPrice={item.discount_price}
-                            retailPrice={item.price}
-                            moveTime={item.move_time}
-                            distance={item.store_distance}
-                            vote={item.vote}
-                          />
-                        </Col>
-                      ))}
+                      {servicesBySearchState?.data.length === 0 ? (
+                        <div style={{ flex: 1 }}>
+                          <Empty />
+                        </div>
+                      ) : (
+                        servicesBySearchState?.data?.map((item) => (
+                          <Col key={item.id} span={12} md={{ span: 8 }}>
+                            <ServiceCard
+                              border
+                              link={Paths.ServiceDetail(String(item.id), item.slug)}
+                              subtitle={item?.store?.name}
+                              title={item.name}
+                              image={item?.banner?.[0]}
+                              discountPercent={item.discount_percent}
+                              sellingPrice={item.discount_price}
+                              retailPrice={item.price}
+                              moveTime={item.move_time}
+                              distance={item.store_distance}
+                              vote={item.vote}
+                            />
+                          </Col>
+                        ))
+                      )}
                     </>
                   ) : (
                     <>
-                      {storesBySearchState?.data?.map((item) => (
-                        <Col key={item.id} span={12} md={{ span: 8 }}>
-                          <ServiceCard
-                            border
-                            link={Paths.ShopDetail(String(item.id), item.slug)}
-                            title={item.name}
-                            image={item?.avatar}
-                            address={item?.address}
-                            moveTime={item.move_time}
-                            distance={item.distance}
-                            vote={item.vote}
-                          />
-                        </Col>
-                      ))}
+                      {storesBySearchState?.data.length === 0 ? (
+                        <div style={{ flex: 1 }}>
+                          <Empty />
+                        </div>
+                      ) : (
+                        storesBySearchState?.data?.map((item) => (
+                          <Col key={item.id} span={12} md={{ span: 8 }}>
+                            <ServiceCard
+                              border
+                              link={Paths.ShopDetail(String(item.id), item.slug)}
+                              title={item.name}
+                              image={item?.avatar}
+                              address={item?.address}
+                              moveTime={item.move_time}
+                              distance={item.distance}
+                              vote={item.vote}
+                            />
+                          </Col>
+                        ))
+                      )}
                     </>
                   )}
                 </Row>

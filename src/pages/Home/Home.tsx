@@ -181,11 +181,7 @@ const Home: React.FC = () => {
           setGetStoresNearByParamsRequest({ ...getStoresNearByParamsRequest, category_id: Number(option.value) })
         }
         tagsFilter={categoriesOptions}
-        moreLink={
-          (storesNearByState?.paging?.pageCount || 0) > 1
-            ? `${Paths.Shops}?type=${EShopsType.NEAR_YOU}&category_id=${getStoresNearByParamsRequest?.category_id}`
-            : undefined
-        }
+        moreLink={`${Paths.Shops}?type=${EShopsType.NEAR_YOU}&category_id=${getStoresNearByParamsRequest?.category_id}`}
         data={storesNearByState?.data?.map((item) => ({
           link: Paths.ShopDetail(String(item.id), item.slug),
           title: item.name,

@@ -14,6 +14,7 @@ import { TVoucher } from '@/common/models';
 import { TModalVoucherSelectProps } from './ModalVoucherSelect.types.d';
 import './ModalVoucherSelect.scss';
 import { EIconColor } from '@/components/Icon';
+import Empty from '@/components/Empty';
 
 const ModalVoucherSelect: React.FC<TModalVoucherSelectProps> = ({
   visible,
@@ -100,38 +101,41 @@ const ModalVoucherSelect: React.FC<TModalVoucherSelectProps> = ({
     <Modal visible={visible} className="ModalVoucherSelect" onClose={onClose} width={400}>
       <div className="ModalVoucherSelect-wrapper">
         <div className="ModalVoucherSelect-title">Chọn Voucher</div>
+        {isEmptyMyVouchers ? (
+          <Empty />
+        ) : (
+          <div className="ModalVoucherSelect-body flex flex-col">
+            {!isEmptyMyVouchers && (
+              <>
+                <div className="ModalVoucherSelect-subtitle">Voucher MyGuu</div>
+                <div className="ModalVoucherSelect-list">{myVouchersState?.map((item) => renderTicket(item))}</div>
+              </>
+            )}
 
-        <div className="ModalVoucherSelect-body flex flex-col">
-          {!isEmptyMyVouchers && (
-            <>
-              <div className="ModalVoucherSelect-subtitle">Voucher MyGuu</div>
-              <div className="ModalVoucherSelect-list">{myVouchersState?.map((item) => renderTicket(item))}</div>
-            </>
-          )}
+            {!isEmptyVouchersByStore && (
+              <>
+                <div className="ModalVoucherSelect-subtitle">Voucher Cửa Hàng</div>
+                <div className="ModalVoucherSelect-list">{vouchersByStoreState?.map((item) => renderTicket(item))}</div>
+              </>
+            )}
 
-          {!isEmptyVouchersByStore && (
-            <>
-              <div className="ModalVoucherSelect-subtitle">Voucher Cửa Hàng</div>
-              <div className="ModalVoucherSelect-list">{vouchersByStoreState?.map((item) => renderTicket(item))}</div>
-            </>
-          )}
-
-          <div className="ModalVoucherSelect-btn flex justify-center">
-            <Button
-              title="Chọn"
-              size="large"
-              styleType={EButtonStyleType.PRIMARY}
-              onClick={(): void => {
-                if (voucherSelected) {
-                  onSubmit?.(voucherSelected);
-                  onClose?.();
-                }
-              }}
-              disabled={!voucherSelected}
-            />
-            <Button title="Huỷ Bỏ" size="large" styleType={EButtonStyleType.PRIMARY_OUTLINE} onClick={onClose} />
+            <div className="ModalVoucherSelect-btn flex justify-center">
+              <Button
+                title="Chọn"
+                size="large"
+                styleType={EButtonStyleType.PRIMARY}
+                onClick={(): void => {
+                  if (voucherSelected) {
+                    onSubmit?.(voucherSelected);
+                    onClose?.();
+                  }
+                }}
+                disabled={!voucherSelected}
+              />
+              <Button title="Huỷ Bỏ" size="large" styleType={EButtonStyleType.PRIMARY_OUTLINE} onClick={onClose} />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </Modal>
   );

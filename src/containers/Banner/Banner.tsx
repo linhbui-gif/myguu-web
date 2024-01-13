@@ -4,11 +4,14 @@ import Carousels from '@/components/Carousels';
 
 import { TBannerProps } from './Banner.types.d';
 import './Banner.scss';
+import Empty from '@/components/Empty';
 
 const Banner: React.FC<TBannerProps> = ({ data = [] }) => {
   const isEmpty = data.length === 0;
   return isEmpty ? (
-    <></>
+    <>
+      <Empty />
+    </>
   ) : (
     <div className="Banner">
       <div className="container">
