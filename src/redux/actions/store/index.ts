@@ -7,3 +7,4 @@ export * from './get-stores-makeup-at-home';
 export * from './get-stores-near-by';
 export * from './get-stores-prominent-place';
 export * from './get-stores-trending';
+export * from './get-store-abum-detail';

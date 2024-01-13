@@ -10,7 +10,7 @@
     height: 46rem;
 
     @media (max-width: 991px) {
-      height: calc(43vw - 1.5rem * 2);
+      height: unset;
     }
   }
 }

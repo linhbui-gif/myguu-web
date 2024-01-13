@@ -29,7 +29,7 @@ const AppDownload: React.FC<TAppDownloadProps> = () => {
               <div className="AppDownload-downloads">
                 <a
                   className="AppDownload-downloads-item"
-                  href="https://play.google.com/"
+                  href="https://myguu.page.link/store"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -37,7 +37,7 @@ const AppDownload: React.FC<TAppDownloadProps> = () => {
                 </a>
                 <a
                   className="AppDownload-downloads-item"
-                  href="https://www.apple.com/app-store/"
+                  href="https://myguu.page.link/store"
                   target="_blank"
                   rel="noreferrer"
                 >

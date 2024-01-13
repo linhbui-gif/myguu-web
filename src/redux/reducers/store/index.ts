@@ -10,6 +10,7 @@ import {
   TGetStoresNearByResponse,
   TGetStoresProminentPlaceResponse,
   TGetStoresTrendingResponse,
+  TGetStoreAlbumByIdResponse,
 } from '@/services/api/store';
 import {
   getStoreAlbumsAction,
@@ -21,6 +22,7 @@ import {
   getStoresNearByAction,
   getStoresProminentPlaceAction,
   getStoresTrendingAction,
+  GetStoreAlbumByIdAction,
 } from '@/redux/actions';
 import { getStoreAlbumsUpdateState } from './get-store-albums';
 import { getStoreVotesUpdateState } from './get-store-votes';
@@ -31,6 +33,7 @@ import { getStoresMakeupAtHomeUpdateState } from './get-stores-makeup-at-home';
 import { getStoresNearByUpdateState } from './get-stores-near-by';
 import { getStoresProminentPlaceUpdateState } from './get-stores-prominent-place';
 import { getStoresTrendingUpdateState } from './get-stores-trending';
+import { getStoreAlbumDetailUpdateState } from './get-store-abum-detail';
 
 export type TStoreState = {
   getStoreAlbumsResponse?: TGetStoreAlbumsResponse;
@@ -42,6 +45,7 @@ export type TStoreState = {
   getStoresNearByResponse?: TGetStoresNearByResponse;
   getStoresProminentPlaceResponse?: TGetStoresProminentPlaceResponse;
   getStoresTrendingResponse?: TGetStoresTrendingResponse;
+  getStoreAlbumByIdResponse?: TGetStoreAlbumByIdResponse;
 };
 
 const initialState: TStoreState = {
@@ -54,6 +58,7 @@ const initialState: TStoreState = {
   getStoresNearByResponse: undefined,
   getStoresProminentPlaceResponse: undefined,
   getStoresTrendingResponse: undefined,
+  getStoreAlbumByIdResponse: undefined,
 };
 
 const StoreReducer = createReducer(initialState, (handleAction) => [
@@ -66,6 +71,7 @@ const StoreReducer = createReducer(initialState, (handleAction) => [
   handleAction(getStoresNearByAction.success, getStoresNearByUpdateState),
   handleAction(getStoresProminentPlaceAction.success, getStoresProminentPlaceUpdateState),
   handleAction(getStoresTrendingAction.success, getStoresTrendingUpdateState),
+  handleAction(GetStoreAlbumByIdAction.success, getStoreAlbumDetailUpdateState),
 ]);
 
 export default StoreReducer;

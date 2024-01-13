@@ -122,7 +122,9 @@
       border-radius: 50%;
       background: $primary-linear-gradient;
       transition: $common-transition;
-
+      svg {
+        width: 12px;
+      }
       &:hover {
         opacity: 0.8;
       }

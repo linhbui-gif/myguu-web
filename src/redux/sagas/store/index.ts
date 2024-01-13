@@ -10,6 +10,7 @@ import {
   getStoresNearByAction,
   getStoresProminentPlaceAction,
   getStoresTrendingAction,
+  GetStoreAlbumByIdAction,
 } from '@/redux/actions';
 
 import { getStoreAlbumsSaga } from './get-store-albums';
@@ -21,6 +22,7 @@ import { getStoresMakeupAtHomeSaga } from './get-stores-makeup-at-home';
 import { getStoresNearBySaga } from './get-stores-near-by';
 import { getStoresProminentPlaceSaga } from './get-stores-prominent-place';
 import { getStoresTrendingSaga } from './get-stores-trending';
+import { getStoreAlbumByIdSaga } from './get-store-abum-detail';
 
 export default function* root(): Generator {
   yield all([
@@ -33,5 +35,6 @@ export default function* root(): Generator {
     takeLatest(getStoresNearByAction.request.type, getStoresNearBySaga),
     takeLatest(getStoresProminentPlaceAction.request.type, getStoresProminentPlaceSaga),
     takeLatest(getStoresTrendingAction.request.type, getStoresTrendingSaga),
+    takeLatest(GetStoreAlbumByIdAction.request.type, getStoreAlbumByIdSaga),
   ]);
 }
