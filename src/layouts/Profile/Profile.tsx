@@ -25,7 +25,7 @@ const Profile: React.FC<TProfileProps> = ({ children }) => {
       <div className="Profile-header">{isTablet ? <MobileHeader /> : <Header />}</div>
       <div className="Profile-main">
         <div className="container">
-          <div className="Profile-main-wrapper flex flex-wrap">
+          <div className="Profile-main-wrapper flex">
             {!isTablet && (
               <div className="Profile-sidebar">
                 <SideBar />
