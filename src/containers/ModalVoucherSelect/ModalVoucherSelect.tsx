@@ -101,7 +101,7 @@ const ModalVoucherSelect: React.FC<TModalVoucherSelectProps> = ({
     <Modal visible={visible} className="ModalVoucherSelect" onClose={onClose} width={400}>
       <div className="ModalVoucherSelect-wrapper">
         <div className="ModalVoucherSelect-title">Chọn Voucher</div>
-        {isEmptyMyVouchers ? (
+        {isEmptyMyVouchers && isEmptyVouchersByStore ? (
           <Empty />
         ) : (
           <div className="ModalVoucherSelect-body flex flex-col">
