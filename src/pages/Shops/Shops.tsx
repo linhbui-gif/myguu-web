@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Col, Row } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 
@@ -7,7 +7,12 @@ import Breadcrumb from '@/components/Breadcrumb';
 import { getQueryParam, scrollToTop } from '@/utils/functions';
 import { EShopsType } from '@/pages/Shops/Shops.enums';
 import { DEFAULT_PAGE } from '@/common/constants';
-import { getStoresMakeupAtHomeAction, getStoresNearByAction, getStoresProminentPlaceAction } from '@/redux/actions';
+import {
+  EGetStoresNearByAction,
+  getStoresMakeupAtHomeAction,
+  getStoresNearByAction,
+  getStoresProminentPlaceAction,
+} from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import ServiceCard from '@/components/ServiceCard';
 import { Paths } from '@/pages/routers';
@@ -36,7 +41,9 @@ const Shops: React.FC = () => {
     (state: TRootState) => state.storeReducer.getStoresProminentPlaceResponse,
   );
   const storesMakeupAtHomeState = useSelector((state: TRootState) => state.storeReducer.getStoresMakeupAtHomeResponse);
-
+  const storesNearLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EGetStoresNearByAction.GET_STORES_NEAR_BY],
+  );
   const [getParamsRequest, setGetParamsRequest] = useState<any>({
     page: DEFAULT_PAGE,
     limit: 8 * 5,
@@ -45,11 +52,10 @@ const Shops: React.FC = () => {
     category_id,
   });
 
-  const handlePaginateChange = (): void => {
-    scrollToTop();
+  const handlePaginateChange = (page: any): void => {
     setGetParamsRequest({
       ...getParamsRequest,
-      page: (getParamsRequest.page || 0) + 1,
+      page,
     });
   };
 
@@ -156,23 +162,25 @@ const Shops: React.FC = () => {
           )}
           <div className="Shops-main-wrapper">
             <Row gutter={[24, 24]}>
-              <Col span={24}>
-                <Row gutter={isTablet ? [16, 16] : [24, 24]}>
-                  {renderDataState()?.data?.map((item: TStore) => (
-                    <Col key={item.id} span={12} lg={{ span: 6 }}>
-                      <ServiceCard
-                        border
-                        link={Paths.ShopDetail(String(item.id), item.slug)}
-                        title={item.name}
-                        image={item?.avatar}
-                        address={item?.address}
-                        moveTime={item.move_time}
-                        distance={item.distance}
-                        vote={item.vote}
-                      />
-                    </Col>
-                  ))}
-                  {/* {isServiceTab ? (
+              <Spin spinning={storesNearLoading}>
+                <Col span={24}>
+                  <Row gutter={isTablet ? [16, 16] : [24, 24]}>
+                    {renderDataState()?.data?.map((item: TStore) => (
+                      <Col key={item.id} span={12} lg={{ span: 6 }}>
+                        <ServiceCard
+                          border
+                          link={Paths.ShopDetail(String(item.id), item.slug)}
+                          title={item.name}
+                          image={item?.avatar}
+                          address={item?.address}
+                          moveTime={item.move_time}
+                          distance={item.distance}
+                          vote={item.vote}
+                        />
+                      </Col>
+                    ))}
+
+                    {/* {isServiceTab ? (
                     <>
                       
                     </>
@@ -194,17 +202,18 @@ const Shops: React.FC = () => {
                       ))}
                     </>
                   )} */}
-                </Row>
+                  </Row>
 
-                <div className="Shops-pagination flex justify-center" style={{ marginTop: '2rem' }}>
-                  <Pagination
-                    page={getParamsRequest.page || 0}
-                    pageSize={getParamsRequest.limit || 0}
-                    total={renderDataState()?.paging?.total}
-                    onChange={handlePaginateChange}
-                  />
-                </div>
-              </Col>
+                  <div className="Shops-pagination flex justify-center" style={{ marginTop: '2rem' }}>
+                    <Pagination
+                      page={getParamsRequest.page || 0}
+                      pageSize={getParamsRequest.limit || 0}
+                      total={renderDataState()?.paging?.total}
+                      onChange={handlePaginateChange}
+                    />
+                  </div>
+                </Col>
+              </Spin>
             </Row>
           </div>
         </div>

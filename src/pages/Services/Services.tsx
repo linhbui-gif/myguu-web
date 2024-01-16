@@ -138,28 +138,6 @@ const Services: React.FC = () => {
                       />
                     </Col>
                   ))}
-                  {/* {isServiceTab ? (
-                    <>
-                      
-                    </>
-                  ) : (
-                    <>
-                      {storesByServicesState?.data?.map((item) => (
-                        <Col key={item.id} span={12} md={{ span: 8 }}>
-                          <ServiceCard
-                            border
-                            link={Paths.ShopDetail(String(item.id), item.slug)}
-                            title={item.name}
-                            image={item?.avatar}
-                            address={item?.address}
-                            moveTime={item.move_time}
-                            distance={item.distance}
-                            vote={item.vote}
-                          />
-                        </Col>
-                      ))}
-                    </>
-                  )} */}
                 </Row>
 
                 <div className="Services-pagination flex justify-center" style={{ marginTop: '2rem' }}>

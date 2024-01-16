@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from '@reach/router';
-import { Col, Row } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import classNames from 'classnames';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
@@ -25,6 +25,7 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
   style,
   valueTagsFilter,
   onTagsFilterChange,
+  loading,
 }) => {
   const isEmpty = data.length === 0;
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -69,43 +70,47 @@ const CategoryCards: React.FC<TCategoryCardsProps> = ({
 
           {isGridList ? (
             <div className="CategoryCards-main">
-              <Row gutter={[24, 24]}>
-                {data.map((item: any, index: number) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Col key={index} span={24} lg={{ span: 12 }}>
-                    <div className="CategoryCards-main-item">
-                      <ServiceCard {...item} />
-                    </div>
-                  </Col>
-                ))}
-              </Row>
+              <Spin spinning={loading || false}>
+                <Row gutter={[24, 24]}>
+                  {data.map((item: any, index: number) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Col key={index} span={24} lg={{ span: 12 }}>
+                      <div className="CategoryCards-main-item">
+                        <ServiceCard {...item} />
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              </Spin>
             </div>
           ) : (
             <div className="CategoryCards-main carousel">
-              <Carousels
-                autoplay={false}
-                infinite={false}
-                slidesToShow={5}
-                arrows={false}
-                dots={false}
-                onDragging={setIsDragging}
-                responsive={[
-                  {
-                    breakpoint: 991,
-                    settings: {
-                      slidesToShow: 1,
-                      variableWidth: true,
+              <Spin spinning={loading || false}>
+                <Carousels
+                  autoplay={false}
+                  infinite={false}
+                  slidesToShow={5}
+                  arrows={false}
+                  dots={false}
+                  onDragging={setIsDragging}
+                  responsive={[
+                    {
+                      breakpoint: 991,
+                      settings: {
+                        slidesToShow: 1,
+                        variableWidth: true,
+                      },
                     },
-                  },
-                ]}
-              >
-                {data.map((item: any, index: number) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <div key={index} className="CategoryCards-main-item">
-                    <ServiceCard {...item} link={!isDragging ? item.link : undefined} />
-                  </div>
-                ))}
-              </Carousels>
+                  ]}
+                >
+                  {data.map((item: any, index: number) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <div key={index} className="CategoryCards-main-item">
+                      <ServiceCard {...item} link={!isDragging ? item.link : undefined} />
+                    </div>
+                  ))}
+                </Carousels>
+              </Spin>
             </div>
           )}
         </div>

@@ -8,6 +8,8 @@ import CategoryCards from '@/containers/CategoryCards';
 import { EIconColor, EIconName } from '@/components/Icon';
 import AppDownload from '@/containers/AppDownload';
 import {
+  EGetStoresNearByAction,
+  EGetStoresProminentPlaceAction,
   getBannersAction,
   getServicesDealHotAction,
   getServicesProposeForYouAction,
@@ -147,7 +149,12 @@ const Home: React.FC = () => {
   useEffect(() => {
     getBanners();
   }, [getBanners]);
-
+  const storesNearLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EGetStoresNearByAction.GET_STORES_NEAR_BY],
+  );
+  const storesProminentPlaceLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EGetStoresProminentPlaceAction.GET_STORES_PROMINENT_PLACE],
+  );
   return (
     <div className="Home">
       <Banner data={overviewBanners} />
@@ -194,6 +201,7 @@ const Home: React.FC = () => {
           distance: item.distance,
           vote: item.vote,
         }))}
+        loading={storesNearLoading}
       />
       <CategoryCards
         title="Đề xuất cho bạn"
@@ -266,6 +274,7 @@ const Home: React.FC = () => {
           distance: item.distance,
           vote: item.vote,
         }))}
+        loading={storesProminentPlaceLoading}
       />
       <AppDownload />
     </div>

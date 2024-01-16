@@ -17,4 +17,5 @@ export type TCategoryCardsProps = {
   isGridList?: boolean;
   primaryBackground?: boolean;
   style?: CSSProperties;
+  loading?: boolean;
 };
