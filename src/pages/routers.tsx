@@ -63,6 +63,7 @@ export const Paths = {
   Account: '/dieu-huong',
   Services: '/tat-ca-dich-vu',
   Shops: '/tat-ca-cua-hang',
+  VoucherList: '/tat-ca-voucher',
 
   Rest: '*',
 };

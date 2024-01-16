@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Col, Drawer, Row } from 'antd';
+import { Col, Drawer, Row, Spin } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from '@reach/router';
@@ -12,11 +12,11 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { TRootState } from '@/redux/reducers';
 import { TGetStoresByCategoryBody } from '@/services/api';
 import { DEFAULT_PAGE } from '@/common/constants';
-import { getStoresByCategoryAction } from '@/redux/actions';
-import { scrollToTop } from '@/utils/functions';
+import { EGetStoresByCategoryAction, getStoresByCategoryAction } from '@/redux/actions';
 import { Paths } from '@/pages/routers';
 
 import './Category.scss';
+import Empty from '@/components/Empty';
 
 const Category: React.FC = () => {
   const { id } = useParams();
@@ -30,7 +30,7 @@ const Category: React.FC = () => {
 
   const [getStoresByCategoryParamsRequest, setGetStoresByCategoryParamsRequest] = useState<TGetStoresByCategoryBody>({
     page: DEFAULT_PAGE,
-    limit: isTablet ? 10 : 9,
+    limit: 18,
     category_ids: [Number(id)],
     filter_type: EFilterType.NEAR_YOU,
     filter_vote: '',
@@ -38,12 +38,14 @@ const Category: React.FC = () => {
 
   const categoriesState = useSelector((state: TRootState) => state.categoryReducer.getCategoriesResponse)?.data || [];
   const storesByCategoryState = useSelector((state: TRootState) => state.storeReducer.getStoresByCategoryResponse);
-
-  const handlePaginateChange = (): void => {
-    scrollToTop();
+  const storeByCategoryLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EGetStoresByCategoryAction.GET_STORES_BY_CATEGORY],
+  );
+  console.log('storesByCategoryState', storesByCategoryState?.data);
+  const handlePaginateChange = (page: any): void => {
     setGetStoresByCategoryParamsRequest({
       ...getStoresByCategoryParamsRequest,
-      page: (getStoresByCategoryParamsRequest.page || 0) + 1,
+      page,
     });
   };
 
@@ -89,40 +91,32 @@ const Category: React.FC = () => {
                       })
                     }
                   />
-                  {/* {isTablet ? (
-                    <div className="flex">
-                      <Button
-                        title="Bộ Lọc"
-                        styleType={EButtonStyleType.PRIMARY}
-                        iconName={EIconName.Filter}
-                        iconColor={EIconColor.WHITE}
-                        onClick={(): void => setVisibleFilter(true)}
-                      />
-                    </div>
-                  ) : (
-                    <></>
-                  )} */}
                 </Col>
               )}
 
               <Col span={24} lg={{ span: 18 }}>
-                <Row gutter={isMobile ? [16, 16] : [24, 24]}>
-                  {storesByCategoryState?.data?.map((item) => (
-                    <Col key={item.id} span={12} md={{ span: 8 }}>
-                      <ServiceCard
-                        border
-                        link={Paths.ShopDetail(String(item.id), item.slug)}
-                        title={item.name}
-                        image={item?.avatar}
-                        address={item?.address}
-                        moveTime={item.move_time}
-                        distance={item.distance}
-                        vote={item.vote}
-                      />
-                    </Col>
-                  ))}
-                </Row>
-
+                <Spin spinning={storeByCategoryLoading}>
+                  <Row gutter={isMobile ? [16, 16] : [24, 24]}>
+                    {storesByCategoryState?.data.length === 0 ? (
+                      <Empty />
+                    ) : (
+                      storesByCategoryState?.data?.map((item) => (
+                        <Col key={item.id} span={12} md={{ span: 8 }}>
+                          <ServiceCard
+                            border
+                            link={Paths.ShopDetail(String(item.id), item.slug)}
+                            title={item.name}
+                            image={item?.avatar}
+                            address={item?.address}
+                            moveTime={item.move_time}
+                            distance={item.distance}
+                            vote={item.vote}
+                          />
+                        </Col>
+                      ))
+                    )}
+                  </Row>
+                </Spin>
                 <div className="Category-pagination flex justify-center" style={{ marginTop: '2rem' }}>
                   <Pagination
                     page={getStoresByCategoryParamsRequest.page || 0}

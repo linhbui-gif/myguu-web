@@ -60,6 +60,8 @@ const ModalAuth: React.FC<TModalAuthProps> = ({ visible, data, onClose }) => {
           onSuccess={(): void => {
             onClose?.();
           }}
+          onClickSignUp={(): void => setStepState({ ...stepState, key: EModalAuthType.SIGN_UP })}
+          onClickSignIn={(): void => setStepState({ ...stepState, key: EModalAuthType.SIGN_IN })}
         />
       )}
       {stepState?.key === EModalAuthType.FORGOT_PASSWORD && (
@@ -77,6 +79,8 @@ const ModalAuth: React.FC<TModalAuthProps> = ({ visible, data, onClose }) => {
           onSuccess={(dataStep): void =>
             setStepState({ ...stepState, key: EModalAuthType.CHANGE_NEW_PASSWORD, dataStep })
           }
+          onClickSignUp={(): void => setStepState({ ...stepState, key: EModalAuthType.SIGN_UP })}
+          onClickSignIn={(): void => setStepState({ ...stepState, key: EModalAuthType.SIGN_IN })}
         />
       )}
       {stepState?.key === EModalAuthType.CHANGE_NEW_PASSWORD && (

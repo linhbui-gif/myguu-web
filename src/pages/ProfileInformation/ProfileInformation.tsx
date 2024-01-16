@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Col, Form, Row } from 'antd';
+import { Col, Form, Row, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Input from '@/components/Input';
@@ -9,7 +9,12 @@ import { TRootState } from '@/redux/reducers';
 import { showNotification, uploadSingleFile, validationRules } from '@/utils/functions';
 
 import './ProfileInformation.scss';
-import { EUpdateMyProfileAction, getMyProfileAction, updateMyProfileAction } from '@/redux/actions';
+import {
+  EGetMyProfileAction,
+  EUpdateMyProfileAction,
+  getMyProfileAction,
+  updateMyProfileAction,
+} from '@/redux/actions';
 import { ETypeNotification } from '@/common/enums';
 
 const ProfileInformation: React.FC = () => {
@@ -22,6 +27,9 @@ const ProfileInformation: React.FC = () => {
     (state: TRootState) => state.loadingReducer[EUpdateMyProfileAction.UPDATE_MY_PROFILE],
   );
 
+  const getMyProfileLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EGetMyProfileAction.GET_MY_PROFILE],
+  );
   const handleSubmit = async (values: any): Promise<void> => {
     let avatar = myProfileState?.avatar;
     const isUploadAvatar = avatar !== values?.avatar;
@@ -63,43 +71,45 @@ const ProfileInformation: React.FC = () => {
       </div>
       <div className="SideBar-card">
         <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Row gutter={[24, 24]}>
-            <Col span={24} style={{ paddingTop: '0.8rem' }}>
-              <Form.Item name="avatar">
-                <UploadImage />
-              </Form.Item>
-            </Col>
-            <Col span={24}>
-              <Form.Item
-                className="ProfileInformation-label"
-                name="name"
-                label="Họ tên"
-                rules={[validationRules.required()]}
-              >
-                <Input size="large" />
-              </Form.Item>
-            </Col>
-            <Col span={24}>
-              <Form.Item
-                className="ProfileInformation-label"
-                name="phone"
-                label="Số điện thoại"
-                rules={[validationRules.required()]}
-              >
-                <Input size="large" numberic numberstring />
-              </Form.Item>
-            </Col>
-            <Col span={24} style={{ paddingBottom: '0.8rem' }}>
-              <div className="ProfileInformation-submit flex">
-                <Button
-                  title="Lưu"
-                  htmlType="submit"
-                  styleType={EButtonStyleType.PRIMARY}
-                  disabled={updateMyProfileLoading}
-                />
-              </div>
-            </Col>
-          </Row>
+          <Spin spinning={getMyProfileLoading}>
+            <Row gutter={[24, 24]}>
+              <Col span={24} style={{ paddingTop: '0.8rem' }}>
+                <Form.Item name="avatar">
+                  <UploadImage />
+                </Form.Item>
+              </Col>
+              <Col span={24}>
+                <Form.Item
+                  className="ProfileInformation-label"
+                  name="name"
+                  label="Họ tên"
+                  rules={[validationRules.required()]}
+                >
+                  <Input size="large" />
+                </Form.Item>
+              </Col>
+              <Col span={24}>
+                <Form.Item
+                  className="ProfileInformation-label"
+                  name="phone"
+                  label="Số điện thoại"
+                  rules={[validationRules.required()]}
+                >
+                  <Input size="large" numberic numberstring />
+                </Form.Item>
+              </Col>
+              <Col span={24} style={{ paddingBottom: '0.8rem' }}>
+                <div className="ProfileInformation-submit flex">
+                  <Button
+                    title="Lưu"
+                    htmlType="submit"
+                    styleType={EButtonStyleType.PRIMARY}
+                    disabled={updateMyProfileLoading}
+                  />
+                </div>
+              </Col>
+            </Row>
+          </Spin>
         </Form>
       </div>
     </div>

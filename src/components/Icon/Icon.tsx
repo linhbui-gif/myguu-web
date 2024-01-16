@@ -50,6 +50,8 @@ import Calendar2 from './Calendar2';
 import ChatCircle from './ChatCircle';
 import User from './User';
 import HeartOutline from './HeartOutline';
+import VoucherMobile from './VoucherMobile';
+import GuCoinCircle from './GuCoinCircle';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, strokeWidth, onClick, style }) => {
   const renderIcon = (): React.ReactElement => {
@@ -144,6 +146,10 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, strokeWidth, onCli
         return <User color={color} />;
       case EIconName.HeartOutline:
         return <HeartOutline color={color} />;
+      case EIconName.VoucherMobile:
+        return <VoucherMobile color={color} />;
+      case EIconName.GuCoinCircle:
+        return <GuCoinCircle color={color} />;
       default:
         return <></>;
     }

@@ -44,6 +44,8 @@ export enum EIconName {
   ChatCircle = 'ChatCircle',
   User = 'User',
   HeartOutline = 'HeartOutline',
+  VoucherMobile = 'VoucherMobile',
+  GuCoinCircle = 'GuCoinCircle',
 }
 
 export enum EIconColor {

@@ -18,7 +18,7 @@ import { TRootState } from '@/redux/reducers';
 import { TVerifyOtpProps } from './VerifyOtp.types';
 import './VerifyOtp.scss';
 
-const VerifyOtp: React.FC<TVerifyOtpProps> = ({ data, onSuccess }) => {
+const VerifyOtp: React.FC<TVerifyOtpProps> = ({ data, onSuccess, onClickSignIn, onClickSignUp }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
@@ -99,11 +99,15 @@ const VerifyOtp: React.FC<TVerifyOtpProps> = ({ data, onSuccess }) => {
       </Form>
 
       <div className="ModalAuth-description text-center" style={{ marginTop: '4.4rem' }}>
-        <span className="ModalAuth-link highlight">Đăng ký</span>
+        <span className="ModalAuth-link highlight" onClick={onClickSignUp}>
+          Đăng ký
+        </span>
         <span className="ModalAuth-description highlight">
           {` `}|{` `}
         </span>
-        <span className="ModalAuth-link highlight">Đăng nhập</span>
+        <span className="ModalAuth-link highlight" onClick={onClickSignIn}>
+          Đăng nhập
+        </span>
       </div>
     </div>
   );

@@ -14,7 +14,12 @@ import { TVerifyForgotPasswordProps } from './VerifyForgotPassword.types';
 import './VerifyForgotPassword.scss';
 import { TVerifyForgotPasswordResponse } from '@/services/api';
 
-const VerifyForgotPassword: React.FC<TVerifyForgotPasswordProps> = ({ data, onSuccess }) => {
+const VerifyForgotPassword: React.FC<TVerifyForgotPasswordProps> = ({
+  data,
+  onSuccess,
+  onClickSignUp,
+  onClickSignIn,
+}) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
@@ -95,11 +100,15 @@ const VerifyForgotPassword: React.FC<TVerifyForgotPasswordProps> = ({ data, onSu
       </Form>
 
       <div className="ModalAuth-description text-center" style={{ marginTop: '4.4rem' }}>
-        <span className="ModalAuth-link highlight">Đăng ký</span>
+        <span className="ModalAuth-link highlight" onClick={onClickSignUp}>
+          Đăng ký
+        </span>
         <span className="ModalAuth-description highlight">
           {` `}|{` `}
         </span>
-        <span className="ModalAuth-link highlight">Đăng nhập</span>
+        <span className="ModalAuth-link highlight" onClick={onClickSignIn}>
+          Đăng nhập
+        </span>
       </div>
     </div>
   );
