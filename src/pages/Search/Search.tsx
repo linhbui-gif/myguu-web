@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Col, Drawer, Empty, Row } from 'antd';
+import { Col, Drawer, Empty, Row, Spin } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from '@reach/router';
@@ -10,7 +10,7 @@ import Pagination from '@/components/Pagination';
 import FilterTools, { EFilterType } from '@/containers/FilterTools';
 import Icon, { EIconName, EIconColor } from '@/components/Icon';
 import { DEFAULT_PAGE } from '@/common/constants';
-import { getServicesBySearchAction, getStoresBySearchAction } from '@/redux/actions';
+import { EGetServicesBySearchAction, getServicesBySearchAction, getStoresBySearchAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { TGetStoresBySearchBody } from '@/services/api';
 import { scrollToTop } from '@/utils/functions';
@@ -36,7 +36,7 @@ const Search: React.FC = () => {
     TGetStoresBySearchBody & { tab: EKeyTabSearch; searchKeyword?: string }
   >({
     page: DEFAULT_PAGE,
-    limit: isTablet ? 10 : 9,
+    limit: 18,
     filter_type: EFilterType.NEAR_YOU,
     filter_vote: '',
     tab: EKeyTabSearch.SERVICE,
@@ -46,6 +46,9 @@ const Search: React.FC = () => {
 
   const storesBySearchState = useSelector((state: TRootState) => state.storeReducer.getStoresBySearchResponse);
   const servicesBySearchState = useSelector((state: TRootState) => state.serviceReducer.getServicesBySearchResponse);
+  const servicesBySearchLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EGetServicesBySearchAction.GET_SERVICES_BY_SEARCH],
+  );
 
   const dataSearchTabs = [
     {
@@ -60,11 +63,10 @@ const Search: React.FC = () => {
     },
   ];
 
-  const handlePaginateChange = (): void => {
-    scrollToTop();
+  const handlePaginateChange = (page: any): void => {
     setGetStoresBySearchParamsRequest({
       ...getStoresBySearchParamsRequest,
-      page: (getStoresBySearchParamsRequest.page || 0) + 1,
+      page,
     });
   };
 
@@ -163,59 +165,60 @@ const Search: React.FC = () => {
                   </div>
                   <div className="Search-total-subtitle">{storesBySearchState?.paging?.total || 0} kết quả</div>
                 </div>
-                <Row gutter={isMobile ? [16, 16] : [24, 24]}>
-                  {isServiceTab ? (
-                    <>
-                      {servicesBySearchState?.data.length === 0 ? (
-                        <div style={{ flex: 1 }}>
-                          <Empty />
-                        </div>
-                      ) : (
-                        servicesBySearchState?.data?.map((item) => (
-                          <Col key={item.id} span={12} md={{ span: 8 }}>
-                            <ServiceCard
-                              border
-                              link={Paths.ServiceDetail(String(item.id), item.slug)}
-                              subtitle={item?.store?.name}
-                              title={item.name}
-                              image={item?.banner?.[0]}
-                              discountPercent={item.discount_percent}
-                              sellingPrice={item.discount_price}
-                              retailPrice={item.price}
-                              moveTime={item.move_time}
-                              distance={item.store_distance}
-                              vote={item.vote}
-                            />
-                          </Col>
-                        ))
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {storesBySearchState?.data.length === 0 ? (
-                        <div style={{ flex: 1 }}>
-                          <Empty />
-                        </div>
-                      ) : (
-                        storesBySearchState?.data?.map((item) => (
-                          <Col key={item.id} span={12} md={{ span: 8 }}>
-                            <ServiceCard
-                              border
-                              link={Paths.ShopDetail(String(item.id), item.slug)}
-                              title={item.name}
-                              image={item?.avatar}
-                              address={item?.address}
-                              moveTime={item.move_time}
-                              distance={item.distance}
-                              vote={item.vote}
-                            />
-                          </Col>
-                        ))
-                      )}
-                    </>
-                  )}
-                </Row>
-
+                <Spin spinning={servicesBySearchLoading || false}>
+                  <Row gutter={isMobile ? [16, 16] : [24, 24]}>
+                    {isServiceTab ? (
+                      <>
+                        {servicesBySearchState?.data.length === 0 ? (
+                          <div style={{ flex: 1 }}>
+                            <Empty />
+                          </div>
+                        ) : (
+                          servicesBySearchState?.data?.map((item) => (
+                            <Col key={item.id} span={12} md={{ span: 8 }}>
+                              <ServiceCard
+                                border
+                                link={Paths.ServiceDetail(String(item.id), item.slug)}
+                                subtitle={item?.store?.name}
+                                title={item.name}
+                                image={item?.banner?.[0]}
+                                discountPercent={item.discount_percent}
+                                sellingPrice={item.discount_price}
+                                retailPrice={item.price}
+                                moveTime={item.move_time}
+                                distance={item.store_distance}
+                                vote={item.vote}
+                              />
+                            </Col>
+                          ))
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {storesBySearchState?.data.length === 0 ? (
+                          <div style={{ flex: 1 }}>
+                            <Empty />
+                          </div>
+                        ) : (
+                          storesBySearchState?.data?.map((item) => (
+                            <Col key={item.id} span={12} md={{ span: 8 }}>
+                              <ServiceCard
+                                border
+                                link={Paths.ShopDetail(String(item.id), item.slug)}
+                                title={item.name}
+                                image={item?.avatar}
+                                address={item?.address}
+                                moveTime={item.move_time}
+                                distance={item.distance}
+                                vote={item.vote}
+                              />
+                            </Col>
+                          ))
+                        )}
+                      </>
+                    )}
+                  </Row>
+                </Spin>
                 <div className="Search-pagination flex justify-center" style={{ marginTop: '2rem' }}>
                   <Pagination
                     page={getStoresBySearchParamsRequest.page || 0}

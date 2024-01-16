@@ -35,11 +35,10 @@ const Services: React.FC = () => {
     lng: undefined,
   });
 
-  const handlePaginateChange = (): void => {
-    scrollToTop();
+  const handlePaginateChange = (page: any): void => {
     setGetParamsRequest({
       ...getParamsRequest,
-      page: (getParamsRequest.page || 0) + 1,
+      page,
     });
   };
 
