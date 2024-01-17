@@ -49,12 +49,20 @@ const SignUp: React.FC<TSignUpProps> = ({ onClickSignIn, onClickForgotPassword, 
       >
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <Form.Item name="username" rules={[validationRules.required()]} label="Số điện thoại">
+            <Form.Item
+              name="username"
+              rules={[validationRules.required(), validationRules.phoneNumberVietnam()]}
+              label="Số điện thoại"
+            >
               <Input size="large" numberic numberstring />
             </Form.Item>
           </Col>
           <Col span={24}>
-            <Form.Item name="password" rules={[validationRules.required()]} label="Mật khẩu">
+            <Form.Item
+              name="password"
+              rules={[validationRules.required(), validationRules.password()]}
+              label="Mật khẩu"
+            >
               <Input size="large" type="password" />
             </Form.Item>
           </Col>
@@ -67,7 +75,7 @@ const SignUp: React.FC<TSignUpProps> = ({ onClickSignIn, onClickForgotPassword, 
                     <span className="ModalAuth-link highlight">
                       Điều khoản sử dụng, Chính sách riêng tư, Thỏa thuận
                     </span>{' '}
-                    của Beauty Find
+                    của MyGuu
                   </>
                 }
               />

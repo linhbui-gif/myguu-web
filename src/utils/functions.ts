@@ -157,12 +157,20 @@ export const validationRules = {
       return Promise.reject(message || 'Vui lòng nhập chính xác mật khẩu bên trên !');
     },
   }),
-  // phoneNumberVietnam: (message?: string): Rule => ({
-  //   validator: (rule: any, value: string): Promise<void> => {
-  //     if (!value || REGEX.phoneNumberVietnam.test(value)) return Promise.resolve();
-  //     return Promise.reject(message || 'Vui lòng nhập số điện thoại hợp lệ !');
-  //   },
-  // }),
+  phoneNumberVietnam: (message?: string): Rule => ({
+    validator: (rule: any, value: string): Promise<void> => {
+      if (!value || REGEX.phoneNumberVietnam.test(value)) return Promise.resolve();
+      return Promise.reject(message || 'Vui lòng nhập số điện thoại hợp lệ, tối đa 10 kí tự !');
+    },
+  }),
+  password: (message?: string): Rule => ({
+    validator: (rule: any, value: string): Promise<void> => {
+      if (!value || REGEX.password.test(value)) return Promise.resolve();
+      return Promise.reject(
+        message || 'Mật khẩu phải có ít nhất 8 ký tự , gồm chữ cái viết thường, viết hoa, số, kí tự đặc biệt!',
+      );
+    },
+  }),
   // fileImages: (size = MAX_FILE_IMAGE_SIZE, message?: string): Rule => ({
   //   validator: (rule: any, value: File): Promise<void> => {
   //     const isValidExt = ['image/png', 'image/jpeg', 'image/jpg'].includes(value?.type);

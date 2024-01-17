@@ -122,6 +122,6 @@ export enum EOrderStatus {
 export enum EOrderProcess {
   PENDING = 'PENDING',
   CONFIRMED = 'CONFIRMED',
-  COMPLETE = 'COMPLETE',
+  COMPLETE = 'SUCCESS',
   CANCEL = 'CANCEL',
 }

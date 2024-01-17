@@ -152,11 +152,11 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
                 <StaffSelect options={dataMemberOptions} />
               </Form.Item>
             </Col>
-            <Col span={24}>
+            {/* <Col span={24}>
               <Form.Item className="Booking-label" name="numberOfBooking">
                 <QuantitySelect />
               </Form.Item>
-            </Col>
+            </Col> */}
             <Col span={24}>
               <Form.Item className="Booking-label" name="services" label="Dịch vụ">
                 <ServiceSelect />
@@ -167,7 +167,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
                 <VoucherSelect totalOrder={totalOrder} disabled={formValues?.voucher ? !isValidVoucher : undefined} />
               </Form.Item>
             </Col>
-            <Col span={24}>
+            {/* <Col span={24}>
               <div className="BookingForm-coin flex items-center justify-between">
                 <div className="BookingForm-coin-item flex items-center">
                   <Icon name={EIconName.GuCoin} />
@@ -178,7 +178,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
                   <strong>-0 đ</strong>
                 </div>
               </div>
-            </Col>
+            </Col> */}
             <Col span={24}>
               <Form.Item
                 className="Booking-label"

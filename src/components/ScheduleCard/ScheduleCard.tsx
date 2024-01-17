@@ -21,7 +21,6 @@ const ScheduleCard: React.FC<TScheduleCardProps> = ({
   onClickReOrder,
 }) => {
   const currentProcess = dataOrderProcessOptions.find((option) => option.value === status);
-
   return (
     <div className="ScheduleCard">
       <div className="ScheduleCard-header flex items-center justify-between">
@@ -71,7 +70,7 @@ const ScheduleCard: React.FC<TScheduleCardProps> = ({
         {[EOrderProcess.COMPLETE, EOrderProcess.CANCEL].includes(currentProcess?.value as EOrderProcess) && (
           <Button title="Đặt Lại" styleType={EButtonStyleType.PRIMARY_OUTLINE} onClick={onClickReOrder} />
         )}
-        {[EOrderProcess.COMPLETE, EOrderProcess.CANCEL].includes(currentProcess?.value as EOrderProcess) && (
+        {[EOrderProcess.COMPLETE].includes(currentProcess?.value as EOrderProcess) && (
           <Button title="Đánh Giá" styleType={EButtonStyleType.PRIMARY} onClick={onClickReview} />
         )}
       </div>
