@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from '@reach/router';
 
@@ -19,9 +19,10 @@ const ServiceSelect: React.FC<TServiceSelectProps> = () => {
   const location = useLocation();
 
   const appCartState = useSelector((state: TRootState) => state.uiReducer.cart);
-  const dataServices: TService[] = (location?.state as any)?.services;
+  const [dataServices, setDataServices] = useState<TService[] | undefined>((location?.state as any)?.services);
 
-  const cartState = dataServices && dataServices.length > 0 ? dataServices : appCartState;
+  const isBookingAgain = dataServices && dataServices.length > 0;
+  const cartState = isBookingAgain ? dataServices : appCartState;
 
   const isEmpty = cartState?.length === 0;
 
@@ -29,7 +30,11 @@ const ServiceSelect: React.FC<TServiceSelectProps> = () => {
     if (serviceData) {
       if (quantity === 0) {
         const newData = cartState?.filter((service) => service.id !== serviceData.id);
-        dispatch(uiActions.setCart(newData));
+        if (isBookingAgain) {
+          setDataServices(newData);
+        } else {
+          dispatch(uiActions.setCart(newData));
+        }
       } else {
         const isExisted = cartState?.find((service) => service.id === serviceData?.id);
         if (isExisted) {
@@ -43,10 +48,18 @@ const ServiceSelect: React.FC<TServiceSelectProps> = () => {
 
             return service;
           });
-          dispatch(uiActions.setCart(newData));
+          if (isBookingAgain) {
+            setDataServices(newData);
+          } else {
+            dispatch(uiActions.setCart(newData));
+          }
         } else {
           const newData = [...(cartState || []), { ...serviceData, quantity }];
-          dispatch(uiActions.setCart(newData));
+          if (isBookingAgain) {
+            setDataServices(newData);
+          } else {
+            dispatch(uiActions.setCart(newData));
+          }
         }
       }
     }

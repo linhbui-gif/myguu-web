@@ -269,3 +269,11 @@ export type TAddressGeoCode = {
   reference: string;
   types: [];
 };
+
+export type TAlbumImage = {
+  created_at: string;
+  id: number;
+  size: number;
+  src: string;
+  updated_at: string;
+};

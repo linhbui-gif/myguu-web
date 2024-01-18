@@ -3,17 +3,16 @@ import { useSelector } from 'react-redux';
 
 import CollapseCards from '@/containers/CollapseCards';
 import { TRootState } from '@/redux/reducers';
+import Empty from '@/components/Empty';
 
 import { TServicesProps } from './Services.types';
 import './Services.scss';
-import Empty from '@/components/Empty';
 
 const Services: React.FC<TServicesProps> = () => {
   const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
   const servicesByStoreState = useSelector(
     (state: TRootState) => state.serviceReducer.getServicesByStoreResponse,
   )?.data;
-  console.log('servicesByStoreState', servicesByStoreState);
 
   return (
     <div className="Services">

@@ -10,7 +10,6 @@ import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import CalendarSelect from '@/pages/Booking/BookingForm/CalendarSelect';
 import Tags from '@/components/Tags';
 import StaffSelect from '@/pages/Booking/BookingForm/StaffSelect';
-import QuantitySelect from '@/pages/Booking/BookingForm/QuantitySelect';
 import ServiceSelect from '@/pages/Booking/BookingForm/ServiceSelect';
 import TextArea from '@/components/TextArea';
 import VoucherSelect from '@/pages/Booking/BookingForm/VoucherSelect';

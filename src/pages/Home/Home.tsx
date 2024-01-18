@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useMediaQuery } from 'react-responsive';
 import Banner from '@/containers/Banner';
 import BookingServices from '@/containers/BookingServices';
 import CategoryCards from '@/containers/CategoryCards';
@@ -23,7 +22,6 @@ import { Paths } from '@/pages/routers';
 import { TGetStoresNearByParams, TGetStoresProminentPlaceParams } from '@/services/api';
 import { EServicesType } from '@/pages/Services';
 import { EShopsType } from '@/pages/Shops';
-import VoucherMobile from '@/containers/VoucherMobile';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -56,7 +54,7 @@ const Home: React.FC = () => {
   const [getStoresNearByParamsRequest, setGetStoresNearByParamsRequest] = useState<TGetStoresNearByParams>({});
   const [getStoresProminentPlaceParamsRequest, setGetStoresProminentPlaceParamsRequest] =
     useState<TGetStoresProminentPlaceParams>({});
-  const isTablet = useMediaQuery({ maxWidth: 991 });
+
   const getBanners = useCallback(() => {
     dispatch(getBannersAction.request({ params: { screen: EBannerScreen.HOME } }));
   }, [dispatch]);

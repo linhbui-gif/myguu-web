@@ -6,9 +6,7 @@ import Input from '@/components/Input';
 import Button, { EButtonStyleType } from '@/components/Button';
 import UploadImage from '@/components/UploadImage';
 import { TRootState } from '@/redux/reducers';
-import { showNotification, uploadSingleFile, validationRules } from '@/utils/functions';
-
-import './ProfileInformation.scss';
+import { parseObjectToFormData, showNotification, validationRules } from '@/utils/functions';
 import {
   EGetMyProfileAction,
   EUpdateMyProfileAction,
@@ -16,6 +14,8 @@ import {
   updateMyProfileAction,
 } from '@/redux/actions';
 import { ETypeNotification } from '@/common/enums';
+
+import './ProfileInformation.scss';
 
 const ProfileInformation: React.FC = () => {
   const dispatch = useDispatch();
@@ -30,22 +30,15 @@ const ProfileInformation: React.FC = () => {
   const getMyProfileLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EGetMyProfileAction.GET_MY_PROFILE],
   );
+
   const handleSubmit = async (values: any): Promise<void> => {
-    let avatar = myProfileState?.avatar;
-    const isUploadAvatar = avatar !== values?.avatar;
-
-    if (isUploadAvatar) {
-      const res: any = await uploadSingleFile(values?.avatar);
-      avatar = res;
-    }
-
     const body = {
-      avatar,
+      file: values?.avatar,
       name: values?.name,
       phone: values?.phone,
     };
 
-    dispatch(updateMyProfileAction.request({ body }, handleSubmitSuccess));
+    dispatch(updateMyProfileAction.request({ body: parseObjectToFormData(body) }, handleSubmitSuccess));
   };
 
   const handleSubmitSuccess = (): void => {

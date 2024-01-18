@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 
 import Breadcrumb from '@/components/Breadcrumb';
-import { getQueryParam, scrollToTop } from '@/utils/functions';
+import { getQueryParam } from '@/utils/functions';
 import { EShopsType } from '@/pages/Shops/Shops.enums';
 import { DEFAULT_PAGE } from '@/common/constants';
 import {

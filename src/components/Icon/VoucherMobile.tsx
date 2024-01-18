@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { TIconProps } from './Icon.types';
-import { EIconColor } from './Icon.enums';
 
-const Svg: React.FC<TIconProps> = ({ color = EIconColor.BLACK }) => {
+const Svg: React.FC<TIconProps> = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -41,7 +41,7 @@ const Category: React.FC = () => {
   const storeByCategoryLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EGetStoresByCategoryAction.GET_STORES_BY_CATEGORY],
   );
-  console.log('storesByCategoryState', storesByCategoryState?.data);
+
   const handlePaginateChange = (page: any): void => {
     setGetStoresByCategoryParamsRequest({
       ...getStoresByCategoryParamsRequest,

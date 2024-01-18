@@ -13,7 +13,9 @@ export type TGetVoucherExchangeMaterials = {
   params?: TGetVoucherExchangeParams;
 };
 
-export type TGetVoucherExchangeResponse = TCommonResponse & any;
+export type TGetVoucherExchangeResponse = TCommonResponse & {
+  data: TVoucher;
+};
 
 // FUNCTION
 

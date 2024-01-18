@@ -1,3 +1,5 @@
+import { TAlbumImage } from '@/common/models';
+import { TCommonResponse } from '@/common/types';
 import ApiService from '@/services/api';
 
 // TYPES
@@ -14,7 +16,9 @@ export type TGetStoreAlbumByIdMaterials = {
   paths?: TGetStoreAlbumByIdPaths;
 };
 
-export type TGetStoreAlbumByIdResponse = any;
+export type TGetStoreAlbumByIdResponse = TCommonResponse & {
+  data: TAlbumImage[];
+};
 
 // FUNCTION
 

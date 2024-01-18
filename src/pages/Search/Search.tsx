@@ -13,12 +13,11 @@ import { DEFAULT_PAGE } from '@/common/constants';
 import { EGetServicesBySearchAction, getServicesBySearchAction, getStoresBySearchAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { TGetStoresBySearchBody } from '@/services/api';
-import { scrollToTop } from '@/utils/functions';
 import { Paths } from '@/pages/routers';
 import Tabs, { ETabsStyleType } from '@/components/Tabs';
+import { EKeyTabSearch } from '@/pages/Search/Search.enums';
 
 import './Search.scss';
-import { EKeyTabSearch } from '@/pages/Search/Search.enums';
 
 const Search: React.FC = () => {
   const dispatch = useDispatch();

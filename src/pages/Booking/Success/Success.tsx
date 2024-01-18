@@ -4,14 +4,14 @@ import { useSelector } from 'react-redux';
 import Icon, { EIconName } from '@/components/Icon';
 import Button, { EButtonStyleType } from '@/components/Button';
 import { LayoutPaths, Paths } from '@/pages/routers';
+import { TRootState } from '@/redux/reducers';
 
 import { TSuccessProps } from './Success.types';
 import './Success.scss';
-import { TRootState } from '@/redux/reducers';
 
 const Success: React.FC<TSuccessProps> = () => {
   const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
-  console.log('storeState01', storeState);
+
   return (
     <div className="Success">
       <div className="Success-icon">
