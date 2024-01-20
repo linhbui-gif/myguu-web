@@ -7,6 +7,7 @@ import ModalVoucherSelect from '@/containers/ModalVoucherSelect';
 
 import { TVoucherSelectProps } from './VoucherSelect.types';
 import './VoucherSelect.scss';
+import { formatCurrencyVietNam } from '@/utils/functions';
 
 const VoucherSelect: React.FC<TVoucherSelectProps> = ({ value, totalOrder, disabled, onChange }) => {
   const [modalSelectVoucherState, handleOpenModalSelectVoucher, handleCloseModalSelectVoucher] = useModalState();
@@ -22,10 +23,15 @@ const VoucherSelect: React.FC<TVoucherSelectProps> = ({ value, totalOrder, disab
       >
         <div className="VoucherSelect-item flex items-center">
           <Icon name={EIconName.Voucher} color={EIconColor.TAN_HIDE} />
-          <span>{value ? value?.name : `Chọn Voucher`}</span>
+          <span>{value ? `${value?.name}` : `Chọn Voucher`}</span>
           {isDisabled && '(không đủ điều kiện)'}
         </div>
-        <div className="VoucherSelect-item">
+        <div className="VoucherSelect-item flex items-center">
+          {value?.discount_money ? (
+            <span className="discount-money-tag">Giảm {formatCurrencyVietNam(value?.discount_money)}</span>
+          ) : (
+            ''
+          )}
           <Icon name={EIconName.AngleRight} color={EIconColor.REGENT_GRAY} />
         </div>
       </div>

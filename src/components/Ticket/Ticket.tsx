@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
 import classNames from 'classnames';
 
-import { formatISODateToDateTime, showNotification } from '@/utils/functions';
+import { formatCurrency, formatISODateToDateTime, showNotification } from '@/utils/functions';
 import { EFormat, ETypeNotification } from '@/common/enums';
 import { ESaveVoucherAction, saveVoucherAction } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
@@ -59,7 +59,7 @@ const Ticket: React.FC<TTicketProps> = ({
     <div className={classNames('Ticket flex', size, { active, disabled })} onClick={onClick}>
       <div className="Ticket-image">{banner && <img src={banner} alt="" />}</div>
       <div className="Ticket-info">
-        {(image || subtitle) && (
+        {/* {(image || subtitle) && (
           <div className="Ticket-info-description flex items-center" style={{ columnGap: '0.4rem' }}>
             {image && (
               <div className="Ticket-info-image">
@@ -68,7 +68,7 @@ const Ticket: React.FC<TTicketProps> = ({
             )}
             <span className="ellipsis-1">{subtitle}</span>
           </div>
-        )}
+        )} */}
 
         <div className="Ticket-info-title">{title}</div>
         <div className="Ticket-info-description flex items-center justify-between">
@@ -101,6 +101,9 @@ const Ticket: React.FC<TTicketProps> = ({
               Lưu Voucher
             </div>
           )}
+        </div>
+        <div className="order-money-min">
+          Đơn tối thiểu : {formatCurrency({ amount: data?.order_money_min, showSuffix: true })}
         </div>
       </div>
     </div>

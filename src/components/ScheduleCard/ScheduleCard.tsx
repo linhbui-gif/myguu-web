@@ -47,7 +47,7 @@ const ScheduleCard: React.FC<TScheduleCardProps> = ({
       </div>
 
       {services?.map((orderSerivce) => (
-        <div key={orderSerivce.id} className="ScheduleCard-body flex items-center">
+        <div key={orderSerivce.id} className="ScheduleCard-body flex items-center" onClick={onClickDetail}>
           <div className="ScheduleCard-image">
             {orderSerivce?.service?.banner?.[0] && <img src={orderSerivce?.service?.banner?.[0]} alt="" />}
           </div>

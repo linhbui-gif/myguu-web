@@ -25,7 +25,7 @@ const ModalVoucherSelect: React.FC<TModalVoucherSelectProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { storeId } = useParams();
-
+  const [isToggleVoucher, setToggleVoucher] = useState(false);
   const [voucherSelected, setVoucherSelected] = useState<TVoucher>();
 
   const vouchersByStoreState = useSelector(
@@ -36,6 +36,13 @@ const ModalVoucherSelect: React.FC<TModalVoucherSelectProps> = ({
   const myVouchersState = useSelector((state: TRootState) => state.voucherReducer.getMyVouchersResponse)?.data;
   const isEmptyMyVouchers = myVouchersState?.length === 0;
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const handleToggleSetVoucher = (item: any) => {
+    if (item) {
+      setToggleVoucher(!isToggleVoucher);
+      setVoucherSelected(item);
+    }
+  };
   const renderTicket = (item: TVoucher): React.ReactNode => {
     const isValidVoucher =
       (item?.store ? Number(item?.store?.id) === Number(storeId) : true) &&
@@ -46,7 +53,7 @@ const ModalVoucherSelect: React.FC<TModalVoucherSelectProps> = ({
       <div key={item.id} className="ModalVoucherSelect-list-item">
         <Ticket
           forceUse
-          active={item.id === voucherSelected?.id}
+          active={item.id === voucherSelected?.id && isToggleVoucher}
           size="small"
           data={item}
           banner={item?.banner}
@@ -55,7 +62,7 @@ const ModalVoucherSelect: React.FC<TModalVoucherSelectProps> = ({
           title={item?.name}
           endDate={item?.end_date}
           disabled={!isValidVoucher}
-          onClick={(): void => setVoucherSelected(item)}
+          onClick={(): void => handleToggleSetVoucher(item)}
         />
 
         {!isValidVoucher && (

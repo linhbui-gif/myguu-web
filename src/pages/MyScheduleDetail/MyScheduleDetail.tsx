@@ -43,7 +43,7 @@ const MyScheduleDetail: React.FC = () => {
                 <td>Thời gian</td>
                 <td>
                   <span>
-                    {orderState?.time ? formatISODateToDateTime(orderState?.time, EFormat['HH:mm']) : ''}{' '}
+                    {orderState?.time}{' '}
                     {orderState?.date ? formatISODateToDateTime(orderState?.date, EFormat['DD-MM-YYYY']) : ''}
                   </span>
                 </td>

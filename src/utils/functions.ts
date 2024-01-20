@@ -202,7 +202,7 @@ export const formatISODateToDateTime = (time: string, format?: string): string =
 };
 
 export const formatCurrency = (config: {
-  amount: number | string;
+  amount: number | string | any;
   uppercaseUnit?: boolean;
   showSuffix?: boolean;
 }): string => {
@@ -381,4 +381,24 @@ export const uploadSingleFile = async (file: File): Promise<string> => {
   const response = await ApiService.post(`${env.api.baseUrl.service}/user/upload-file`, formData);
 
   return response?.data?.data?.download_link;
+};
+
+export const formatCurrencyVietNam = (amount: any): string => {
+  // eslint-disable-next-line no-restricted-globals
+  if (isNaN(amount)) {
+    return 'Invalid input';
+  }
+
+  if (amount < 1000) {
+    return amount.toString();
+  }
+
+  const suffixes: string[] = ['k', 'M', 'B', 'T'];
+  const suffixIndex: number = Math.floor(Math.log10(amount) / 3);
+
+  // eslint-disable-next-line no-restricted-properties
+  const scaledAmount: number = amount / Math.pow(1000, suffixIndex);
+  const formattedAmount: string = scaledAmount.toFixed(1).replace(/\.0$/, '');
+
+  return `${formattedAmount}${suffixes[suffixIndex - 1]}`;
 };
