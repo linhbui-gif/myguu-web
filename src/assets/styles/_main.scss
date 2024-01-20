@@ -22,7 +22,11 @@ html {
     font-size: 9px;
   }
 }
-
+html, body{
+  min-height: 100vh;
+  overflow-y: scroll;
+  width: 100%;
+}
 .flex {
   display: flex;
 }
