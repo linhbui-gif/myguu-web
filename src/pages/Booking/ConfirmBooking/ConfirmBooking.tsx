@@ -26,6 +26,7 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ data, onNext }) => {
   const handleSubmit = (values: any): void => {
     onNext?.(values);
   };
+  console.log('data', data);
 
   useEffect(() => {
     if (data && myProfileState) {
@@ -63,7 +64,7 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ data, onNext }) => {
                 <tr>
                   <td>Số chỗ</td>
                   <td>
-                    <span>{data?.numberOfBooking}</span>
+                    <span>{data?.numberOfBooking ?? 1}</span>
                   </td>
                 </tr>
               </table>

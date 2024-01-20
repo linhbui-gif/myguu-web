@@ -21,6 +21,7 @@ import { TVoucher } from '@/common/models';
 import { dataBookingTime } from './BookingForm.data';
 import { TBookingFormProps } from './BookingForm.types';
 import './BookingForm.scss';
+import QuantitySelect from './QuantitySelect';
 
 const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   const [form] = Form.useForm();
@@ -151,11 +152,11 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
                 <StaffSelect options={dataMemberOptions} />
               </Form.Item>
             </Col>
-            {/* <Col span={24}>
+            <Col span={24}>
               <Form.Item className="Booking-label" name="numberOfBooking">
                 <QuantitySelect />
               </Form.Item>
-            </Col> */}
+            </Col>
             <Col span={24}>
               <Form.Item className="Booking-label" name="services" label="Dịch vụ">
                 <ServiceSelect />

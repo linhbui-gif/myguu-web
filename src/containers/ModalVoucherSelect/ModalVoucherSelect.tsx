@@ -132,8 +132,11 @@ const ModalVoucherSelect: React.FC<TModalVoucherSelectProps> = ({
                 size="large"
                 styleType={EButtonStyleType.PRIMARY}
                 onClick={(): void => {
-                  if (voucherSelected) {
+                  if (voucherSelected && isToggleVoucher) {
                     onSubmit?.(voucherSelected);
+                    onClose?.();
+                  } else {
+                    onSubmit?.(undefined);
                     onClose?.();
                   }
                 }}

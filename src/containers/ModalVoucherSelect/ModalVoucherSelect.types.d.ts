@@ -5,5 +5,5 @@ export type TModalVoucherSelectProps = {
   data?: TVoucher;
   totalOrder?: number;
   onClose?: () => void;
-  onSubmit?: (data: TVoucher) => void;
+  onSubmit?: (data: any) => void;
 };
