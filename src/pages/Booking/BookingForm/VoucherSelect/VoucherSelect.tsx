@@ -4,10 +4,10 @@ import classNames from 'classnames';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { useModalState } from '@/utils/hooks';
 import ModalVoucherSelect from '@/containers/ModalVoucherSelect';
+import { formatCurrencyVietNam } from '@/utils/functions';
 
 import { TVoucherSelectProps } from './VoucherSelect.types';
 import './VoucherSelect.scss';
-import { formatCurrencyVietNam } from '@/utils/functions';
 
 const VoucherSelect: React.FC<TVoucherSelectProps> = ({ value, totalOrder, disabled, onChange }) => {
   const [modalSelectVoucherState, handleOpenModalSelectVoucher, handleCloseModalSelectVoucher] = useModalState();
@@ -23,7 +23,7 @@ const VoucherSelect: React.FC<TVoucherSelectProps> = ({ value, totalOrder, disab
       >
         <div className="VoucherSelect-item flex items-center">
           <Icon name={EIconName.Voucher} color={EIconColor.TAN_HIDE} />
-          <span>{value ? `${value?.name}` : `Chọn Voucher`}</span>
+          <span className="capitalize">{value ? `${value?.name}` : `Chọn Voucher`}</span>
           {isDisabled && '(không đủ điều kiện)'}
         </div>
         <div className="VoucherSelect-item flex items-center">

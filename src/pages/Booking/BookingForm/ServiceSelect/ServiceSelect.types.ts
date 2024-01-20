@@ -1,8 +1,7 @@
-import { TSelectOption } from '@/components/Select';
+import { TService } from '@/common/models';
 
 export type TServiceSelectProps = {
   className?: string;
-  value?: TSelectOption[];
-  options?: TSelectOption[];
-  onChange?: (data: TSelectOption) => void;
+  value?: TService[];
+  onChange?: (data: TService[]) => void;
 };

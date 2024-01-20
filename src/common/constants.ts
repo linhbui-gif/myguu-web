@@ -11,7 +11,7 @@ export const REGEX = {
   alphanumerial: /^[a-z0-9\s]+$/i,
   numeric: /^\d+$/i,
   onlySpecialKey: /[$&+,:;=?@#|'<>.^*()%`~_!\-"\]\[\\}{'/]/i,
-  phoneNumberVietnam: /[\w\W]{1,10}/g,
+  phoneNumberVietnam: /[\w\W]{1,10}/i,
   password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i,
 };
 

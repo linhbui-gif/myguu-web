@@ -383,7 +383,7 @@ export const uploadSingleFile = async (file: File): Promise<string> => {
   return response?.data?.data?.download_link;
 };
 
-export const formatCurrencyVietNam = (amount: any): string => {
+export const formatCurrencyVietNam = (amount: number): string => {
   // eslint-disable-next-line no-restricted-globals
   if (isNaN(amount)) {
     return 'Invalid input';

@@ -14,9 +14,7 @@ import './Ticket.scss';
 
 const Ticket: React.FC<TTicketProps> = ({
   active,
-  image,
   banner,
-  subtitle,
   title,
   endDate,
   data,
@@ -70,7 +68,7 @@ const Ticket: React.FC<TTicketProps> = ({
           </div>
         )} */}
 
-        <div className="Ticket-info-title">{title}</div>
+        <div className="Ticket-info-title capitalize">{title}</div>
         <div className="Ticket-info-description flex items-center justify-between">
           {endDate && <>HSD: {formatISODateToDateTime(endDate, EFormat['DD-MM-YYYY'])}</>}
           {/* eslint-disable-next-line no-constant-condition */}

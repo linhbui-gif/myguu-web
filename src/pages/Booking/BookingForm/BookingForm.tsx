@@ -16,12 +16,12 @@ import VoucherSelect from '@/pages/Booking/BookingForm/VoucherSelect';
 import Button, { EButtonStyleType } from '@/components/Button';
 import { TRootState } from '@/redux/reducers';
 import { formatCurrency, validationRules } from '@/utils/functions';
-import { TVoucher } from '@/common/models';
+import { TService, TVoucher } from '@/common/models';
+import QuantitySelect from './QuantitySelect';
 
 import { dataBookingTime } from './BookingForm.data';
 import { TBookingFormProps } from './BookingForm.types';
 import './BookingForm.scss';
-import QuantitySelect from './QuantitySelect';
 
 const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   const [form] = Form.useForm();
@@ -31,7 +31,12 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   const voucher: TVoucher = (location?.state as any)?.voucher;
 
   const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
-  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+
+  const appCartState = useSelector((state: TRootState) => state.uiReducer.cart);
+  const dataServices: TService[] | undefined = (location?.state as any)?.services;
+
+  const isBookingAgain = dataServices && dataServices.length > 0;
+  const cartState = isBookingAgain ? dataServices : appCartState;
 
   const [formValues, setFormValues] = useState<any>({});
 
@@ -56,7 +61,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   ];
 
   const totalOrder =
-    cartState?.reduce((result, service) => {
+    formValues?.services?.reduce((result: number, service: TService) => {
       const price = typeof service?.discount_price === 'number' ? service?.discount_price : service?.price;
       return result + price * (service.quantity || 0);
     }, 0) || 0;
@@ -89,6 +94,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   useEffect(() => {
     if (storeState) {
       const dataChanged = {
+        services: isBookingAgain ? dataServices : cartState,
         branch: dataAddressOptions?.[0],
         date: moment(),
         time: dataBookingTime(moment()).find((option) => !option.data?.disabled),
@@ -159,7 +165,15 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
             </Col>
             <Col span={24}>
               <Form.Item className="Booking-label" name="services" label="Dịch vụ">
-                <ServiceSelect />
+                <ServiceSelect
+                  onChange={(services): void => {
+                    const dataChanged = {
+                      services,
+                    };
+                    form.setFieldsValue(dataChanged);
+                    setFormValues({ ...formValues, ...dataChanged });
+                  }}
+                />
               </Form.Item>
             </Col>
             <Col span={24}>

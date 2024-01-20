@@ -1,40 +1,24 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from '@reach/router';
+import React from 'react';
 
 import Quantity from '@/components/Quantity';
 import Button, { EButtonStyleType } from '@/components/Button';
 import { EIconColor, EIconName } from '@/components/Icon';
-import { TRootState } from '@/redux/reducers';
 import { formatCurrency } from '@/utils/functions';
 import { Paths } from '@/pages/routers';
 import { TService } from '@/common/models';
-import { uiActions } from '@/redux/actions';
 
 import { TServiceSelectProps } from './ServiceSelect.types';
 import './ServiceSelect.scss';
 
-const ServiceSelect: React.FC<TServiceSelectProps> = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-
-  const appCartState = useSelector((state: TRootState) => state.uiReducer.cart);
-  const [dataServices, setDataServices] = useState<TService[] | undefined>((location?.state as any)?.services);
-
-  const isBookingAgain = dataServices && dataServices.length > 0;
-  const cartState = isBookingAgain ? dataServices : appCartState;
-
+const ServiceSelect: React.FC<TServiceSelectProps> = ({ value = [], onChange }) => {
+  const cartState = value;
   const isEmpty = cartState?.length === 0;
 
   const handleSelectService = (quantity: number, serviceData: TService): void => {
     if (serviceData) {
       if (quantity === 0) {
         const newData = cartState?.filter((service) => service.id !== serviceData.id);
-        if (isBookingAgain) {
-          setDataServices(newData);
-        } else {
-          dispatch(uiActions.setCart(newData));
-        }
+        onChange?.(newData);
       } else {
         const isExisted = cartState?.find((service) => service.id === serviceData?.id);
         if (isExisted) {
@@ -48,18 +32,10 @@ const ServiceSelect: React.FC<TServiceSelectProps> = () => {
 
             return service;
           });
-          if (isBookingAgain) {
-            setDataServices(newData);
-          } else {
-            dispatch(uiActions.setCart(newData));
-          }
+          onChange?.(newData);
         } else {
           const newData = [...(cartState || []), { ...serviceData, quantity }];
-          if (isBookingAgain) {
-            setDataServices(newData);
-          } else {
-            dispatch(uiActions.setCart(newData));
-          }
+          onChange?.(newData);
         }
       }
     }
