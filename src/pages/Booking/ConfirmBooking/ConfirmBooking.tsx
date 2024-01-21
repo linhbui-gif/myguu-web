@@ -26,7 +26,6 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ data, onNext }) => {
   const handleSubmit = (values: any): void => {
     onNext?.(values);
   };
-  console.log('data', data);
 
   useEffect(() => {
     if (data && myProfileState) {

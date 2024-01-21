@@ -35,6 +35,7 @@ const Category: React.FC = () => {
     filter_type: EFilterType.NEAR_YOU,
     filter_vote: '',
   });
+  console.log('id', id);
 
   const categoriesState = useSelector((state: TRootState) => state.categoryReducer.getCategoriesResponse)?.data || [];
   const storesByCategoryState = useSelector((state: TRootState) => state.storeReducer.getStoresByCategoryResponse);
