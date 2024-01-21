@@ -10,7 +10,7 @@ import { TService } from '@/common/models';
 import { TServiceSelectProps } from './ServiceSelect.types';
 import './ServiceSelect.scss';
 
-const ServiceSelect: React.FC<TServiceSelectProps> = ({ value = [], onChange }) => {
+const ServiceSelect: React.FC<TServiceSelectProps> = ({ value = [], onChange, isBookingAgain }) => {
   const cartState = value;
   const isEmpty = cartState?.length === 0;
 
@@ -57,7 +57,13 @@ const ServiceSelect: React.FC<TServiceSelectProps> = ({ value = [], onChange }) 
                   <div className="ServiceSelect-item-info-title">{service?.name}</div>
                   <div className="ServiceSelect-item-info-description flex items-center justify-between">
                     {formatCurrency({
-                      amount: typeof service?.discount_price === 'number' ? service?.discount_price : service?.price,
+                      amount:
+                        // eslint-disable-next-line no-nested-ternary
+                        isBookingAgain && typeof service?.price_discount === 'number'
+                          ? service?.price_discount
+                          : typeof service?.discount_price === 'number'
+                          ? service?.discount_price
+                          : service?.price,
                       showSuffix: true,
                     })}
                     <Quantity

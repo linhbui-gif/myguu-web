@@ -62,7 +62,14 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
 
   const totalOrder =
     formValues?.services?.reduce((result: number, service: TService) => {
-      const price = typeof service?.discount_price === 'number' ? service?.discount_price : service?.price;
+      let price = 0;
+      if (isBookingAgain) {
+        price =
+          typeof service?.price_discount === 'number' && isBookingAgain ? service?.price_discount : service?.price;
+      } else {
+        price = typeof service?.discount_price === 'number' ? service?.discount_price : service?.price;
+      }
+
       return result + price * (service.quantity || 0);
     }, 0) || 0;
 
@@ -173,6 +180,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
                     form.setFieldsValue(dataChanged);
                     setFormValues({ ...formValues, ...dataChanged });
                   }}
+                  isBookingAgain={isBookingAgain}
                 />
               </Form.Item>
             </Col>

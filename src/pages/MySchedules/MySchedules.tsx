@@ -119,6 +119,7 @@ const MySchedules: React.FC = () => {
                   const dataServices = item?.order_services?.map((subItem) => ({
                     ...subItem.service,
                     quantity: subItem?.quantity,
+                    price_discount: subItem?.price_discount,
                   }));
                   navigate(Paths.Booking(String(dataServices?.[0]?.store?.id)), { state: { services: dataServices } });
                 }}

@@ -72,6 +72,7 @@ export type TService = {
   work_time: unknown;
   store?: TStore;
   quantity?: number;
+  price_discount?: number;
 };
 
 export type TStore = {

@@ -102,6 +102,7 @@ const Search: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue, paramsFilterValue]);
+  console.log('servicesBySearchState', servicesBySearchState);
 
   return (
     <div className="Search">
@@ -162,7 +163,11 @@ const Search: React.FC = () => {
                   <div className="Search-total-title">
                     Kết quả tìm kiếm <strong>“{searchValue}”</strong>
                   </div>
-                  <div className="Search-total-subtitle">{storesBySearchState?.paging?.total || 0} kết quả</div>
+                  {isServiceTab ? (
+                    <div className="Search-total-subtitle">{servicesBySearchState?.paging?.total || 0} kết quả</div>
+                  ) : (
+                    <div className="Search-total-subtitle">{storesBySearchState?.paging?.total || 0} kết quả</div>
+                  )}
                 </div>
                 <Spin spinning={servicesBySearchLoading || false}>
                   <Row gutter={isMobile ? [16, 16] : [24, 24]}>

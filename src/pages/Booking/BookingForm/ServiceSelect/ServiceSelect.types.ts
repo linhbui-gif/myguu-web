@@ -4,4 +4,5 @@ export type TServiceSelectProps = {
   className?: string;
   value?: TService[];
   onChange?: (data: TService[]) => void;
+  isBookingAgain?: boolean | any;
 };
