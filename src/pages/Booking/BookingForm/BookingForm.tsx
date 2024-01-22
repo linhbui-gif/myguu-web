@@ -29,6 +29,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
 
   const location = useLocation();
   const voucher: TVoucher = (location?.state as any)?.voucher;
+  const [formValues, setFormValues] = useState<any>({});
 
   const storeState = useSelector((state: TRootState) => state.storeReducer.getStoreResponse)?.data;
 
@@ -36,9 +37,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   const dataServices: TService[] | undefined = (location?.state as any)?.services;
 
   const isBookingAgain = dataServices && dataServices.length > 0;
-  const cartState = isBookingAgain ? dataServices : appCartState;
-
-  const [formValues, setFormValues] = useState<any>({});
+  const cartState = isBookingAgain ? formValues?.services : appCartState;
 
   const dataAddressOptions =
     storeState?.branches?.map((item) => ({
@@ -101,7 +100,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   useEffect(() => {
     if (storeState) {
       const dataChanged = {
-        services: isBookingAgain ? dataServices : cartState,
+        services: cartState,
         branch: dataAddressOptions?.[0],
         date: moment(),
         time: dataBookingTime(moment()).find((option) => !option.data?.disabled),

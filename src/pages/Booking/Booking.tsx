@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from '@reach/router';
-import { TRootState } from '@/redux/reducers';
 
 import BookingForm from '@/pages/Booking/BookingForm';
 import ConfirmBooking from '@/pages/Booking/ConfirmBooking';
@@ -9,6 +8,7 @@ import Success from '@/pages/Booking/Success';
 import { scrollToTop } from '@/utils/functions';
 import { createOrderAction, getStoreAction, uiActions } from '@/redux/actions';
 import { EFormat } from '@/common/enums';
+import { TService } from '@/common/models';
 
 import { EBookingStep } from './Booking.enums';
 import './Booking.scss';
@@ -17,8 +17,6 @@ const Booking: React.FC = () => {
   const dispatch = useDispatch();
   const { storeId } = useParams();
   const [stepState, setStepState] = useState<{ key?: EBookingStep; data?: any }>({ key: EBookingStep.BOOKING });
-
-  const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
 
   const handleSubmit = (values: any): void => {
     const body = {
@@ -29,7 +27,7 @@ const Booking: React.FC = () => {
       note: values?.note,
       customer_name: values?.customer_name,
       customer_phone: values?.customer_phone,
-      services: cartState?.map((service) => ({
+      services: values?.services?.map((service: TService) => ({
         id: service.id,
         quantity: service.quantity,
       })),
