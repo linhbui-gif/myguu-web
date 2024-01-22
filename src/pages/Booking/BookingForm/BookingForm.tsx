@@ -100,7 +100,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
   useEffect(() => {
     if (storeState) {
       const dataChanged = {
-        services: cartState,
+        services: isBookingAgain ? dataServices : appCartState,
         branch: dataAddressOptions?.[0],
         date: moment(),
         time: dataBookingTime(moment()).find((option) => !option.data?.disabled),
