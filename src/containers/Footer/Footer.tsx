@@ -30,7 +30,7 @@ const Footer: React.FC<TFooterProps> = () => {
   }));
 
   const dataSocialsLink = [
-    { link: 'facebook', iconName: EIconName.Facebook },
+    { link: 'https://www.facebook.com/MyGuuu', iconName: EIconName.Facebook },
     { link: 'instagram', iconName: EIconName.Instagram },
     { link: 'youtube', iconName: EIconName.Youtube },
   ];
