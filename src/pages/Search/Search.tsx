@@ -10,7 +10,12 @@ import Pagination from '@/components/Pagination';
 import FilterTools, { EFilterType } from '@/containers/FilterTools';
 import Icon, { EIconName, EIconColor } from '@/components/Icon';
 import { DEFAULT_PAGE } from '@/common/constants';
-import { EGetServicesBySearchAction, getServicesBySearchAction, getStoresBySearchAction } from '@/redux/actions';
+import {
+  EGetServicesBySearchAction,
+  EGetStoresBySearchAction,
+  getServicesBySearchAction,
+  getStoresBySearchAction,
+} from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { TGetStoresBySearchBody } from '@/services/api';
 import { Paths } from '@/pages/routers';
@@ -44,6 +49,10 @@ const Search: React.FC = () => {
   const isServiceTab = getStoresBySearchParamsRequest?.tab === EKeyTabSearch.SERVICE;
 
   const storesBySearchState = useSelector((state: TRootState) => state.storeReducer.getStoresBySearchResponse);
+  const storesBySearchLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EGetStoresBySearchAction.GET_STORES_BY_SEARCH],
+  );
+
   const servicesBySearchState = useSelector((state: TRootState) => state.serviceReducer.getServicesBySearchResponse);
   const servicesBySearchLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EGetServicesBySearchAction.GET_SERVICES_BY_SEARCH],
@@ -75,11 +84,12 @@ const Search: React.FC = () => {
         (isServiceTab ? getServicesBySearchAction : getStoresBySearchAction).request({
           body: {
             ...getStoresBySearchParamsRequest,
-            [isServiceTab ? `search_service` : `search_store`]: getStoresBySearchParamsRequest?.searchKeyword,
+            searchKeyword: undefined,
+            [isServiceTab ? `search` : `search_store`]: getStoresBySearchParamsRequest?.searchKeyword,
             filter_vote: getStoresBySearchParamsRequest?.filter_vote || undefined,
             lat: appGeoLoactionState?.latitude,
             lng: appGeoLoactionState?.longitude,
-          },
+          } as any,
         }),
       );
     }
@@ -102,7 +112,6 @@ const Search: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue, paramsFilterValue]);
-  console.log('servicesBySearchState', servicesBySearchState);
 
   return (
     <div className="Search">
@@ -169,7 +178,7 @@ const Search: React.FC = () => {
                     <div className="Search-total-subtitle">{storesBySearchState?.paging?.total || 0} kết quả</div>
                   )}
                 </div>
-                <Spin spinning={servicesBySearchLoading || false}>
+                <Spin spinning={servicesBySearchLoading || storesBySearchLoading || false}>
                   <Row gutter={isMobile ? [16, 16] : [24, 24]}>
                     {isServiceTab ? (
                       <>

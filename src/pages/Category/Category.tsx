@@ -14,9 +14,9 @@ import { TGetStoresByCategoryBody } from '@/services/api';
 import { DEFAULT_PAGE } from '@/common/constants';
 import { EGetStoresByCategoryAction, getStoresByCategoryAction } from '@/redux/actions';
 import { Paths } from '@/pages/routers';
+import Empty from '@/components/Empty';
 
 import './Category.scss';
-import Empty from '@/components/Empty';
 
 const Category: React.FC = () => {
   const { id } = useParams();
@@ -31,11 +31,9 @@ const Category: React.FC = () => {
   const [getStoresByCategoryParamsRequest, setGetStoresByCategoryParamsRequest] = useState<TGetStoresByCategoryBody>({
     page: DEFAULT_PAGE,
     limit: 18,
-    category_ids: [Number(id)],
     filter_type: EFilterType.NEAR_YOU,
     filter_vote: '',
   });
-  console.log('id', id);
 
   const categoriesState = useSelector((state: TRootState) => state.categoryReducer.getCategoriesResponse)?.data || [];
   const storesByCategoryState = useSelector((state: TRootState) => state.storeReducer.getStoresByCategoryResponse);
@@ -51,17 +49,30 @@ const Category: React.FC = () => {
   };
 
   const getStoresByCategory = useCallback(() => {
-    dispatch(
-      getStoresByCategoryAction.request({
-        body: {
-          ...getStoresByCategoryParamsRequest,
-          filter_vote: getStoresByCategoryParamsRequest?.filter_vote || undefined,
-          lat: appGeoLoactionState?.latitude,
-          lng: appGeoLoactionState?.longitude,
-        },
-      }),
-    );
+    if (Array.isArray(getStoresByCategoryParamsRequest?.category_ids)) {
+      dispatch(
+        getStoresByCategoryAction.request({
+          body: {
+            ...getStoresByCategoryParamsRequest,
+            filter_vote: getStoresByCategoryParamsRequest?.filter_vote || undefined,
+            lat: appGeoLoactionState?.latitude,
+            lng: appGeoLoactionState?.longitude,
+          },
+        }),
+      );
+    }
   }, [dispatch, appGeoLoactionState, getStoresByCategoryParamsRequest]);
+
+  useEffect(() => {
+    if (id) {
+      setGetStoresByCategoryParamsRequest({
+        ...getStoresByCategoryParamsRequest,
+        page: DEFAULT_PAGE,
+        category_ids: [Number(id)],
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   useEffect(() => {
     getStoresByCategory();

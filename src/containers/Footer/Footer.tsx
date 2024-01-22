@@ -7,10 +7,10 @@ import Input from '@/components/Input';
 import Button, { EButtonStyleType } from '@/components/Button';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { TRootState } from '@/redux/reducers';
+import { Paths } from '@/pages/routers';
 
 import { TFooterProps } from './Footer.types.d';
 import './Footer.scss';
-import { Paths } from '@/pages/routers';
 
 const Footer: React.FC<TFooterProps> = () => {
   const [form] = Form.useForm();
