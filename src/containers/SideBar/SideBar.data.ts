@@ -38,13 +38,13 @@ export const dataSidebarAccount = [
     link: `${LayoutPaths.Profile}${Paths.Vouchers}`,
     activePaths: [`${LayoutPaths.Profile}${Paths.Vouchers}`],
   },
-  {
-    key: '5',
-    title: 'Sổ Địa Chỉ',
-    icon: IconSidebar5,
-    link: `${LayoutPaths.Profile}${Paths.MyAddress}`,
-    activePaths: [`${LayoutPaths.Profile}${Paths.MyAddress}`],
-  },
+  // {
+  //   key: '5',
+  //   title: 'Sổ Địa Chỉ',
+  //   icon: IconSidebar5,
+  //   link: `${LayoutPaths.Profile}${Paths.MyAddress}`,
+  //   activePaths: [`${LayoutPaths.Profile}${Paths.MyAddress}`],
+  // },
   {
     key: '6',
     title: 'Đổi Mật Khẩu',
