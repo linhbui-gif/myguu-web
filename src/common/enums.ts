@@ -115,6 +115,7 @@ export enum EVoucherType {
 export enum EOrderStatus {
   SCHEDULE = 'SCHEDULE',
   IN_COMMING = 'IN_COMMING',
+  PENDING = 'PENDING',
   COMPLETE = 'COMPLETE',
   CANCELED = 'CANCELED',
 }

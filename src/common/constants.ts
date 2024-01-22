@@ -27,6 +27,7 @@ export const dataVoucherTypeOptions = [
 export const dataOrderStatusOptions = [
   { value: EOrderStatus.SCHEDULE, label: 'Lịch Hẹn' },
   { value: EOrderStatus.IN_COMMING, label: 'Sắp Tới' },
+  { value: EOrderStatus.PENDING, label: 'Đang chờ nhận' },
   { value: EOrderStatus.COMPLETE, label: 'Đã Hoàn Thành' },
   { value: EOrderStatus.CANCELED, label: 'Đã Huỷ' },
 ];
