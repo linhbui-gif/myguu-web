@@ -6,7 +6,7 @@
 
   &.primary-background {
     padding: 3.2rem 0;
-    background: linear-gradient(180deg, #FEA489 0%, #F6BF87 100%);
+    background:$gradient-linear;
 
     .ServiceCard {
       border: none !important;

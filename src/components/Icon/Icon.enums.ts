@@ -53,7 +53,7 @@ export enum EIconColor {
   WHITE = '#fff',
 
   ALUMINIUM = '#ACB3BD',
-  TAN_HIDE = '#F7894E',
+  TAN_HIDE = '#9A8DE9',
   MINE_SHAFT = '#333333',
   GRAY_CHATEAU = '#A0A2A3',
   REGENT_GRAY = '#8492A6',
@@ -63,4 +63,5 @@ export enum EIconColor {
   MIRAGE = '#1c2433',
   HAVELOCK_BLUE = '#438BD3',
   MOUNTAIN_MEADOW = '#27D354',
+  purpel = '#9A8DE9',
 }
