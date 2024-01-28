@@ -92,6 +92,7 @@ const App: React.FC = () => {
           <PublicRoute path={Paths.Shops} component={Pages.Shops} />
           <ProtectedRoute path={Paths.Booking()} component={Pages.Booking} />
           <ProtectedRoute path={Paths.Account} component={Pages.Account} />
+          <ProtectedRoute path={Paths.Policy} component={Pages.Policy} />
 
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Guest>

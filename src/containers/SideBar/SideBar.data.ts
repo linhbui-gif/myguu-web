@@ -66,9 +66,9 @@ export const dataSidebarSetting = [
     key: '8',
     title: 'Chính Sách Bảo Mật',
     icon: IconSidebar8,
-    disabled: true,
-    link: ``,
-    activePaths: [],
+    disabled: false,
+    link: `${Paths.Policy}`,
+    activePaths: [`${LayoutPaths.Policy}${Paths.Policy}`],
   },
   {
     key: '9',
