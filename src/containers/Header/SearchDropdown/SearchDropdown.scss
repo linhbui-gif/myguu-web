@@ -30,8 +30,8 @@
     &.popular {
       .Tags {
         &-item {
-          background: $ebeb;
-          border-color: $ebeb;
+          background: lighten($tan-hide, 30%);
+          border-color: lighten($tan-hide, 30%);
         }
       }
     }

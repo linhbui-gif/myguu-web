@@ -120,7 +120,7 @@
       flex: 0 0 3.2rem;
       max-width: 3.2rem;
       border-radius: 50%;
-      background: $gradient-linear;
+      background: $primary-linear-gradient;
       transition: $common-transition;
       svg {
         width: 12px;
@@ -132,7 +132,7 @@
   }
 
   &-bottom {
-    background: $gradient-linear;
+    background: $primary-linear-gradient;
 
     .Footer-wrapper {
       height: 4rem;
