@@ -46,7 +46,16 @@ const App: React.FC = () => {
     dispatch(getCategoriesAction.request({}));
   }, [dispatch]);
 
-  const getAddressGeocode = useCallback(() => {
+  useEffect(() => {
+    getCategories();
+  }, [getCategories]);
+
+  useEffect(() => {
+    getGeoLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (appGeoLoactionState && myProfileState) {
       dispatch(
         getAddressGeocodeAction.request({
@@ -57,23 +66,10 @@ const App: React.FC = () => {
   }, [dispatch, appGeoLoactionState, myProfileState]);
 
   useEffect(() => {
-    if (myProfileState) getGeoLocation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myProfileState]);
-
-  useEffect(() => {
     if (atk && !myProfileState) {
       dispatch(getMyProfileAction.request({}));
     }
   }, [dispatch, myProfileState, atk]);
-
-  useEffect(() => {
-    getAddressGeocode();
-  }, [getAddressGeocode]);
-
-  useEffect(() => {
-    getCategories();
-  }, [getCategories]);
 
   return (
     <div className="App">

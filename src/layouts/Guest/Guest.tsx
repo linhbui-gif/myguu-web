@@ -24,8 +24,6 @@ const Guest: React.FC<TGuestProps> = ({ children }) => {
       <div className="Guest-footer">
         <Footer />
       </div>
-
-      {/* {![Paths.Policy].includes(location.pathname) && <MobileFooter />} */}
       <MobileFooter />
     </div>
   );

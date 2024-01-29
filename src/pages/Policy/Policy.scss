@@ -1,35 +1,27 @@
-@import '@/assets/styles/_global.scss';
-
 .Policy {
-  position: relative;
-  padding: 6.4rem 0;
-
-  .container {
-    font-size: 1.4rem;
-  }
-
-  p,
-  h2 {
-    margin-bottom: 2rem;
-  }
-
-  ul {
-    padding-left: 2.5rem;
-    margin-bottom: 1rem;
-
-    li {
-      list-style: disc;
+    padding-top: 7rem;
+    position: relative;
+    .container {
+        font-size: 1.4rem;
     }
-  }
-
-  &-header {
-    text-align: center;
-    color: $black;
-    font-size: 2rem;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: 700;
-  }
+    p, h2 {
+        margin-bottom: 2rem;
+    }
+    ul {
+        padding-left: 2.5rem;
+        margin-bottom: 1rem;
+        li {
+            list-style: disc;
+        }
+    }
+    &-header{
+        text-align: center;
+        color: #fff;
+        font-size: 2rem;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: 700;
+    }
 }

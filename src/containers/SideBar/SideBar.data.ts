@@ -2,7 +2,7 @@ import IconSidebar1 from '@/assets/icons/icon-sidebar-1.svg';
 import IconSidebar2 from '@/assets/icons/icon-sidebar-2.svg';
 import IconSidebar3 from '@/assets/icons/icon-sidebar-3.svg';
 import IconSidebar4 from '@/assets/icons/icon-sidebar-4.svg';
-// import IconSidebar5 from '@/assets/icons/icon-sidebar-5.svg';
+import IconSidebar5 from '@/assets/icons/icon-sidebar-5.svg';
 import IconSidebar6 from '@/assets/icons/icon-sidebar-6.svg';
 import IconSidebar7 from '@/assets/icons/icon-sidebar-7.svg';
 import IconSidebar8 from '@/assets/icons/icon-sidebar-8.svg';
