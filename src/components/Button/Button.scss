@@ -69,7 +69,7 @@
     }
   }
 
-  &.PRIMARY {
+  &.PRIMARY_GRADIENT {
     .ant-btn {
       border: none;
       color: $white;
@@ -84,11 +84,11 @@
   &.PRIMARY_TRANSPARENT {
     .ant-btn {
       border: none;
-      color: $tan-hide;
-      background: $serenade;
+      color: $primary;
+      background: $primary-lighten;
 
       &:hover {
-        background: darken($serenade, 5%);
+        background: darken($primary-lighten, 5%);
       }
     }
   }
@@ -96,12 +96,12 @@
   &.PRIMARY_TEXT {
     .ant-btn {
       border: none;
-      color: $tan-hide;
+      color: $primary;
       background: transparent;
       box-shadow: none;
 
       &:hover {
-        color: darken($tan-hide, 5%);
+        color: darken($primary, 5%);
       }
     }
   }
@@ -115,24 +115,24 @@
 
   &.PRIMARY_OUTLINE {
     .ant-btn {
-      border: 1px solid $tan-hide;
-      color: $tan-hide;
+      border: 1px solid $primary;
+      color: $primary;
       background: transparent;
 
       &:hover {
-        background: rgba($tan-hide, 0.1);
+        background: rgba($primary, 0.1);
       }
     }
   }
 
-  &.TAN_HIDE {
+  &.PRIMARY {
     .ant-btn {
       border: none;
       color: $white;
-      background: $tan-hide;
+      background: $primary;
 
       &:hover {
-        background: darken($tan-hide, 5%);
+        background: darken($primary, 5%);
       }
     }
   }

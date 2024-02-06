@@ -51,7 +51,7 @@ const ReviewComment: React.FC<TReviewCommentProps> = ({
                 </div>
                 <div
                   className="ReviewComment-info-description"
-                  style={{ fontSize: '1.2rem', color: EIconColor.TAN_HIDE, margin: 0 }}
+                  style={{ fontSize: '1.2rem', color: EIconColor.PRIMARY, margin: 0 }}
                 >
                   Đã đặt lịch
                 </div>

@@ -4,13 +4,16 @@
 
 - If colors same name, please add suffix. Ex: persian-blue, persian-blue-dark, persian-blue-light, ...
 */
-$primary-linear-gradient: linear-gradient(88deg, #FC987E 0%, #FDC47F 100%);
 
 $white: #ffffff;
 $black: #000000;
 
+$primary: #9A8DE9;
+$secondary: #F6CCD5;
+$primary-lighten: #EAE6FF;
+$primary-linear-gradient: linear-gradient(89.28deg, $primary 32.73%, $secondary 105.55%);
+
 $aluminium: #ACB3BD;
-$tan-hide: #F7894E;
 $mercury: #E3E3E3;
 $scorpion: #5A5A5A;
 $alto: #d9d9d9;
@@ -25,7 +28,6 @@ $pickled-bluewood: #2C3F55;
 $heather: #C2CEDB;
 $regent-gray: #8492A6;
 $alabaster: #F7F7F7;
-$serenade: #FFF2E5;
 $pattens-blue: #E0F0FF;
 $black-squeeze: #EDF2F9;
 $wild-sand: #F5F5F5;

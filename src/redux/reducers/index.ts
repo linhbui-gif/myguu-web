@@ -5,6 +5,7 @@ import addressReducer from './address';
 import authReducer from './auth';
 import bannerReducer from './banner';
 import categoryReducer from './category';
+import notificationReducer from './notification';
 import orderReducer from './order';
 import serviceReducer from './service';
 import storeReducer from './store';
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   authReducer,
   bannerReducer,
   categoryReducer,
+  notificationReducer,
   orderReducer,
   serviceReducer,
   storeReducer,

@@ -5,7 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LayoutPaths, Pages, Paths, ProtectedRoute, PublicRoute } from '@/pages/routers';
 import Guest from '@/layouts/Guest';
 import Profile from '@/layouts/Profile/Profile';
-import { getAddressGeocodeAction, getCategoriesAction, getMyProfileAction, uiActions } from '@/redux/actions';
+import {
+  getAddressGeocodeAction,
+  getCategoriesAction,
+  getMyProfileAction,
+  getNotificationUnreadCountAction,
+  uiActions,
+} from '@/redux/actions';
 import Helpers from '@/services/helpers';
 import { TRootState } from '@/redux/reducers';
 import { useModalState } from '@/utils/hooks';
@@ -46,6 +52,10 @@ const App: React.FC = () => {
     dispatch(getCategoriesAction.request({}));
   }, [dispatch]);
 
+  const getNotificationUnreadCount = useCallback(() => {
+    dispatch(getNotificationUnreadCountAction.request({}));
+  }, [dispatch]);
+
   const getAddressGeocode = useCallback(() => {
     if (appGeoLoactionState && myProfileState) {
       dispatch(
@@ -57,7 +67,10 @@ const App: React.FC = () => {
   }, [dispatch, appGeoLoactionState, myProfileState]);
 
   useEffect(() => {
-    if (myProfileState) getGeoLocation();
+    if (myProfileState) {
+      getGeoLocation();
+      getNotificationUnreadCount();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myProfileState]);
 

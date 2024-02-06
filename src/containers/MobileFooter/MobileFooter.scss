@@ -39,13 +39,11 @@
     &.active {
       .MobileFooter-item {
         &-icon {
-          // background: linear-gradient(180deg, #FEA489 0%, #F6BF87 100%);
-          background: #F6BF87;
-          // background: lighten($tan-hide, 15%);
+          background: $primary;
         }
 
         &-label {
-          color: $tan-hide;
+          color: $primary;
         }
       }
     }

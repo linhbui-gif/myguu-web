@@ -141,7 +141,7 @@ const BookingForm: React.FC<TBookingFormProps> = ({ onNext }) => {
                 <Select
                   options={dataAddressOptions}
                   suffixIcon={EIconName.CaretDown}
-                  suffixIconColor={EIconColor.TAN_HIDE}
+                  suffixIconColor={EIconColor.PRIMARY}
                   size="large"
                 />
               </Form.Item>

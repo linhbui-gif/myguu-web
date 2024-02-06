@@ -54,7 +54,7 @@ const ModalOtherShopWarning: React.FC<TModalOtherShopWarningProps> = () => {
     <Modal visible={!!visible} className="ModalOtherShopWarning" onClose={handleClose} hideFooter closeable={false}>
       <div className="ModalOtherShopWarning-wrapper">
         <div className="ModalOtherShopWarning-icon">
-          <Icon name={EIconName.House} color={EIconColor.TAN_HIDE} />
+          <Icon name={EIconName.House} color={EIconColor.PRIMARY} />
         </div>
         <div className="ModalOtherShopWarning-title">Cảnh Báo</div>
         <div className="ModalOtherShopWarning-description">

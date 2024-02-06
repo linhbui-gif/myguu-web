@@ -4,7 +4,7 @@
   padding: 1.6rem;
   border-radius: .8rem;
   margin: 3.2rem 0;
-  background: rgba($tan-hide, 0.15);
+  background: rgba($primary, 0.15);
 
   &-table {
     margin: 0 -.8rem;
@@ -17,7 +17,7 @@
         font-weight: 500;
 
         &:last-child {
-          color: $tan-hide;
+          color: $primary;
           font-weight: 600;
         }
       }

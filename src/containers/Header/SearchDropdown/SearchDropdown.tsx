@@ -90,7 +90,7 @@ const SearchDropdown: React.FC<TSearchDropdownProps> = ({ visible, onClickTag })
           <>
             <div
               className="SearchDropdown-title flex items-center justify-between"
-              style={{ color: EIconColor.TAN_HIDE }}
+              style={{ color: EIconColor.PRIMARY }}
             >
               Xu Hướng
             </div>

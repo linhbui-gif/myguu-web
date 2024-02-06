@@ -13,16 +13,16 @@
   &:not(.disabled).active {
     .Ticket {
       &-image {
-        border: 1px solid $tan-hide;
+        border: 1px solid $primary;
         border-right: none;
       }
 
       &-info {
-        border: 1px solid $tan-hide;
+        border: 1px solid $primary;
         border-left: none;
 
         &::before {
-          border-color: $tan-hide;
+          border-color: $primary;
         }
       }
     }
@@ -120,7 +120,7 @@
   &-action {
     font-size: 1.4rem;
     font-weight: 600;
-    color: $tan-hide;
+    color: $primary;
     cursor: pointer;
 
     &:hover {
@@ -130,7 +130,7 @@
   .order-money-min {
     font-size: 1.2rem;
     font-weight: 400;
-    color: $tan-hide;
+    color: $primary;
     cursor: pointer;
   }
 }

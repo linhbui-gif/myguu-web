@@ -39,12 +39,12 @@ const Branches: React.FC<TBranchesProps> = () => {
           size="large"
           options={dataAddressOptions}
           suffixIcon={EIconName.CaretDown}
-          suffixIconColor={EIconColor.TAN_HIDE}
+          suffixIconColor={EIconColor.PRIMARY}
         />
       </div>
       <div className="Branches-map">
         <div className="Branches-map-address flex items-center">
-          <Icon name={EIconName.House} color={EIconColor.TAN_HIDE} />
+          <Icon name={EIconName.House} color={EIconColor.PRIMARY} />
           {currentAddress?.label}
         </div>
         {/* <div className="Branches-map-btn">

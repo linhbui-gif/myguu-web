@@ -48,8 +48,8 @@
     }
 
     &.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
-      border-color: $tan-hide;
-      box-shadow: 0 0 0 2px rgba($tan-hide, 0.2)
+      border-color: $primary;
+      box-shadow: 0 0 0 2px rgba($primary, 0.2)
     }
 
     &.ant-select-lg {
@@ -132,11 +132,11 @@
     }
 
     .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-      background: rgba($tan-hide, 0.2);
+      background: rgba($primary, 0.2);
     }
 
     .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-      background: rgba($tan-hide, 0.1);
+      background: rgba($primary, 0.1);
     }
   }
 }

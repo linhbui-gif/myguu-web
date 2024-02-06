@@ -52,7 +52,7 @@ const Shops: React.FC = () => {
     category_id,
   });
 
-  const handlePaginateChange = (page: any): void => {
+  const handlePaginateChange = (page: number): void => {
     setGetParamsRequest({
       ...getParamsRequest,
       page,

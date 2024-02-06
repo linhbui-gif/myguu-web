@@ -12,12 +12,12 @@
     &:focus,
     &.ant-input-focused,
     &:hover {
-      border-color: $tan-hide;
+      border-color: $primary;
     }
 
     &:focus,
     &.ant-input-focused {
-      box-shadow: 0 0 0 2px rgba($tan-hide, 0.2)
+      box-shadow: 0 0 0 2px rgba($primary, 0.2)
     }
 
     &::placeholder {

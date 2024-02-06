@@ -32,11 +32,11 @@
       }
 
       &.active {
-        background: rgba($tan-hide, 0.2);
+        background: rgba($primary, 0.2);
       }
 
       &:not(.disabled):hover {
-        background: rgba($tan-hide, 0.1);
+        background: rgba($primary, 0.1);
       }
     }
   }

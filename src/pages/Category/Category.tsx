@@ -41,7 +41,7 @@ const Category: React.FC = () => {
     (state: TRootState) => state.loadingReducer[EGetStoresByCategoryAction.GET_STORES_BY_CATEGORY],
   );
 
-  const handlePaginateChange = (page: any): void => {
+  const handlePaginateChange = (page: number): void => {
     setGetStoresByCategoryParamsRequest({
       ...getStoresByCategoryParamsRequest,
       page,

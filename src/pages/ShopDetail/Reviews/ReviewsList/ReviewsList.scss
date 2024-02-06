@@ -103,7 +103,7 @@
 
           .ant-progress-bg {
             height: 100% !important;
-            background: linear-gradient(88deg, #FC987E 0%, #FDC47F 100%);
+            background: $primary-linear-gradient;
           }
         }
       }

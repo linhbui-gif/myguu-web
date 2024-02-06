@@ -88,7 +88,7 @@ const ServiceCard: React.FC<TServiceCardProps> = ({
         <div className="ServiceCard-header flex items-start">
           {verify && (
             <div className="ServiceCard-verify">
-              <Icon name={EIconName.Verify} />
+              <Icon name={EIconName.Verify} color={EIconColor.PRIMARY} />
             </div>
           )}
 

@@ -28,7 +28,7 @@ const ShopCard: React.FC<TShopCardProps> = () => {
               <Avatar image={storeState?.avatar} />
               {false && (
                 <div className="ShopCard-info-verify">
-                  <Icon name={EIconName.Verify} />
+                  <Icon name={EIconName.Verify} color={EIconColor.PRIMARY} />
                 </div>
               )}
             </div>
@@ -54,7 +54,7 @@ const ShopCard: React.FC<TShopCardProps> = () => {
                 <div className="ShopCard-info-btn flex items-center">
                   <Button
                     iconName={EIconName.Chat}
-                    iconColor={EIconColor.TAN_HIDE}
+                    iconColor={EIconColor.PRIMARY}
                     styleType={EButtonStyleType.PRIMARY_TRANSPARENT}
                   />
                   <Button

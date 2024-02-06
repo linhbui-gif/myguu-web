@@ -101,7 +101,7 @@ const ServiceDetailCard: React.FC<TServiceDetailCardProps> = () => {
               />
               <Button
                 iconName={EIconName.Chat}
-                iconColor={EIconColor.TAN_HIDE}
+                iconColor={EIconColor.PRIMARY}
                 styleType={EButtonStyleType.PRIMARY_TRANSPARENT}
                 size="large"
               />

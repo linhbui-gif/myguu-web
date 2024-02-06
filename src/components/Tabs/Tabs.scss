@@ -22,7 +22,7 @@
         }
 
         &.ant-tabs-tab-active .ant-tabs-tab-btn {
-          color: $tan-hide;
+          color: $primary;
           font-weight: 600;
           text-shadow: none;
         }
@@ -66,8 +66,8 @@
         }
 
         &:hover {
-          color: $tan-hide;
-          border-color: $tan-hide;
+          color: $primary;
+          border-color: $primary;
         }
 
         &.ant-tabs-tab-active {

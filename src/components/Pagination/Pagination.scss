@@ -47,12 +47,12 @@
 
     &:hover {
       a {
-        color: $tan-hide;
+        color: $primary;
       }
     }
 
     &.ant-pagination-item-active {
-      background: $primary-linear-gradient;
+      background: $primary;
 
       a {
         color: $white;

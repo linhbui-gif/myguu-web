@@ -7,10 +7,10 @@
     min-width: auto;
 
     &.ant-switch-checked {
-      background: $tan-hide;
+      background: $primary;
 
       &:focus {
-        box-shadow: 0 0 0 2px rgba($tan-hide, 0.2);
+        box-shadow: 0 0 0 2px rgba($primary, 0.2);
       }
 
       .ant-switch-handle {

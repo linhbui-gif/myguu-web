@@ -17,6 +17,8 @@ import './MobileFooter.scss';
 const MobileFooter: React.FC<TMobileFooterProps> = () => {
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
   const cartState = useSelector((state: TRootState) => state.uiReducer.cart);
+  const notificationsUnreadCountState =
+    useSelector((state: TRootState) => state.notificationReducer.getNotificationUnreadCountResponse)?.data || 0;
 
   const [modalAuthState, handleOpenModalAuth, handleCloseModalAuth] = useModalState();
 
@@ -30,6 +32,7 @@ const MobileFooter: React.FC<TMobileFooterProps> = () => {
       title: 'Thông Báo',
       icon: EIconName.Bell,
       auth: true,
+      badge: notificationsUnreadCountState > 0 ? notificationsUnreadCountState : undefined,
     },
     {
       link: Paths.Booking(String(cartState?.[0]?.store?.id)),

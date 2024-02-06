@@ -4,6 +4,7 @@ import addressSaga from './address';
 import authSaga from './auth';
 import bannerSaga from './banner';
 import categorySaga from './category';
+import notificationSaga from './notification';
 import orderSaga from './order';
 import serviceSaga from './service';
 import storeSaga from './store';
@@ -16,6 +17,7 @@ const rootSaga = function* root(): Generator {
     fork(authSaga),
     fork(bannerSaga),
     fork(categorySaga),
+    fork(notificationSaga),
     fork(orderSaga),
     fork(serviceSaga),
     fork(storeSaga),

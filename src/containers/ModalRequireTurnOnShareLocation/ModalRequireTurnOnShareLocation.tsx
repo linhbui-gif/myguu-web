@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Modal from '@/components/Modal';
-import Icon, { EIconName } from '@/components/Icon';
+import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Button, { EButtonStyleType } from '@/components/Button';
 
 import { TModalRequireTurnOnShareLocationProps } from './ModalRequireTurnOnShareLocation.types.d';
@@ -19,7 +19,7 @@ const ModalRequireTurnOnShareLocation: React.FC<TModalRequireTurnOnShareLocation
     <Modal visible={visible} className="ModalRequireTurnOnShareLocation" onClose={onClose} hideFooter closeable={false}>
       <div className="ModalRequireTurnOnShareLocation-wrapper">
         <div className="ModalRequireTurnOnShareLocation-icon">
-          <Icon name={EIconName.LocationFill} />
+          <Icon name={EIconName.LocationFill} color={EIconColor.PRIMARY} />
         </div>
         <div className="ModalRequireTurnOnShareLocation-title">Yêu cầu chia sẻ vị trí</div>
         <div className="ModalRequireTurnOnShareLocation-description">

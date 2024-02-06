@@ -14,11 +14,11 @@
   }
 
   &-header {
-    background: linear-gradient(88deg, rgba(252, 152, 126, 0.20) 0%, rgba(253, 196, 127, 0.20) 100%);
+    background: $primary-lighten;
     padding: 0.8rem 1.6rem;
     height: 5.8rem;
     font-size: 2.4rem;
-    color: $tan-hide;
+    color: $primary;
     font-weight: 600;
   }
 

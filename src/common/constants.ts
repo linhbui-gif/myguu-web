@@ -33,7 +33,7 @@ export const dataOrderStatusOptions = [
 ];
 
 export const dataOrderProcessOptions = [
-  { value: EOrderProcess.PENDING, label: 'Đang Chờ Nhận', data: { color: EIconColor.TAN_HIDE } },
+  { value: EOrderProcess.PENDING, label: 'Đang Chờ Nhận', data: { color: EIconColor.PRIMARY } },
   { value: EOrderProcess.CONFIRMED, label: 'Đã Nhận', data: { color: EIconColor.HAVELOCK_BLUE } },
   { value: EOrderProcess.COMPLETE, label: 'Hoàn Thành', data: { color: EIconColor.MOUNTAIN_MEADOW } },
   { value: EOrderProcess.CANCEL, label: 'Đã Huỷ', data: { color: EIconColor.POMEGRANATE } },

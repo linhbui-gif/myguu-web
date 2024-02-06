@@ -61,15 +61,15 @@
     }
 
     &:not(.disabled):hover {
-      color: $tan-hide;
-      border-color: $tan-hide;
+      color: $primary;
+      border-color: $primary;
     }
 
-    @include hoverIconSvg($tan-hide);
+    @include hoverIconSvg($primary);
 
     &.active {
       border-color: transparent;
-      background: $primary-linear-gradient;
+      background: $primary;
       color: $white !important;
       @include activeIconSvg($white);
     }

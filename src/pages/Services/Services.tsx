@@ -35,7 +35,7 @@ const Services: React.FC = () => {
     lng: undefined,
   });
 
-  const handlePaginateChange = (page: any): void => {
+  const handlePaginateChange = (page: number): void => {
     setGetParamsRequest({
       ...getParamsRequest,
       page,

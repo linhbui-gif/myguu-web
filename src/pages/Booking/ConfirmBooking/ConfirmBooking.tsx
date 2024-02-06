@@ -95,9 +95,9 @@ const ConfirmBooking: React.FC<TConfirmBookingProps> = ({ data, onNext }) => {
                   </td>
                 </tr>
                 <tr>
-                  <td style={{ color: EIconColor.TAN_HIDE }}>Giảm giá voucher</td>
+                  <td style={{ color: EIconColor.PRIMARY }}>Giảm giá voucher</td>
                   <td>
-                    <strong style={{ color: EIconColor.TAN_HIDE }}>
+                    <strong style={{ color: EIconColor.PRIMARY }}>
                       -{formatCurrency({ amount: data?.discount || 0, showSuffix: true })}
                     </strong>
                   </td>

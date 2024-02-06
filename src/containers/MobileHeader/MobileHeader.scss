@@ -2,7 +2,7 @@
 
 .MobileHeader {
   position: relative;
-  background: linear-gradient(180deg, #FEA389 0%, #F6BF87 60.94%, rgba(246, 191, 135, 0) 100%, #F6BF87 100%);
+  background: $primary-linear-gradient;
   height: 25rem;
   padding: 1.6rem 0;
   margin-bottom: -10.8rem;

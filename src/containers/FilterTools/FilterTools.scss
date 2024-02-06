@@ -55,9 +55,9 @@
 
       .Tags {
         &-item {
-          background: linear-gradient(88deg, rgba(252, 152, 126, 0.20) 0%, rgba(253, 196, 127, 0.20) 100%);
+          background: $primary-lighten;
           border: none;
-          color: $tan-hide;
+          color: $primary;
 
           .Icon {
             svg path {
@@ -67,7 +67,7 @@
 
           &:hover,
           &.active {
-            background: $primary-linear-gradient;
+            background: $primary;
             color: $white;
 
             .Icon {
@@ -88,7 +88,7 @@
     width: 100%;
     padding: 1.2rem 1.6rem;
     column-gap: 1.6rem;
-    box-shadow: 0px -2px 8px 0px #0000000D;
+    box-shadow: 0px -2px 8px 0px rgba($black, 0.05);
     background: $white;
     z-index: 2;
 

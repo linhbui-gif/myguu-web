@@ -52,8 +52,10 @@ export enum EIconColor {
   BLACK = '#000',
   WHITE = '#fff',
 
+  PRIMARY = '#9A8DE9',
+  SECONDARY = '#F6CCD5',
+
   ALUMINIUM = '#ACB3BD',
-  TAN_HIDE = '#F7894E',
   MINE_SHAFT = '#333333',
   GRAY_CHATEAU = '#A0A2A3',
   REGENT_GRAY = '#8492A6',

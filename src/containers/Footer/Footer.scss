@@ -59,7 +59,7 @@
       color: $mine-shaft;
 
       &:hover {
-        color: $tan-hide;
+        color: $primary;
         text-decoration: underline;
       }
     }
@@ -122,9 +122,12 @@
       border-radius: 50%;
       background: $primary-linear-gradient;
       transition: $common-transition;
-      svg {
-        width: 12px;
+
+      .Icon {
+        width: 1.6rem;
+        height: 1.6rem;
       }
+
       &:hover {
         opacity: 0.8;
       }

@@ -13,7 +13,7 @@ const AddressCard: React.FC<TAddressCardProps> = ({ active, name, description, d
     <div className="AddressCard flex items-center justify-between flex-wrap">
       <div className="AddressCard-icon">
         {active ? (
-          <Icon name={EIconName.LocationFill} color={EIconColor.TAN_HIDE} />
+          <Icon name={EIconName.LocationFill} color={EIconColor.PRIMARY} />
         ) : (
           <Icon name={EIconName.Location} color={EIconColor.REGENT_GRAY} />
         )}

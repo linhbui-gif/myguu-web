@@ -82,7 +82,7 @@ const ServiceSelect: React.FC<TServiceSelectProps> = ({ value = [], onChange, is
         <Button
           title="Thêm dịch vụ"
           iconName={EIconName.PlusSquare}
-          iconColor={EIconColor.TAN_HIDE}
+          iconColor={EIconColor.PRIMARY}
           styleType={EButtonStyleType.PRIMARY_TEXT}
           link={
             cartState?.[0]?.store

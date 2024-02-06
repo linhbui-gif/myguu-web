@@ -62,7 +62,7 @@ const HeaderSearch: React.FC<THeaderSearchProps> = ({ onSearch }) => {
       >
         <div className="HeaderSearch flex items-center">
           <div className="HeaderSearch-icon">
-            <Icon name={EIconName.Search} color={EIconColor.TAN_HIDE} />
+            <Icon name={EIconName.Search} color={EIconColor.PRIMARY} />
           </div>
           <div className="HeaderSearch-input">
             <Input

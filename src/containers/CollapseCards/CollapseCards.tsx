@@ -28,7 +28,7 @@ const CollapseCards: React.FC<TCollapseCardsProps> = ({ data = [], herotitle, ti
             defaultActiveKey={['1']}
             expandIcon={({ isActive }): React.ReactElement => (
               <div className={classNames('CollapseCards-header-arrow', { visible: isActive })}>
-                <Icon name={EIconName.CaretDown} color={EIconColor.TAN_HIDE} />
+                <Icon name={EIconName.CaretDown} color={EIconColor.PRIMARY} />
               </div>
             )}
             expandIconPosition="right"

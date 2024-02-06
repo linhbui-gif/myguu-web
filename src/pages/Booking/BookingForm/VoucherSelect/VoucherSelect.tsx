@@ -22,7 +22,7 @@ const VoucherSelect: React.FC<TVoucherSelectProps> = ({ value, totalOrder, disab
         onClick={(): void => handleOpenModalSelectVoucher(value)}
       >
         <div className="VoucherSelect-item flex items-center">
-          <Icon name={EIconName.Voucher} color={EIconColor.TAN_HIDE} />
+          <Icon name={EIconName.Voucher} color={EIconColor.PRIMARY} />
           <span className="capitalize">{value ? `${value?.name}` : `Chọn Voucher`}</span>
           {isDisabled && '(không đủ điều kiện)'}
         </div>

@@ -5,11 +5,11 @@
   .ant-radio-wrapper:hover .ant-radio,
   .ant-radio:hover .ant-radio-inner,
   .ant-radio-input:focus+.ant-radio-inner {
-    border-color: $tan-hide;
+    border-color: $primary;
   }
 
   .ant-radio-input:focus+.ant-radio-inner {
-    box-shadow: 0 0 0 3px rgba($tan-hide, 0.2);
+    box-shadow: 0 0 0 3px rgba($primary, 0.2);
   }
 
   .ant-radio {
@@ -29,7 +29,7 @@
 
     &.ant-radio-checked {
       .ant-radio-inner {
-        border-color: $tan-hide;
+        border-color: $primary;
       }
     }
 
@@ -38,7 +38,7 @@
       height: 2rem;
 
       &:after {
-        background: $tan-hide;
+        background: $primary;
         width: 2rem;
         height: 2rem;
         margin-top: calc(-2rem / 2);

@@ -49,7 +49,7 @@ const Header: React.FC<THeaderProps> = () => {
 
   const renderBranchSelect = (
     <div className="Header-location flex items-center cursor-pointer">
-      <Icon name={EIconName.Location} color={EIconColor.TAN_HIDE} />
+      <Icon name={EIconName.Location} color={EIconColor.PRIMARY} />
       <span>{addressGeoCodeState?.[0]?.address || 'Đang Tìm Kiếm'}</span>
     </div>
   );

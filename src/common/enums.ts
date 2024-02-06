@@ -126,3 +126,8 @@ export enum EOrderProcess {
   COMPLETE = 'SUCCESS',
   CANCEL = 'CANCEL',
 }
+
+export enum ENotificationStatus {
+  UNREAD = 1,
+  READ = 2,
+}

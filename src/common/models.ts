@@ -278,3 +278,26 @@ export type TAlbumImage = {
   src: string;
   updated_at: string;
 };
+
+export type TNotification = {
+  action: string;
+  content: string;
+  created_at: string;
+  data: { order_id: number };
+  from_id: number;
+  id: number;
+  notification_users: TNotificationUser[];
+  read_status: number;
+  type: number;
+  title: string;
+  updated_at: string;
+};
+
+export type TNotificationUser = {
+  created_at: string;
+  id: number;
+  notification_id: number;
+  read_status: number;
+  updated_at: string;
+  user_id: number;
+};

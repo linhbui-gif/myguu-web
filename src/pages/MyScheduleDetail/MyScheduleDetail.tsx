@@ -85,9 +85,9 @@ const MyScheduleDetail: React.FC = () => {
 
               {typeof orderState?.floor_discount === 'number' && (
                 <tr>
-                  <td style={{ color: EIconColor.TAN_HIDE }}>Giảm giá sàn</td>
+                  <td style={{ color: EIconColor.PRIMARY }}>Giảm giá sàn</td>
                   <td>
-                    <strong style={{ color: EIconColor.TAN_HIDE }}>
+                    <strong style={{ color: EIconColor.PRIMARY }}>
                       -{formatCurrency({ amount: orderState?.floor_discount || 0, showSuffix: true })}
                     </strong>
                   </td>
@@ -96,9 +96,9 @@ const MyScheduleDetail: React.FC = () => {
 
               {typeof orderState?.rank_discount === 'number' && (
                 <tr>
-                  <td style={{ color: EIconColor.TAN_HIDE }}>Giảm giá thành viên</td>
+                  <td style={{ color: EIconColor.PRIMARY }}>Giảm giá thành viên</td>
                   <td>
-                    <strong style={{ color: EIconColor.TAN_HIDE }}>
+                    <strong style={{ color: EIconColor.PRIMARY }}>
                       -{formatCurrency({ amount: orderState?.rank_discount || 0, showSuffix: true })}
                     </strong>
                   </td>
@@ -107,9 +107,9 @@ const MyScheduleDetail: React.FC = () => {
 
               {typeof orderState?.voucher_discount === 'number' && (
                 <tr>
-                  <td style={{ color: EIconColor.TAN_HIDE }}>Giảm giá voucher</td>
+                  <td style={{ color: EIconColor.PRIMARY }}>Giảm giá voucher</td>
                   <td>
-                    <strong style={{ color: EIconColor.TAN_HIDE }}>
+                    <strong style={{ color: EIconColor.PRIMARY }}>
                       -{formatCurrency({ amount: orderState?.voucher_discount || 0, showSuffix: true })}
                     </strong>
                   </td>
@@ -118,9 +118,9 @@ const MyScheduleDetail: React.FC = () => {
 
               {typeof orderState?.exchange_discount === 'number' && (
                 <tr>
-                  <td style={{ color: EIconColor.TAN_HIDE }}>Giảm giá đổi thưởng</td>
+                  <td style={{ color: EIconColor.PRIMARY }}>Giảm giá đổi thưởng</td>
                   <td>
-                    <strong style={{ color: EIconColor.TAN_HIDE }}>
+                    <strong style={{ color: EIconColor.PRIMARY }}>
                       -{formatCurrency({ amount: orderState?.exchange_discount || 0, showSuffix: true })}
                     </strong>
                   </td>

@@ -71,7 +71,7 @@ const Search: React.FC = () => {
     },
   ];
 
-  const handlePaginateChange = (page: any): void => {
+  const handlePaginateChange = (page: number): void => {
     setGetStoresBySearchParamsRequest({
       ...getStoresBySearchParamsRequest,
       page,
