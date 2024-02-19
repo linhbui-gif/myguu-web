@@ -21,8 +21,13 @@ import 'moment/locale/vi';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const atk = Helpers.getAccessToken();
-
+  let atk: string | any = '';
+  const isZaloApp = window.APP_CONTEXT;
+  if (isZaloApp && isZaloApp === 'zalo-mini-app') {
+    atk = Helpers.getAccessTokenZaloMiniApp();
+  } else {
+    atk = Helpers.getAccessToken();
+  }
   const [
     modalRequireTurnOnShareLocationState,
     handleOpenModalRequireTurnOnShareLocation,
@@ -88,16 +93,40 @@ const App: React.FC = () => {
     getCategories();
   }, [getCategories]);
 
-  return (
-    <div className="App">
-      <ModalRequireTurnOnShareLocation
-        {...modalRequireTurnOnShareLocationState}
-        onClose={handleCloseModalRequireTurnOnShareLocation}
-        onSubmit={(): void => {
-          getGeoLocation();
-        }}
-      />
+  const renderRouter = (): any => {
+    if (isZaloApp && isZaloApp === 'zalo-mini-app') {
+      return (
+        <Router primary={false} basepath="/zapps/1057838639345963674">
+          <Guest path={LayoutPaths.Guest}>
+            <PublicRoute path={Paths.Home} component={Pages.Home} />
+            <PublicRoute path={Paths.ShopDetail()} component={Pages.ShopDetail} />
+            <PublicRoute path={Paths.ServiceDetail()} component={Pages.ServiceDetail} />
+            <PublicRoute path={Paths.Category()} component={Pages.Category} />
+            <PublicRoute path={Paths.Search} component={Pages.Search} />
+            <PublicRoute path={Paths.Services} component={Pages.Services} />
+            <PublicRoute path={Paths.Shops} component={Pages.Shops} />
+            <ProtectedRoute path={Paths.Booking()} component={Pages.Booking} />
+            <ProtectedRoute path={Paths.Account} component={Pages.Account} />
+            <PublicRoute path={Paths.Policy} component={Pages.Policy} />
 
+            <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
+          </Guest>
+
+          <Profile path={LayoutPaths.Profile}>
+            <ProtectedRoute path={Paths.MySchedules} component={Pages.MySchedules} />
+            <ProtectedRoute path={Paths.MyScheduleDetail()} component={Pages.MyScheduleDetail} />
+            <ProtectedRoute path={Paths.ProfileInformation} component={Pages.ProfileInformation} />
+            <ProtectedRoute path={Paths.FavoritesShop} component={Pages.FavoritesShop} />
+            <ProtectedRoute path={Paths.Vouchers} component={Pages.Vouchers} />
+            <ProtectedRoute path={Paths.Notifications} component={Pages.Notifications} />
+            <ProtectedRoute path={Paths.MyAddress} component={Pages.MyAddress} />
+
+            <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
+          </Profile>
+        </Router>
+      );
+    }
+    return (
       <Router primary={false}>
         <Guest path={LayoutPaths.Guest}>
           <PublicRoute path={Paths.Home} component={Pages.Home} />
@@ -126,6 +155,19 @@ const App: React.FC = () => {
           <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
         </Profile>
       </Router>
+    );
+  };
+  return (
+    <div className="App">
+      <ModalRequireTurnOnShareLocation
+        {...modalRequireTurnOnShareLocationState}
+        onClose={handleCloseModalRequireTurnOnShareLocation}
+        onSubmit={(): void => {
+          getGeoLocation();
+        }}
+      />
+
+      {renderRouter()}
     </div>
   );
 };

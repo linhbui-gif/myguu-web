@@ -96,7 +96,13 @@ interface IRouteProps extends RouteComponentProps {
 }
 
 export const AuthRoute: React.FC<IRouteProps> = ({ component: Component, ...rest }) => {
-  const loggedIn: string | any = Helpers.getAccessToken();
+  let loggedIn: string | any = '';
+  const isZaloApp = window.APP_CONTEXT;
+  if (isZaloApp && isZaloApp === 'zalo-mini-app') {
+    loggedIn = Helpers.getAccessTokenZaloMiniApp();
+  } else {
+    loggedIn = Helpers.getAccessToken();
+  }
 
   return loggedIn ? (
     <Redirect noThrow from={Paths.Rest} to={LayoutPaths.Admin} />
@@ -108,7 +114,13 @@ export const AuthRoute: React.FC<IRouteProps> = ({ component: Component, ...rest
 };
 
 export const ProtectedRoute: React.FC<IRouteProps> = ({ component: Component, ...rest }) => {
-  const loggedIn: string | any = Helpers.getAccessToken();
+  let loggedIn: string | any = '';
+  const isZaloApp = window.APP_CONTEXT;
+  if (isZaloApp && isZaloApp === 'zalo-mini-app') {
+    loggedIn = Helpers.getAccessTokenZaloMiniApp();
+  } else {
+    loggedIn = Helpers.getAccessToken();
+  }
 
   return loggedIn ? (
     <Suspense fallback={<Loading />}>
