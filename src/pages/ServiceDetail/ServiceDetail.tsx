@@ -113,7 +113,7 @@ const ServiceDetail: React.FC = () => {
         );
       })}
 
-      <AppDownload />
+      {/* <AppDownload /> */}
     </div>
   );
 };

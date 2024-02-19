@@ -274,7 +274,7 @@ const Home: React.FC = () => {
         }))}
         loading={storesProminentPlaceLoading}
       />
-      <AppDownload />
+      {/* <AppDownload /> */}
     </div>
   );
 };

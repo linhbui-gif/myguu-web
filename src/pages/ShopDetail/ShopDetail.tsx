@@ -148,7 +148,7 @@ const ShopDetail: React.FC = () => {
         </div>
       </div>
 
-      <AppDownload />
+      {/* <AppDownload /> */}
     </div>
   );
 };
