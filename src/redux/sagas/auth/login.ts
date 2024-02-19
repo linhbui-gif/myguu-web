@@ -11,11 +11,15 @@ import Helpers from '@/services/helpers';
 export function* loginSaga(action: ActionType<typeof loginAction.request>): Generator {
   const { materials, successCallback, failedCallback } = action.payload;
   try {
+    const isZaloApp = window.APP_CONTEXT;
     const response = yield call(login, materials);
     const loginResponse: TLoginResponse = response as TLoginResponse;
-
-    Helpers.storeAccessToken(loginResponse?.data?.access_token);
-    Helpers.storeRefreshToken('');
+    if (isZaloApp && isZaloApp === 'zalo-mini-app') {
+      Helpers.storeAccessTokenZaloApp(loginResponse?.data?.access_token);
+    } else {
+      Helpers.storeAccessToken(loginResponse?.data?.access_token);
+      Helpers.storeRefreshToken('');
+    }
 
     yield put(loginAction.success(loginResponse));
     successCallback?.(loginResponse);

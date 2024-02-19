@@ -1,5 +1,6 @@
 import cookie from 'react-cookies';
-
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { setStorage, getStorage, removeStorage } from 'zmp-sdk/apis';
 import env from '@/env';
 import { TSelectOption } from '@/components/Select';
 import { TService } from '@/common/models';
@@ -34,6 +35,38 @@ class Helpers {
 
   storeAccessToken = (accessToken: string): void => setCookie(COOKIE_ACCESS_TOKEN, accessToken);
 
+  storeAccessTokenZaloApp = (accessToken: string): void => {
+    setStorage({
+      data: {
+        atk: accessToken,
+      },
+      success: (data) => {
+        // xử lý khi gọi api thành công
+        const { errorKeys } = data;
+      },
+      fail: (error: any) => {
+        // xử lý khi gọi api thất bại
+        alert(`error set data to storage zalo app${error}`);
+      },
+    });
+  };
+
+  getAccessTokenZaloMiniApp = (): any => {
+    getStorage({
+      keys: ['atk'],
+      success: (data) => {
+        // xử lý khi gọi api thành công
+        const { atk } = data;
+        return atk;
+      },
+      fail: (error) => {
+        // xử lý khi gọi api thất bại
+        // eslint-disable-next-line no-alert
+        alert(`error set data to storage zalo app${error}`);
+      },
+    });
+  };
+
   getSearchHistories = (): TSelectOption[] =>
     JSON.parse(localStorage.getItem(LOCAL_STORAGE_SEARCH_HISTORY) || `[]`) || [];
 
@@ -50,6 +83,12 @@ class Helpers {
   clearTokens = (): void => {
     removeCookie(COOKIE_REFRESH_TOKEN);
     removeCookie(COOKIE_ACCESS_TOKEN);
+  };
+
+  clearTokensZaloApp = (): void => {
+    removeStorage({ keys: 'atk' as any })
+      .then((res: any) => {})
+      .catch((error: any) => {});
   };
 }
 

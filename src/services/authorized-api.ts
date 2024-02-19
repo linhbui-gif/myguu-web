@@ -4,14 +4,25 @@ import { EResponseCode } from '@/common/enums';
 
 import Helpers from './helpers';
 
+declare global {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  interface Window {
+    APP_CONTEXT: any;
+  }
+}
 const AuthorizedInstance = (baseURL: string): AxiosInstance => {
   const instance = axios.create({
     baseURL,
   });
 
   const onRequest = (request: AxiosRequestConfig): AxiosRequestConfig => {
-    const authBearer = Helpers.getAccessToken();
-
+    let authBearer = '';
+    const isZaloApp = window.APP_CONTEXT;
+    if (isZaloApp && isZaloApp === 'zalo-mini-app') {
+      authBearer = Helpers.getAccessTokenZaloMiniApp();
+    } else {
+      authBearer = Helpers.getAccessToken();
+    }
     if (authBearer) {
       request.headers.Authorization = `${authBearer}`;
     }
