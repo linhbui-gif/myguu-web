@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'antd';
-import { Link } from '@reach/router';
 import { useSelector } from 'react-redux';
+import { Link } from '@/utils/router';
 
 import Input from '@/components/Input';
 import Button, { EButtonStyleType } from '@/components/Button';

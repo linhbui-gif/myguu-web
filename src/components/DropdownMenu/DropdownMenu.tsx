@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown as AntdDropdown } from 'antd';
 import classNames from 'classnames';
-import { navigate } from '@reach/router';
+import { navigate } from '@/utils/router';
 
 import { TDropdownMenuProps } from './DropdownMenu.types';
 import './DropdownMenu.scss';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { navigate } from '@reach/router';
+import { navigate } from '@/utils/router';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import HeaderSearch from '@/containers/Header/HeaderSearch';

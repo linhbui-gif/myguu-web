@@ -2,7 +2,7 @@ import React from 'react';
 import { Breadcrumb as AntdBreadcrumb } from 'antd';
 import classNames from 'classnames';
 import { useMediaQuery } from 'react-responsive';
-import { navigate } from '@reach/router';
+import { navigate } from '@/utils/router';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 

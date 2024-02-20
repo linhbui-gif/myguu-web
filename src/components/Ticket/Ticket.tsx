@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { navigate } from '@reach/router';
 import classNames from 'classnames';
+import { navigate } from '@/utils/router';
 
 import { formatCurrency, formatISODateToDateTime, showNotification } from '@/utils/functions';
 import { EFormat, ETypeNotification } from '@/common/enums';

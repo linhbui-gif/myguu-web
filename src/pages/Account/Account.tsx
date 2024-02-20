@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { navigate } from '@reach/router';
+import { navigate } from '@/utils/router';
 
 import SideBar from '@/containers/SideBar';
 import Button, { EButtonStyleType } from '@/components/Button';
