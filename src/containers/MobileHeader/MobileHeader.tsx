@@ -14,6 +14,10 @@ import ModalOtherShopWarning from '@/containers/ModalOtherShopWarning';
 import { TMobileHeaderProps } from './MobileHeader.types.d';
 import './MobileHeader.scss';
 
+const isZaloApp: () => boolean = () => {
+  return window.APP_CONTEXT === 'zalo-mini-app';
+};
+
 const MobileHeader: React.FC<TMobileHeaderProps> = () => {
   const myProfileState = useSelector((state: TRootState) => state.userReducer.getMyProfileResponse)?.data;
   const addressGeoCodeState = useSelector((state: TRootState) => state.addressReducer.getAddressGeocodeResponse)?.data;
@@ -24,27 +28,52 @@ const MobileHeader: React.FC<TMobileHeaderProps> = () => {
     <div className="MobileHeader">
       <div className="container">
         <div className="MobileHeader-wrapper">
-          <div className="MobileHeader-header flex items-center justify-between">
-            <div className="MobileHeader-header-item">
-              <div className="MobileHeader-header-location flex items-center">
-                <Icon name={EIconName.LocationFill} color={EIconColor.WHITE} />
-                Vị Trí Của Bạn
+          {isZaloApp() ? (
+            <div className="MobileHeader-header flex items-center gap-4">
+              <div
+                className="MobileHeader-header-item cursor-pointer"
+                onClick={(): void => {
+                  if (myProfileState) {
+                    navigate(Paths.Account);
+                  } else {
+                    handleOpenModalAuth({ key: EModalAuthType.SIGN_IN });
+                  }
+                }}
+              >
+                <Avatar size={32} image={myProfileState?.avatar} />
               </div>
-              {addressGeoCodeState?.[0]?.address || 'Đang Tìm Kiếm'}
+              <div className="MobileHeader-header-item">
+                <div className="MobileHeader-header-location flex items-center">
+                  <Icon name={EIconName.LocationFill} color={EIconColor.WHITE} />
+                  Vị Trí Của Bạn
+                </div>
+                {addressGeoCodeState?.[0]?.address || 'Đang Tìm Kiếm'}
+              </div>
             </div>
-            <div
-              className="MobileHeader-header-item cursor-pointer"
-              onClick={(): void => {
-                if (myProfileState) {
-                  navigate(Paths.Account);
-                } else {
-                  handleOpenModalAuth({ key: EModalAuthType.SIGN_IN });
-                }
-              }}
-            >
-              <Avatar size={32} image={myProfileState?.avatar} />
+          ) : (
+            <div className="MobileHeader-header flex items-center justify-between">
+              <div className="MobileHeader-header-item">
+                <div className="MobileHeader-header-location flex items-center">
+                  <Icon name={EIconName.LocationFill} color={EIconColor.WHITE} />
+                  Vị Trí Của Bạn
+                </div>
+                {addressGeoCodeState?.[0]?.address || 'Đang Tìm Kiếm'}
+              </div>
+              <div
+                className="MobileHeader-header-item cursor-pointer"
+                onClick={(): void => {
+                  if (myProfileState) {
+                    navigate(Paths.Account);
+                  } else {
+                    handleOpenModalAuth({ key: EModalAuthType.SIGN_IN });
+                  }
+                }}
+              >
+                <Avatar size={32} image={myProfileState?.avatar} />
+              </div>
             </div>
-          </div>
+          )}
+
           <div className="MobileHeader-search">
             <HeaderSearch />
           </div>
