@@ -7,7 +7,11 @@ const isZaloApp: () => boolean = () => {
   return window.APP_CONTEXT === 'zalo-mini-app';
 };
 
-export const Link: React.FC<{ to: string }> = ({ to = '', children, ...props }) => {
+export const Link: React.FC<reach.LinkProps<{ to: string }> & React.RefAttributes<HTMLAnchorElement>> = ({
+  to = '',
+  children,
+  ...props
+}) => {
   let customLink = to;
   if (isZaloApp()) {
     customLink = BASEPATH + to;
