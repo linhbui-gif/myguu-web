@@ -1,7 +1,6 @@
 import React from 'react';
 import * as reach from '@reach/router';
-
-export const BASEPATH = '/zapps/1057838639345963674';
+import { ZALO_MINI_APP_BASE_PATH } from '@/common/constants';
 
 const isZaloApp: () => boolean = () => {
   return window.APP_CONTEXT === 'zalo-mini-app';
@@ -14,7 +13,7 @@ export const Link: React.FC<reach.LinkProps<{ to: string }> & React.RefAttribute
 }) => {
   let customLink = to;
   if (isZaloApp()) {
-    customLink = BASEPATH + to;
+    customLink = ZALO_MINI_APP_BASE_PATH + to;
   }
   return (
     <reach.Link {...props} to={customLink}>
@@ -26,7 +25,7 @@ export const Link: React.FC<reach.LinkProps<{ to: string }> & React.RefAttribute
 export const navigate = (to: string, options?: any): void => {
   let customLink = to;
   if (isZaloApp()) {
-    customLink = BASEPATH + to;
+    customLink = ZALO_MINI_APP_BASE_PATH + to;
   }
   reach.navigate(customLink, options);
 };

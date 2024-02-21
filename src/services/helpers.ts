@@ -46,25 +46,21 @@ class Helpers {
       },
       fail: (error: any) => {
         // xử lý khi gọi api thất bại
-        alert(`error set data to storage zalo app${error}`);
+        console.log(error);
       },
     });
   };
 
-  getAccessTokenZaloMiniApp = (): any => {
-    getStorage({
-      keys: ['atk'],
-      success: (data) => {
-        // xử lý khi gọi api thành công
-        const { atk } = data;
-        return atk;
-      },
-      fail: (error) => {
-        // xử lý khi gọi api thất bại
-        // eslint-disable-next-line no-alert
-        alert(`error set data to storage zalo app${error}`);
-      },
-    });
+  getAccessTokenZaloMiniApp = async (): Promise<string> => {
+    try {
+      const { atk } = await getStorage({
+        keys: ['atk'],
+      });
+      return atk;
+    } catch (error) {
+      console.log(error);
+      return '';
+    }
   };
 
   getSearchHistories = (): TSelectOption[] =>

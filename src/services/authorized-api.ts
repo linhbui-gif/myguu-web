@@ -15,11 +15,11 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
     baseURL,
   });
 
-  const onRequest = (request: AxiosRequestConfig): AxiosRequestConfig => {
+  const onRequest = async (request: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
     let authBearer = '';
     const isZaloApp = window.APP_CONTEXT;
     if (isZaloApp && isZaloApp === 'zalo-mini-app') {
-      authBearer = Helpers.getAccessTokenZaloMiniApp();
+      authBearer = await Helpers.getAccessTokenZaloMiniApp();
     } else {
       authBearer = Helpers.getAccessToken();
     }

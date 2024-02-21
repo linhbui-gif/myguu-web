@@ -18,16 +18,14 @@ import { useModalState } from '@/utils/hooks';
 import ModalRequireTurnOnShareLocation from '@/containers/ModalRequireTurnOnShareLocation';
 
 import 'moment/locale/vi';
+import { ZALO_MINI_APP_BASE_PATH } from './common/constants';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  let atk: string | any = '';
-  const isZaloApp = window.APP_CONTEXT;
-  if (isZaloApp && isZaloApp === 'zalo-mini-app') {
-    atk = Helpers.getAccessTokenZaloMiniApp();
-  } else {
-    atk = Helpers.getAccessToken();
-  }
+  const isZaloApp = window.APP_CONTEXT && window.APP_CONTEXT === 'zalo-mini-app';
+
+  const [atk, setAtk] = React.useState('');
+
   const [
     modalRequireTurnOnShareLocationState,
     handleOpenModalRequireTurnOnShareLocation,
@@ -72,6 +70,16 @@ const App: React.FC = () => {
   }, [dispatch, appGeoLoactionState, myProfileState]);
 
   useEffect(() => {
+    if (isZaloApp) {
+      Helpers.getAccessTokenZaloMiniApp().then((token) => {
+        setAtk(token);
+      });
+    } else {
+      setAtk(Helpers.getAccessToken());
+    }
+  }, [isZaloApp]);
+
+  useEffect(() => {
     if (myProfileState) {
       getGeoLocation();
       getNotificationUnreadCount();
@@ -96,7 +104,7 @@ const App: React.FC = () => {
   const renderRouter = (): any => {
     if (isZaloApp && isZaloApp === 'zalo-mini-app') {
       return (
-        <Router primary={false} basepath="/zapps/1057838639345963674">
+        <Router primary={false} basepath={ZALO_MINI_APP_BASE_PATH}>
           <Guest path={LayoutPaths.Guest}>
             <PublicRoute path={Paths.Home} component={Pages.Home} />
             <PublicRoute path={Paths.ShopDetail()} component={Pages.ShopDetail} />
@@ -109,7 +117,7 @@ const App: React.FC = () => {
             <ProtectedRoute path={Paths.Account} component={Pages.Account} />
             <PublicRoute path={Paths.Policy} component={Pages.Policy} />
 
-            <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
+            <Redirect noThrow from={Paths.Rest} to={`${ZALO_MINI_APP_BASE_PATH}${LayoutPaths.Guest}${Paths.Home}`} />
           </Guest>
 
           <Profile path={LayoutPaths.Profile}>
@@ -121,7 +129,7 @@ const App: React.FC = () => {
             <ProtectedRoute path={Paths.Notifications} component={Pages.Notifications} />
             <ProtectedRoute path={Paths.MyAddress} component={Pages.MyAddress} />
 
-            <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
+            <Redirect noThrow from={Paths.Rest} to={`${ZALO_MINI_APP_BASE_PATH}${LayoutPaths.Guest}${Paths.Home}`} />
           </Profile>
         </Router>
       );
