@@ -4,6 +4,7 @@ import { Redirect, RouteComponentProps } from '@reach/router';
 import Helpers from '@/services/helpers';
 import Loading from '@/components/Loading';
 import { ZALO_MINI_APP_BASE_PATH } from '@/common/constants';
+import { isZaloApp } from '@/utils/functions';
 
 const retryLoadComponent = (fn: () => Promise<unknown>, retriesLeft = 5, interval = 1000): any =>
   new Promise((resolve, reject) => {
@@ -97,14 +98,13 @@ interface IRouteProps extends RouteComponentProps {
 }
 
 export const AuthRoute: React.FC<IRouteProps> = ({ component: Component, ...rest }) => {
-  const isZaloApp = window.APP_CONTEXT && window.APP_CONTEXT === 'zalo-mini-app';
   const [loggedIn, setLoggedIn] = React.useState('');
   const [loaded, setLoaded] = React.useState(false);
-  const basePath = isZaloApp ? ZALO_MINI_APP_BASE_PATH : '';
+  const basePath = isZaloApp() ? ZALO_MINI_APP_BASE_PATH : '';
 
   React.useEffect(() => {
     setLoaded(false);
-    if (isZaloApp) {
+    if (isZaloApp()) {
       Helpers.getAccessTokenZaloMiniApp().then((token) => {
         setLoggedIn(token);
         setLoaded(true);
@@ -113,7 +113,7 @@ export const AuthRoute: React.FC<IRouteProps> = ({ component: Component, ...rest
       setLoggedIn(Helpers.getAccessToken());
       setLoaded(true);
     }
-  }, [isZaloApp]);
+  }, []);
 
   if (!loaded) {
     return null;
@@ -132,14 +132,13 @@ export const AuthRoute: React.FC<IRouteProps> = ({ component: Component, ...rest
 };
 
 export const ProtectedRoute: React.FC<IRouteProps> = ({ component: Component, ...rest }) => {
-  const isZaloApp = window.APP_CONTEXT && window.APP_CONTEXT === 'zalo-mini-app';
   const [loggedIn, setLoggedIn] = React.useState('');
   const [loaded, setLoaded] = React.useState(false);
-  const basePath = isZaloApp ? ZALO_MINI_APP_BASE_PATH : '';
+  const basePath = isZaloApp() ? ZALO_MINI_APP_BASE_PATH : '';
 
   React.useEffect(() => {
     setLoaded(false);
-    if (isZaloApp) {
+    if (isZaloApp()) {
       Helpers.getAccessTokenZaloMiniApp().then((token) => {
         setLoggedIn(token);
         setLoaded(true);
@@ -148,7 +147,7 @@ export const ProtectedRoute: React.FC<IRouteProps> = ({ component: Component, ..
       setLoggedIn(Helpers.getAccessToken());
       setLoaded(true);
     }
-  }, [isZaloApp]);
+  }, []);
 
   if (!loaded) {
     return null;

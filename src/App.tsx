@@ -18,11 +18,11 @@ import { useModalState } from '@/utils/hooks';
 import ModalRequireTurnOnShareLocation from '@/containers/ModalRequireTurnOnShareLocation';
 
 import 'moment/locale/vi';
+import { isZaloApp } from './utils/functions';
 import { ZALO_MINI_APP_BASE_PATH } from './common/constants';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const isZaloApp = window.APP_CONTEXT && window.APP_CONTEXT === 'zalo-mini-app';
 
   const [atk, setAtk] = React.useState('');
 
@@ -70,14 +70,14 @@ const App: React.FC = () => {
   }, [dispatch, appGeoLoactionState, myProfileState]);
 
   useEffect(() => {
-    if (isZaloApp) {
+    if (isZaloApp()) {
       Helpers.getAccessTokenZaloMiniApp().then((token) => {
         setAtk(token);
       });
     } else {
       setAtk(Helpers.getAccessToken());
     }
-  }, [isZaloApp]);
+  }, []);
 
   useEffect(() => {
     if (myProfileState) {
@@ -102,7 +102,7 @@ const App: React.FC = () => {
   }, [getCategories]);
 
   const renderRouter = (): any => {
-    if (isZaloApp && isZaloApp === 'zalo-mini-app') {
+    if (isZaloApp()) {
       return (
         <Router primary={false} basepath={ZALO_MINI_APP_BASE_PATH}>
           <Guest path={LayoutPaths.Guest}>
