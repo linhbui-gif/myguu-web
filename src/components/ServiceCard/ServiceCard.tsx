@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import classNames from 'classnames';
-import { navigate } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
+import { navigate } from '@/utils/router';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { formatCurrency } from '@/utils/functions';

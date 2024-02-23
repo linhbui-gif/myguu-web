@@ -205,7 +205,11 @@ html, body{
 .ant-spin-nested-loading > div > .ant-spin{
   max-height: 100%;
 }
-#app {
-  padding-top: var(--zaui-safe-area-top, 16px);
-  padding-bottom: var(--zaui-safe-area-bottom, 16px);
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.Guest-body {
+  padding-top: var(--zaui-safe-area-inset-top, env(safe-area-inset-top))
 }

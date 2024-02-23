@@ -1,6 +1,6 @@
 import React from 'react';
-import { navigate } from '@reach/router';
 import { useSelector } from 'react-redux';
+import { navigate } from '@/utils/router';
 
 import Modal from '@/components/Modal';
 import Button, { EButtonStyleType } from '@/components/Button';

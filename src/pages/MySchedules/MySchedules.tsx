@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 import { useMediaQuery } from 'react-responsive';
 import { useDispatch, useSelector } from 'react-redux';
-import { navigate } from '@reach/router';
+import { navigate } from '@/utils/router';
 
 import Tags from '@/components/Tags';
 import CalendarSelect from '@/pages/Booking/BookingForm/CalendarSelect';

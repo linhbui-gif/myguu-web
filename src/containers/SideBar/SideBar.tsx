@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { navigate, useLocation } from '@reach/router';
+import { useLocation } from '@reach/router';
 import classNames from 'classnames';
+import { navigate } from '@/utils/router';
 
 import Avatar from '@/components/Avatar';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';

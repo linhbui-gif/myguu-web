@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { navigate, useLocation } from '@reach/router';
+import { useLocation } from '@reach/router';
 import { useSelector } from 'react-redux';
+import { navigate } from '@/utils/router';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { LayoutPaths, Paths } from '@/pages/routers';

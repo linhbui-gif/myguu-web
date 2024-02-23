@@ -38,3 +38,5 @@ export const dataOrderProcessOptions = [
   { value: EOrderProcess.COMPLETE, label: 'Hoàn Thành', data: { color: EIconColor.MOUNTAIN_MEADOW } },
   { value: EOrderProcess.CANCEL, label: 'Đã Huỷ', data: { color: EIconColor.POMEGRANATE } },
 ];
+
+export const ZALO_MINI_APP_BASE_PATH = '/zapps/1057838639345963674';

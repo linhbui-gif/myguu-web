@@ -23,7 +23,8 @@
     "create-component": "node ./tools/create-component.js",
     "delete-service": "node ./tools/delete-service.js",
     "delete-component": "node ./tools/delete-component.js",
-    "preinstall": "yarn --package-lock-only --ignore-scripts"
+    "preinstall": "yarn --package-lock-only --ignore-scripts",
+    "deploy:mini-app": "node predeploy_miniapp.js && zmp deploy"
   },
   "dependencies": {
     "@reach/router": "^1.3.4",

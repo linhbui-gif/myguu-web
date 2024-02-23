@@ -402,3 +402,5 @@ export const formatCurrencyVietNam = (amount: number): string => {
 
   return `${formattedAmount}${suffixes[suffixIndex - 1]}`;
 };
+
+export const isZaloApp: () => boolean = () => window.APP_CONTEXT && window.APP_CONTEXT === 'zalo-mini-app';

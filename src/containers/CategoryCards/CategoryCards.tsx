@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from '@reach/router';
 import { Col, Row, Spin } from 'antd';
 import classNames from 'classnames';
+import { Link } from '@/utils/router';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Carousels from '@/components/Carousels';

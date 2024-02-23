@@ -1,5 +1,5 @@
 import React from 'react';
-import { navigate } from '@reach/router';
+import { navigate } from '@/utils/router';
 
 import Button, { EButtonStyleType } from '@/components/Button';
 import Icon, { EIconName, EIconColor } from '@/components/Icon';

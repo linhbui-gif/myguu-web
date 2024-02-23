@@ -3,6 +3,8 @@ import { Redirect, RouteComponentProps } from '@reach/router';
 
 import Helpers from '@/services/helpers';
 import Loading from '@/components/Loading';
+import { ZALO_MINI_APP_BASE_PATH } from '@/common/constants';
+import { isZaloApp } from '@/utils/functions';
 
 const retryLoadComponent = (fn: () => Promise<unknown>, retriesLeft = 5, interval = 1000): any =>
   new Promise((resolve, reject) => {
@@ -96,17 +98,33 @@ interface IRouteProps extends RouteComponentProps {
 }
 
 export const AuthRoute: React.FC<IRouteProps> = ({ component: Component, ...rest }) => {
-  let loggedIn: string | any = '';
-  const isZaloApp = window.APP_CONTEXT;
-  if (isZaloApp && isZaloApp === 'zalo-mini-app') {
-    loggedIn = Helpers.getAccessTokenZaloMiniApp();
-  } else {
-    loggedIn = Helpers.getAccessToken();
+  const [loggedIn, setLoggedIn] = React.useState('');
+  const [loaded, setLoaded] = React.useState(false);
+  const basePath = isZaloApp() ? ZALO_MINI_APP_BASE_PATH : '';
+
+  React.useEffect(() => {
+    setLoaded(false);
+    if (isZaloApp()) {
+      Helpers.getAccessTokenZaloMiniApp().then((token) => {
+        setLoggedIn(token);
+        setLoaded(true);
+      });
+    } else {
+      setLoggedIn(Helpers.getAccessToken());
+      setLoaded(true);
+    }
+  }, []);
+
+  if (!loaded) {
+    return null;
   }
 
-  return loggedIn ? (
-    <Redirect noThrow from={Paths.Rest} to={LayoutPaths.Admin} />
-  ) : (
+  if (!loggedIn) {
+    // Redirect to login if not authenticated
+    return <Redirect noThrow from={Paths.Rest} to={`${basePath}${LayoutPaths.Admin}`} />;
+  }
+
+  return (
     <Suspense fallback={<Loading />}>
       <Component {...rest} />
     </Suspense>
@@ -114,20 +132,36 @@ export const AuthRoute: React.FC<IRouteProps> = ({ component: Component, ...rest
 };
 
 export const ProtectedRoute: React.FC<IRouteProps> = ({ component: Component, ...rest }) => {
-  let loggedIn: string | any = '';
-  const isZaloApp = window.APP_CONTEXT;
-  if (isZaloApp && isZaloApp === 'zalo-mini-app') {
-    loggedIn = Helpers.getAccessTokenZaloMiniApp();
-  } else {
-    loggedIn = Helpers.getAccessToken();
+  const [loggedIn, setLoggedIn] = React.useState('');
+  const [loaded, setLoaded] = React.useState(false);
+  const basePath = isZaloApp() ? ZALO_MINI_APP_BASE_PATH : '';
+
+  React.useEffect(() => {
+    setLoaded(false);
+    if (isZaloApp()) {
+      Helpers.getAccessTokenZaloMiniApp().then((token) => {
+        setLoggedIn(token);
+        setLoaded(true);
+      });
+    } else {
+      setLoggedIn(Helpers.getAccessToken());
+      setLoaded(true);
+    }
+  }, []);
+
+  if (!loaded) {
+    return null;
   }
 
-  return loggedIn ? (
+  if (!loggedIn) {
+    // Redirect to login if not authenticated
+    return <Redirect noThrow from={Paths.Rest} to={`${basePath}${LayoutPaths.Auth}`} />;
+  }
+
+  return (
     <Suspense fallback={<Loading />}>
       <Component {...rest} />
     </Suspense>
-  ) : (
-    <Redirect noThrow from={Paths.Rest} to={LayoutPaths.Auth} />
   );
 };
 

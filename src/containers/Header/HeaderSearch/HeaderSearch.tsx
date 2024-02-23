@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { navigate } from '@reach/router';
 import { Drawer } from 'antd';
 import _ from 'lodash';
+import { navigate } from '@/utils/router';
 
 import Button, { EButtonStyleType } from '@/components/Button';
 import DropdownCustom from '@/components/DropdownCustom';

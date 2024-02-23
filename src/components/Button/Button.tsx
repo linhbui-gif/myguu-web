@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button as AntdButton } from 'antd';
 import classNames from 'classnames';
-import { navigate } from '@reach/router';
+import { navigate } from '@/utils/router';
 
 import { TButtonProps } from '@/components/Button/Button.types';
 import Icon from '@/components/Icon';

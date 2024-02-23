@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { navigate } from '@reach/router';
 import { useMediaQuery } from 'react-responsive';
+import { navigate } from '@/utils/router';
 
 import Carousels from '@/components/Carousels';
 import { TRootState } from '@/redux/reducers';

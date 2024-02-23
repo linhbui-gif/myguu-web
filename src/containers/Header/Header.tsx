@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Link, navigate } from '@reach/router';
 import { useMediaQuery } from 'react-responsive';
 import { Col, Drawer, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, navigate } from '@/utils/router';
 
 import { LayoutPaths, Paths } from '@/pages/routers';
 import Logo from '@/assets/images/logo.svg';
