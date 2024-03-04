@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { navigate } from '@reach/router';
 import { Drawer } from 'antd';
 import _ from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import Button, { EButtonStyleType } from '@/components/Button';
 import DropdownCustom from '@/components/DropdownCustom';
@@ -16,6 +17,8 @@ import { THeaderSearchProps } from './HeaderSearch.types';
 import './HeaderSearch.scss';
 
 const HeaderSearch: React.FC<THeaderSearchProps> = ({ onSearch }) => {
+  const { t } = useTranslation();
+
   const [searchValue, setSearchValue] = useState<string>('');
   const [visibleFilter, setVisibleFilter] = useState<boolean>(false);
   const [visibleSearchDropdown, setVisibleSearchDropdown] = useState<boolean>(false);
@@ -68,7 +71,7 @@ const HeaderSearch: React.FC<THeaderSearchProps> = ({ onSearch }) => {
             <Input
               value={searchValue}
               onChange={(search): void => setSearchValue(String(search))}
-              placeholder="Nhập từ khoá tìm kiếm..."
+              placeholder={t('Header_search_placeholder')}
               size="small"
               onEnter={(): void => handleSubmit()}
             />

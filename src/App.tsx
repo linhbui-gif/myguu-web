@@ -17,6 +17,7 @@ import { TRootState } from '@/redux/reducers';
 import { useModalState } from '@/utils/hooks';
 import ModalRequireTurnOnShareLocation from '@/containers/ModalRequireTurnOnShareLocation';
 
+import '@/i18n';
 import 'moment/locale/vi';
 
 const App: React.FC = () => {

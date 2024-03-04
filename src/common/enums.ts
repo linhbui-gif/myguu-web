@@ -131,3 +131,8 @@ export enum ENotificationStatus {
   UNREAD = 1,
   READ = 2,
 }
+
+export enum ELocale {
+  VI = 'vi',
+  EN = 'en',
+}
